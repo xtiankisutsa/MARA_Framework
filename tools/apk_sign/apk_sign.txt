@@ -1,0 +1,17 @@
+Apk Sign
+Automatically sign an apk with the Android test certificate. The public and private keys are embedded within the jar.
+java -jar sign.jar my.apk
+
+my.s.apk is created next to my.apk
+java -jar sign.jar my.apk --override
+my.apk is replaced with a signed version
+
+Verify signature.
+jarsigner -verify my.s.apk
+
+The following commands are equivalent.
+java -jar sign.jar my.apk
+java -classpath sign.jar orig.SignApk testkey.x509.pem testkey.pk8 my.apk my.s.apk
+java -jar SignApk.jar testkey.x509.pem testkey.pk8 my.apk my.s.apk
+
+

@@ -1,0 +1,13 @@
+
+- As of 1.3 DexTRA recognizes ART reflected classes, but at this point using hard-coded offsets. This will most likely render it incompatible with future releases (*sigh*), but the only way to make this forward-compatible would be to implement a mini-reflection engine inside DexTRA itself. Which I will, probably, at some point. But now is not that point.
+
+- With the functions in the code, it's trivial to turn DexTRA into a fuzzer. I personally see this as a fairly fruitless endeavor, since even if there is some heinous overflow in the ART parser (and there is, I can practically guarantee), one would have to write to /data/dalvik-cache (or /system/framework/../boot.oat|art), which requires system access. And if you have system, you're pretty much done.
+
+- Need to handle while/for loops (which are implemented as goto backwards..
+
+- Need to fix some indentation bug..
+
+- That said, A DEX fuzzer still has merits. Sinistra is coming soon.
+
+- Either two pass, or buffer output of entire function so I can insert back label (and switch labels)
+

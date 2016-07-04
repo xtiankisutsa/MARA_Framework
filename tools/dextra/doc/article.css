@@ -1,0 +1,99 @@
+ body {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        font : 12pt "Tahoma";
+    }
+
+ .maybeInvisible { display : none;}
+
+  h1 { margin-left: auto; margin-right : auto; font-size : xx-large;}
+  h2 { margin-left: auto; margin-right : auto; font-size : x-large;}
+
+ .comment { color : green;}
+body h2 {
+ color: #12fb1d;
+
+  line-height: 1.3;
+  border-bottom: 2px solid silver;
+}
+
+
+ .card { width : 320px; padding : 4px; margin-left : 10px;  border : 1px solid black ; background : white; float: right;  box-shadow : 5px 5px 2px #888;}
+
+ .transparentTable caption { margin-left: auto; margin-right: auto; text-decoration :underline; font-weight: bold; font-size : 10pt; padding-bottom : 3px; }
+ .transparentTable { width : 100% }
+ .transparentTable tr td { border : 0px solid white; } 
+
+   li { padding : 5px;}
+ td code {font-size : 10pt; }
+
+ p + p {
+  text-indent: 2em; }
+
+h1+p::first-letter
+{
+font-size:200%;
+} 
+
+
+
+ command { font-family : Times; }
+
+ article { font-family : Tahoma  ; font-size : 12pt; }
+ figure { border : 1px solid black ; padding: 2px;}
+ pathspec { font-size: smaller;font-family : Verdana; }
+ path { font-size: smaller;font-family : Verdana; }
+
+.annotation { color : yellow ; }
+.annotation2 { border : 1px solid black; background: white;  color :purple ; font-weight : bold; }
+ .title { font-size : larger ; text-align : center ;  } 
+
+ .typed { color : white; font-weight : bold; }
+ .emphasized { color : red; font-weight : bold; }
+ .path { font-family : Verdana; font-size : smaller;}
+ .pathspec { font-family : Verdana; font-size : smaller;}
+
+.pb { page-break-before : always; } 
+.pbWithMargin { page-break-before : always; padding-top : 30px;}
+
+ .listing { border : 1px solid black; padding-left : 10px; font-size: smaller; padding-right : 10px; padding-top: 2px; padding-bottom : 2px;overflow : auto;background-color : #ddebda; margin-left :auto; margin-right : auto; width : 90%}
+
+ .important
+	{
+		border : 1px solid black;
+		padding : 15px;
+	}
+ .caution
+	{
+		border : 1px solid black;
+		padding : 15px;
+	}
+
+ .question
+	{
+		border : 1px solid black;
+		padding : 15px;
+	}
+
+ .note { border : 1px solid red; padding : 10px; margin-left: auto; margin-right : auto; background-color : yellow; box-shadow : 5px 5px 2px #888;}
+
+ .experiment { padding: 10px; border : 1px solid black; }
+
+ .output { font-size : 9pt; padding-left : 10px; padding-right: 10px; padding-top: 2px; padding-bottom : 5px; border : 1px solid black;  background-color : black ; color : #00FF00; overflow : auto; width : 55em; }
+ table {  border-spacing : 0px; padding : 0px;}
+ table th { border : 1px solid black; padding-left : 20px ; padding-right : 20px; }
+ table tr { border : 1px solid black;   }
+ table tr  td { padding : 3px  ; }
+ .typed { font-weight : bold; }
+ table td { font-size : 11pt;border : 1px solid black; }
+
+
+figcaption {  text-align :center; border-top : 1px solid white;   margin-left: auto; margin-right: auto; font-size : smaller;}
+caption {  text-align :center; border-top : 1px solid white;   margin-left: auto; margin-right: auto; font-size : smaller;}
+ 
+
+ .shaded { background-color : silver;}
+ .cppcomment { color : green }
+ .packageclass { color : purple}
+ .reservedword { color : blue;}
+@media print { .pageBreak { page-break-after : always; } }
+

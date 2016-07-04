@@ -1,0 +1,210 @@
+
+Analysis
+
+Contents:
+
+class androguard.core.analysis.analysis.BasicBlocks(_vm, tv)
+
+    This class represents all basic blocks of a method
+
+    get()
+        Return type:	return each basic block (DVMBasicBlock object)
+
+    gets()
+        Return type:	a list of basic blocks (DVMBasicBlock objects)
+
+class androguard.core.analysis.analysis.DVMBasicBlock(start, vm, method, context)
+
+    A simple basic block of a dalvik method
+
+    get_instructions()
+
+        Get all instructions from a basic block.
+        Return type:	Return all instructions in the current basic block
+
+    get_next()
+
+        Get next basic blocks
+        Return type:	a list of the next basic blocks
+
+    get_prev()
+
+        Get previous basic blocks
+        Return type:	a list of the previous basic blocks
+
+    get_special_ins(idx)
+
+        Return the associated instruction to a specific instruction (for example a packed/sparse switch)
+        Parameters:	idx – the index of the instruction
+        Return type:	None or an Instruction
+
+class androguard.core.analysis.analysis.MethodAnalysis(vm, method, tv)
+
+    This class analyses in details a method of a class/dex file
+    Parameters:	
+
+        vm (a DalvikVMFormat object) – the object which represent the dex file
+        method (a EncodedMethod object) – the original method
+        tv – a virtual object to get access to tainted information
+
+    create_tags()
+
+        Create the tags for the method
+
+    get_basic_blocks()
+        Return type:	a BasicBlocks object
+
+    get_length()
+        Return type:	an integer which is the length of the code
+
+    get_tags()
+
+        Return the tags of the method
+        Return type:	a Tags object
+
+class androguard.core.analysis.analysis.Tags(patterns={0: [0, 'Landroid'], 1: [0, 'Landroid/telephony'], 2: [0, 'Landroid/accessibilityservice'], 3: [0, 'Landroid/accounts'], 4: [0, 'Landroid/animation'], 5: [0, 'Landroid/app'], 6: [0, 'Landroid/bluetooth'], 7: [0, 'Landroid/content'], 8: [0, 'Landroid/database'], 9: [0, 'Landroid/drm'], 10: [0, 'Landroid/gesture'], 11: [0, 'Landroid/graphics'], 12: [0, 'Landroid/hardware'], 13: [0, 'Landroid/inputmethodservice'], 14: [0, 'Landroid/location'], 15: [0, 'Landroid/media'], 16: [0, 'Landroid/mtp'], 17: [0, 'Landroid/net'], 18: [0, 'Landroid/nfc'], 19: [0, 'Landroid/opengl'], 20: [0, 'Landroid/os'], 21: [0, 'Landroid/preference'], 22: [0, 'Landroid/provider'], 23: [0, 'Landroid/renderscript'], 24: [0, 'Landroid/sax'], 25: [0, 'Landroid/security'], 26: [0, 'Landroid/service'], 27: [0, 'Landroid/speech'], 28: [0, 'Landroid/support'], 29: [0, 'Landroid/test'], 30: [0, 'Landroid/text'], 31: [0, 'Landroid/util'], 32: [0, 'Landroid/view'], 33: [0, 'Landroid/webkit'], 34: [0, 'Landroid/widget'], 35: [0, 'Ldalvik/bytecode'], 36: [0, 'Ldalvik/system']}, reverse={0: 'ANDROID', 1: 'TELEPHONY', 2: 'ACCESSIBILITYSERVICE', 3: 'ACCOUNTS', 4: 'ANIMATION', 5: 'APP', 6: 'BLUETOOTH', 7: 'CONTENT', 8: 'DATABASE', 9: 'DRM', 10: 'GESTURE', 11: 'GRAPHICS', 12: 'HARDWARE', 13: 'INPUTMETHODSERVICE', 14: 'LOCATION', 15: 'MEDIA', 16: 'MTP', 17: 'NET', 18: 'NFC', 19: 'OPENGL', 20: 'OS', 21: 'PREFERENCE', 22: 'PROVIDER', 23: 'RENDERSCRIPT', 24: 'SAX', 25: 'SECURITY', 26: 'SERVICE', 27: 'SPEECH', 28: 'SUPPORT', 29: 'TEST', 30: 'TEXT', 31: 'UTIL', 32: 'VIEW', 33: 'WEBKIT', 34: 'WIDGET', 35: 'DALVIK_BYTECODE', 36: 'DALVIK_SYSTEM'})
+
+    Handle specific tags
+    Parameters:	patterns –
+    Params reverse:	
+
+class androguard.core.analysis.analysis.VMAnalysis(_vm)
+
+    This class analyses a dex file
+    Parameters:	_vm (a DalvikVMFormat object) – the object which represent the dex file
+    Example :	VMAnalysis( DalvikVMFormat( open(“toto.dex”, “r”).read() ) )
+
+    get_method(method)
+
+        Return an analysis method
+        Parameters:	method (an EncodedMethod object) – a classical method object
+        Return type:	a MethodAnalysis object
+
+    get_method_signature(method, grammar_type='', options={}, predef_sign='')
+
+        Return a specific signature for a specific method
+        Parameters:	
+
+            method (a EncodedMethod object) – a reference to method from a vm class
+            grammar_type (string) – the type of the signature (optional)
+            options – the options of the signature (optional)
+            options – dict
+            predef_sign (string) – used a predefined signature (optional)
+
+        Return type:	
+
+        a Sign object
+
+    get_methods()
+
+        Return each analysis method
+        Return type:	a MethodAnalysis object
+
+    get_permissions(permissions_needed)
+
+        Return the permissions used
+        Parameters:	permissions_needed (list) – a list of restricted permissions to get ([] returns all permissions)
+        Return type:	a dictionnary of permissions paths
+
+    get_tainted_field(class_name, name, descriptor)
+
+        Return a specific tainted field
+        Parameters:	
+
+            class_name (string) – the name of the class
+            name (string) – the name of the field
+            descriptor (string) – the descriptor of the field
+
+        Return type:	
+
+        a TaintedVariable object
+
+    get_tainted_packages()
+
+        Return the tainted packages
+        Return type:	a TaintedPackages object
+
+    get_tainted_variables()
+
+        Return the tainted variables
+        Return type:	a TaintedVariables object
+
+androguard.core.analysis.analysis.is_crypto_code(dx)
+
+    Crypto code is present ? :param dx : the analysis virtual machine :type dx: a VMAnalysis object :rtype: boolean
+
+androguard.core.analysis.analysis.is_dyn_code(dx)
+
+    Dynamic code loading is present ? :param dx : the analysis virtual machine :type dx: a VMAnalysis object :rtype: boolean
+
+androguard.core.analysis.analysis.is_native_code(dx)
+
+    Native code is present ? :param dx : the analysis virtual machine :type dx: a VMAnalysis object :rtype: boolean
+
+androguard.core.analysis.analysis.is_reflection_code(dx)
+
+    Reflection is present ? :param dx : the analysis virtual machine :type dx: a VMAnalysis object :rtype: boolean
+
+androguard.core.analysis.analysis.show_DynCode(dx)
+
+    Show where dynamic code is used :param dx : the analysis virtual machine :type dx: a VMAnalysis object
+
+androguard.core.analysis.analysis.show_NativeMethods(dx)
+
+    Show the native methods :param dx : the analysis virtual machine :type dx: a VMAnalysis object
+
+androguard.core.analysis.analysis.show_Paths(vm, paths)
+
+    Show paths of packages :param paths: a list of PathP objects
+
+androguard.core.analysis.analysis.show_Permissions(dx)
+
+    Show where permissions are used in a specific application :param dx : the analysis virtual machine :type dx: a VMAnalysis object
+
+androguard.core.analysis.analysis.show_ReflectionCode(dx)
+
+    Show the reflection code :param dx : the analysis virtual machine :type dx: a VMAnalysis object
+
+class androguard.core.analysis.analysis.uVMAnalysis(vm)
+
+    Bases: androguard.core.analysis.analysis.VMAnalysis
+
+    This class analyses a dex file but on the fly (quicker !)
+    Parameters:	_vm (a DalvikVMFormat object) – the object which represent the dex file
+    Example :	uVMAnalysis( DalvikVMFormat( open(“toto.dex”, “r”).read() ) )
+
+    get_method_signature(method, grammar_type='', options={}, predef_sign='')
+
+        Return a specific signature for a specific method
+        Parameters:	
+
+            method (a EncodedMethod object) – a reference to method from a vm class
+            grammar_type (string) – the type of the signature (optional)
+            options – the options of the signature (optional)
+            options – dict
+            predef_sign (string) – used a predefined signature (optional)
+
+        Return type:	
+
+        a Sign object
+
+    get_permissions(permissions_needed)
+
+        Return the permissions used
+        Parameters:	permissions_needed (list) – a list of restricted permissions to get ([] returns all permissions)
+        Return type:	a dictionnary of permissions paths
+
+    get_tainted_field(class_name, name, descriptor)
+
+        Return a specific tainted field
+        Parameters:	
+
+            class_name (string) – the name of the class
+            name (string) – the name of the field
+            descriptor (string) – the descriptor of the field
+
+        Return type:	
+
+        a TaintedVariable object
+
+

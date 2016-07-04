@@ -1,0 +1,3315 @@
+DVM
+
+Contents:
+
+class androguard.core.bytecodes.dvm.AnnotationElement(buff, cm)
+
+    This class can parse an annotation_element of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the annotation_element
+        cm (ClassManager) – a ClassManager object
+
+    get_name_idx()
+
+        Return the element name, represented as an index into the string_ids section
+        Return type:	int
+
+    get_value()
+
+        Return the element value (EncodedValue)
+        Return type:	a EncodedValue object
+
+class androguard.core.bytecodes.dvm.AnnotationItem(buff, cm)
+
+    This class can parse an annotation_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the annotation_item
+        cm (ClassManager) – a ClassManager object
+
+    get_annotation()
+
+        Return the encoded annotation contents
+        Return type:	a EncodedAnnotation object
+
+    get_visibility()
+
+        Return the intended visibility of this annotation
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.AnnotationOffItem(buff, cm)
+
+    This class can parse an annotation_off_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the annotation_off_item
+        cm (ClassManager) – a ClassManager object
+
+class androguard.core.bytecodes.dvm.AnnotationSetItem(buff, cm)
+
+    This class can parse an annotation_set_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the annotation_set_item
+        cm (ClassManager) – a ClassManager object
+
+    get_annotation_off_item()
+
+        Return the offset from the start of the file to an annotation
+        Return type:	a list of AnnotationOffItem
+
+class androguard.core.bytecodes.dvm.AnnotationSetRefItem(buff, cm)
+
+    This class can parse an annotation_set_ref_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the annotation_set_ref_item
+        cm (ClassManager) – a ClassManager object
+
+    get_annotations_off()
+
+        Return the offset from the start of the file to the referenced annotation set or 0 if there are no annotations for this element.
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.AnnotationSetRefList(buff, cm)
+
+    This class can parse an annotation_set_ref_list_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the annotation_set_ref_list_item
+        cm (ClassManager) – a ClassManager object
+
+    get_list()
+
+        Return elements of the list
+        Return type:	AnnotationSetRefItem
+
+class androguard.core.bytecodes.dvm.AnnotationsDirectoryItem(buff, cm)
+
+    This class can parse an annotations_directory_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the annotations_directory_item
+        cm (ClassManager) – a ClassManager object
+
+    get_annotated_fields_size()
+
+        Return the count of fields annotated by this item
+        Return type:	int
+
+    get_annotated_methods_size()
+
+        Return the count of methods annotated by this item
+        Return type:	int
+
+    get_annotated_parameters_size()
+
+        Return the count of method parameter lists annotated by this item
+        Return type:	int
+
+    get_class_annotations_off()
+
+        Return the offset from the start of the file to the annotations made directly on the class, or 0 if the class has no direct annotations
+        Return type:	int
+
+    get_field_annotations()
+
+        Return the list of associated field annotations
+        Return type:	a list of FieldAnnotation
+
+    get_method_annotations()
+
+        Return the list of associated method annotations
+        Return type:	a list of MethodAnnotation
+
+    get_parameter_annotations()
+
+        Return the list of associated method parameter annotations
+        Return type:	a list of ParameterAnnotation
+
+class androguard.core.bytecodes.dvm.ClassDataItem(buff, cm)
+
+    This class can parse a class_data_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the class_data_item
+        cm (ClassManager) – a ClassManager object
+
+    get_direct_methods()
+
+        Return the defined direct (any of static, private, or constructor) methods, represented as a sequence of encoded elements
+        Return type:	a list of EncodedMethod objects
+
+    get_direct_methods_size()
+
+        Return the number of direct methods defined in this item
+        Return type:	int
+
+    get_fields()
+
+        Return static and instance fields
+        Return type:	a list of EncodedField objects
+
+    get_instance_fields()
+
+        Return the defined instance fields, represented as a sequence of encoded elements
+        Return type:	a list of EncodedField objects
+
+    get_instance_fields_size()
+
+        Return the number of instance fields defined in this item
+        Return type:	int
+
+    get_methods()
+
+        Return direct and virtual methods
+        Return type:	a list of EncodedMethod objects
+
+    get_static_fields()
+
+        Return the defined static fields, represented as a sequence of encoded elements
+        Return type:	a list of EncodedField objects
+
+    get_static_fields_size()
+
+        Return the number of static fields defined in this item
+        Return type:	int
+
+    get_virtual_methods()
+
+        Return the defined virtual (none of static, private, or constructor) methods, represented as a sequence of encoded elements
+        Return type:	a list of EncodedMethod objects
+
+    get_virtual_methods_size()
+
+        Return the number of virtual methods defined in this item
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.ClassDefItem(buff, cm)
+
+    This class can parse a class_def_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the class_def_item
+        cm (ClassManager) – a ClassManager object
+
+    get_access_flags()
+
+        Return the access flags for the class (public, final, etc.)
+        Return type:	int
+
+    get_access_flags_string()
+
+        Return the access flags string of the class
+        Return type:	string
+
+    get_annotations_off()
+
+        Return the offset from the start of the file to the annotations structure for this class, or 0 if there are no annotations on this class.
+        Return type:	int
+
+    get_class_data()
+
+        Return the associated class_data_item
+        Return type:	a ClassDataItem object
+
+    get_class_data_off()
+
+        Return the offset from the start of the file to the associated class data for this item, or 0 if there is no class data for this class
+        Return type:	int
+
+    get_class_idx()
+
+        Return the index into the type_ids list for this class
+        Return type:	int
+
+    get_fields()
+
+        Return all fields of this class
+        Return type:	a list of EncodedField objects
+
+    get_interfaces()
+
+        Return the name of the interface
+        Return type:	string
+
+    get_interfaces_off()
+
+        Return the offset from the start of the file to the list of interfaces, or 0 if there are none
+        Return type:	int
+
+    get_methods()
+
+        Return all methods of this class
+        Return type:	a list of EncodedMethod objects
+
+    get_name()
+
+        Return the name of this class
+        Return type:	int
+
+    get_source_file_idx()
+
+        Return the index into the string_ids list for the name of the file containing the original source for (at least most of) this class, or the special value NO_INDEX to represent a lack of this information
+        Return type:	int
+
+    get_static_values_off()
+
+        Return the offset from the start of the file to the list of initial values for static fields, or 0 if there are none (and all static fields are to be initialized with 0 or null)
+        Return type:	int
+
+    get_superclass_idx()
+
+        Return the index into the type_ids list for the superclass
+        Return type:	int
+
+    get_superclassname()
+
+        Return the name of the super class
+        Return type:	string
+
+    source()
+
+        Return the source code of the entire class
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.ClassHDefItem(size, buff, cm)
+
+    This class can parse a list of class_def_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the list of class_def_item
+        cm (ClassManager) – a ClassManager object
+
+class androguard.core.bytecodes.dvm.ClassManager(vm)
+
+    This class is used to access to all elements (strings, type, proto ...) of the dex format
+
+class androguard.core.bytecodes.dvm.DCode(class_manager, size, buff)
+
+    This class represents the instructions of a method
+    Parameters:	
+
+        class_manager (ClassManager object) – the ClassManager
+        size (int) – the total size of the buffer
+        buff (string) – a raw buffer where are the instructions
+
+    add_inote(msg, idx, off=None)
+
+        Add a message to a specific instruction by using (default) the index of the address if specified
+        Parameters:	
+
+            msg (string) – the message
+            idx (int) – index of the instruction (the position in the list of the instruction)
+            off (int) – address of the instruction
+
+    get_ins_off(off)
+
+        Get a particular instruction by using the address
+        Parameters:	off (int) – address of the instruction
+        Return type:	an Instruction object
+
+    get_insn()
+
+        Get the insn buffer
+        Return type:	string
+
+    get_instruction(idx, off=None)
+
+        Get a particular instruction by using (default) the index of the address if specified
+        Parameters:	
+
+            idx (int) – index of the instruction (the position in the list of the instruction)
+            off (int) – address of the instruction
+
+        Return type:	
+
+        an Instruction object
+
+    get_instructions()
+
+        Get the instructions
+        Return type:	a generator of each Instruction (or a cached list of instructions if you have setup instructions)
+
+    get_length()
+
+        Return the length of this object
+        Return type:	int
+
+    get_raw()
+
+        Return the raw buffer of this object
+        Return type:	string
+
+    off_to_pos(off)
+
+        Get the position of an instruction by using the address
+        Parameters:	off (int) – address of the instruction
+        Return type:	int
+
+    pretty_show(m_a)
+
+        Display (with a pretty print) this object
+        Parameters:	m_a – MethodAnalysis object
+
+    set_idx(idx)
+
+        Set the start address of the buffer
+        Parameters:	idx (int) – the index
+
+    set_insn(insn)
+
+        Set a new raw buffer to disassemble
+        Parameters:	insn (string) – the buffer
+
+    set_instructions(instructions)
+
+        Set the instructions
+        Parameters:	instructions (a list of Instruction) – the list of instructions
+
+    show()
+
+        Display this object
+
+class androguard.core.bytecodes.dvm.DalvikCode(buff, cm)
+
+    This class represents the instructions of a method
+    Parameters:	
+
+        buff (string) – a raw buffer where are the instructions
+        cm (ClassManager object) – the ClassManager
+
+    add_inote(msg, idx, off=None)
+
+        Add a message to a specific instruction by using (default) the index of the address if specified
+        Parameters:	
+
+            msg (string) – the message
+            idx (int) – index of the instruction (the position in the list of the instruction)
+            off (int) – address of the instruction
+
+    get_bc()
+
+        Return the associated code object
+        Return type:	DCode
+
+    get_debug()
+
+        Return the associated debug object
+        Return type:	DebugInfoItem
+
+    get_debug_info_off()
+
+        Get the offset from the start of the file to the debug info (line numbers + local variable info) sequence for this code, or 0 if there simply is no information
+        Return type:	int
+
+    get_handlers()
+
+        Get the bytes representing a list of lists of catch types and associated handler addresses.
+        Return type:	EncodedCatchHandlerList
+
+    get_ins_size()
+
+        Get the number of words of incoming arguments to the method that this code is for
+        Return type:	int
+
+    get_insns_size()
+
+        Get the size of the instructions list, in 16-bit code units
+        Return type:	int
+
+    get_outs_size()
+
+        Get the number of words of outgoing argument space required by this code for method invocation
+        Return type:	int
+
+    get_registers_size()
+
+        Get the number of registers used by this code
+        Return type:	int
+
+    get_tries()
+
+        Get the array indicating where in the code exceptions are caught and how to handle them
+        Return type:	a list of TryItem objects
+
+    get_tries_size()
+
+        Get the number of TryItem for this instance
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.DalvikOdexVMFormat(buff, decompiler=None)
+
+    Bases: androguard.core.bytecodes.dvm.DalvikVMFormat
+
+    This class can parse an odex file
+    Parameters:	
+
+        buff (string) – a string which represents the odex file
+        decompiler (object) – associate a decompiler object to display the java source code
+
+    Example :	
+
+    DalvikOdexVMFormat( open(“classes.odex”, “rb”).read() )
+
+    create_dref(python_export=True)
+
+        Create DREF for this object
+        Parameters:	(boolean) (python_export) – export dref in each field
+
+    create_python_export()
+
+        Export classes/methods/fields’ names in the python namespace
+
+    create_xref(python_export=True)
+
+        Create XREF for this object
+        Parameters:	(boolean) (python_export) – export xref in each method
+
+    disassemble(offset, size)
+
+        Disassembles a given offset in the DEX file
+        Parameters:	
+
+            dex – the filename of the android dex file
+            offset (int) – offset to disassemble in the file (from the beginning of the file)
+            size –
+
+    fix_checksums(buff)
+
+        Fix a dex format buffer by setting all checksums
+        Return type:	string
+
+    get_all_fields()
+
+        Return a list of field items
+        Return type:	a list of FieldIdItem objects
+
+    get_class_manager()
+
+        This function returns a ClassManager object which allow you to get access to all index references (strings, methods, fields, ....)
+        Return type:	ClassManager object
+
+    get_classes()
+
+        Return all classes
+        Return type:	a list of ClassDefItem objects
+
+    get_classes_def_item()
+
+        This function returns the class def item
+        Return type:	ClassDefItem object
+
+    get_classes_names()
+
+        Return the names of classes
+        Return type:	a list of string
+
+    get_cm_field(idx)
+
+        Get a specific field by using an index
+        Parameters:	idx (int) – index of the field
+
+    get_cm_method(idx)
+
+        Get a specific method by using an index
+        Parameters:	idx (int) – index of the method
+
+    get_cm_string(idx)
+
+        Get a specific string by using an index
+        Parameters:	idx (int) – index of the string
+
+    get_cm_type(idx)
+
+        Get a specific type by using an index
+        Parameters:	idx (int) – index of the type
+
+    get_codes_item()
+
+        This function returns the code item
+        Return type:	CodeItem object
+
+    get_debug_info_item()
+
+        This function returns the debug info item
+        Return type:	DebugInfoItem object
+
+    get_dependencies()
+
+        Return the odex dependencies object
+        Return type:	an OdexDependencies object
+
+    get_field(name)
+
+        Return a list all fields which corresponds to the regexp
+        Parameters:	name – the name of the field (a python regexp)
+        Return type:	a list with all EncodedField objects
+
+    get_field_descriptor(class_name, field_name, descriptor)
+
+        Return the specific field
+        Parameters:	
+
+            class_name (string) – the class name of the field
+            field_name (string) – the name of the field
+            descriptor (string) – the descriptor of the field
+
+        Return type:	
+
+        None or a EncodedField object
+
+    get_fields()
+
+        Return all field objects
+        Return type:	a list of EncodedField objects
+
+    get_fields_class(class_name)
+
+        Return all fields of a specific class
+        Parameters:	class_name (string) – the class name
+        Return type:	a list with EncodedField objects
+
+    get_fields_id_item()
+
+        This function returns the field id item
+        Return type:	FieldIdItem object
+
+    get_format_type()
+
+        Return the type
+        Return type:	a string
+
+    get_header_item()
+
+        This function returns the header item
+        Return type:	HeaderItem object
+
+    get_len_methods()
+
+        Return the number of methods
+        Return type:	int
+
+    get_method(name)
+
+        Return a list all methods which corresponds to the regexp
+        Parameters:	name – the name of the method (a python regexp)
+        Return type:	a list with all EncodedMethod objects
+
+    get_method_by_idx(idx)
+
+        Return a specific method by using an index :param idx: the index of the method :type idx: int
+        Return type:	None or an EncodedMethod object
+
+    get_method_descriptor(class_name, method_name, descriptor)
+
+        Return the specific method
+        Parameters:	
+
+            class_name (string) – the class name of the method
+            method_name (string) – the name of the method
+            descriptor (string) – the descriptor of the method
+
+        Return type:	
+
+        None or a EncodedMethod object
+
+    get_methods()
+
+        Return all method objects
+        Return type:	a list of EncodedMethod objects
+
+    get_methods_class(class_name)
+
+        Return all methods of a specific class
+        Parameters:	class_name (string) – the class name
+        Return type:	a list with EncodedMethod objects
+
+    get_methods_id_item()
+
+        This function returns the method id item
+        Return type:	MethodIdItem object
+
+    get_regex_strings(regular_expressions)
+
+        Return all target strings matched the regex
+        Parameters:	regular_expressions (string) – the python regex
+        Return type:	a list of strings matching the regex expression
+
+    get_string_data_item()
+
+        This function returns the string data item
+        Return type:	StringDataItem object
+
+    get_strings()
+
+        Return all strings
+        Return type:	a list with all strings used in the format (types, names ...)
+
+    pretty_show()
+
+        Show (but pretty !) the all information in the object
+
+    save()
+
+        Return the dex (with the modifications) into raw format (fix checksums)
+        Return type:	string
+
+    show()
+
+        Show the all information in the object
+
+class androguard.core.bytecodes.dvm.DalvikVMFormat(buff, decompiler=None)
+
+    Bases: androguard.core.bytecode._Bytecode
+
+    This class can parse a classes.dex file of an Android application (APK).
+    Parameters:	
+
+        buff (string) – a string which represents the classes.dex file
+        decompiler (object) – associate a decompiler object to display the java source code
+
+    Example :	
+
+    DalvikVMFormat( open(“classes.dex”, “rb”).read() )
+
+    create_dref(python_export=True)
+
+        Create DREF for this object
+        Parameters:	(boolean) (python_export) – export dref in each field
+
+    create_python_export()
+
+        Export classes/methods/fields’ names in the python namespace
+
+    create_xref(python_export=True)
+
+        Create XREF for this object
+        Parameters:	(boolean) (python_export) – export xref in each method
+
+    disassemble(offset, size)
+
+        Disassembles a given offset in the DEX file
+        Parameters:	
+
+            dex – the filename of the android dex file
+            offset (int) – offset to disassemble in the file (from the beginning of the file)
+            size –
+
+    fix_checksums(buff)
+
+        Fix a dex format buffer by setting all checksums
+        Return type:	string
+
+    get_all_fields()
+
+        Return a list of field items
+        Return type:	a list of FieldIdItem objects
+
+    get_class_manager()
+
+        This function returns a ClassManager object which allow you to get access to all index references (strings, methods, fields, ....)
+        Return type:	ClassManager object
+
+    get_classes()
+
+        Return all classes
+        Return type:	a list of ClassDefItem objects
+
+    get_classes_def_item()
+
+        This function returns the class def item
+        Return type:	ClassDefItem object
+
+    get_classes_names()
+
+        Return the names of classes
+        Return type:	a list of string
+
+    get_cm_field(idx)
+
+        Get a specific field by using an index
+        Parameters:	idx (int) – index of the field
+
+    get_cm_method(idx)
+
+        Get a specific method by using an index
+        Parameters:	idx (int) – index of the method
+
+    get_cm_string(idx)
+
+        Get a specific string by using an index
+        Parameters:	idx (int) – index of the string
+
+    get_cm_type(idx)
+
+        Get a specific type by using an index
+        Parameters:	idx (int) – index of the type
+
+    get_codes_item()
+
+        This function returns the code item
+        Return type:	CodeItem object
+
+    get_debug_info_item()
+
+        This function returns the debug info item
+        Return type:	DebugInfoItem object
+
+    get_field(name)
+
+        Return a list all fields which corresponds to the regexp
+        Parameters:	name – the name of the field (a python regexp)
+        Return type:	a list with all EncodedField objects
+
+    get_field_descriptor(class_name, field_name, descriptor)
+
+        Return the specific field
+        Parameters:	
+
+            class_name (string) – the class name of the field
+            field_name (string) – the name of the field
+            descriptor (string) – the descriptor of the field
+
+        Return type:	
+
+        None or a EncodedField object
+
+    get_fields()
+
+        Return all field objects
+        Return type:	a list of EncodedField objects
+
+    get_fields_class(class_name)
+
+        Return all fields of a specific class
+        Parameters:	class_name (string) – the class name
+        Return type:	a list with EncodedField objects
+
+    get_fields_id_item()
+
+        This function returns the field id item
+        Return type:	FieldIdItem object
+
+    get_format_type()
+
+        Return the type
+        Return type:	a string
+
+    get_header_item()
+
+        This function returns the header item
+        Return type:	HeaderItem object
+
+    get_len_methods()
+
+        Return the number of methods
+        Return type:	int
+
+    get_method(name)
+
+        Return a list all methods which corresponds to the regexp
+        Parameters:	name – the name of the method (a python regexp)
+        Return type:	a list with all EncodedMethod objects
+
+    get_method_by_idx(idx)
+
+        Return a specific method by using an index :param idx: the index of the method :type idx: int
+        Return type:	None or an EncodedMethod object
+
+    get_method_descriptor(class_name, method_name, descriptor)
+
+        Return the specific method
+        Parameters:	
+
+            class_name (string) – the class name of the method
+            method_name (string) – the name of the method
+            descriptor (string) – the descriptor of the method
+
+        Return type:	
+
+        None or a EncodedMethod object
+
+    get_methods()
+
+        Return all method objects
+        Return type:	a list of EncodedMethod objects
+
+    get_methods_class(class_name)
+
+        Return all methods of a specific class
+        Parameters:	class_name (string) – the class name
+        Return type:	a list with EncodedMethod objects
+
+    get_methods_id_item()
+
+        This function returns the method id item
+        Return type:	MethodIdItem object
+
+    get_regex_strings(regular_expressions)
+
+        Return all target strings matched the regex
+        Parameters:	regular_expressions (string) – the python regex
+        Return type:	a list of strings matching the regex expression
+
+    get_string_data_item()
+
+        This function returns the string data item
+        Return type:	StringDataItem object
+
+    get_strings()
+
+        Return all strings
+        Return type:	a list with all strings used in the format (types, names ...)
+
+    pretty_show()
+
+        Show (but pretty !) the all information in the object
+
+    save()
+
+        Return the dex (with the modifications) into raw format (fix checksums)
+        Return type:	string
+
+    show()
+
+        Show the all information in the object
+
+class androguard.core.bytecodes.dvm.EncodedAnnotation(buff, cm)
+
+    This class can parse an encoded_annotation of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_annotation
+        cm (ClassManager) – a ClassManager object
+
+    get_elements()
+
+        Return the elements of the annotation, represented directly in-line (not as offsets)
+        Return type:	a list of AnnotationElement objects
+
+    get_size()
+
+        Return the number of name-value mappings in this annotation
+
+        :rtype:int
+
+    get_type_idx()
+
+        Return the type of the annotation. This must be a class (not array or primitive) type
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.EncodedArray(buff, cm)
+
+    This class can parse an encoded_array of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_array
+        cm (ClassManager) – a ClassManager object
+
+    get_size()
+
+        Return the number of elements in the array
+        Return type:	int
+
+    get_values()
+
+        Return a series of size encoded_value byte sequences in the format specified by this section, concatenated sequentially
+        Return type:	a list of EncodedValue objects
+
+class androguard.core.bytecodes.dvm.EncodedArrayItem(buff, cm)
+
+    This class can parse an encoded_array_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_array_item
+        cm (ClassManager) – a ClassManager object
+
+class androguard.core.bytecodes.dvm.EncodedCatchHandler(buff, cm)
+
+    This class can parse an encoded_catch_handler of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_catch_handler
+        cm (ClassManager) – a ClassManager object
+
+    get_catch_all_addr()
+
+        Return the bytecode address of the catch-all handler. This element is only present if size is non-positive.
+        Return type:	int
+
+    get_handlers()
+
+        Return the stream of abs(size) encoded items, one for each caught type, in the order that the types should be tested.
+        Return type:	a list of EncodedTypeAddrPair objects
+
+    get_size()
+
+        Return the number of catch types in this list
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.EncodedCatchHandlerList(buff, cm)
+
+    This class can parse an encoded_catch_handler_list of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_catch_handler_list
+        cm (ClassManager) – a ClassManager object
+
+    get_list()
+
+        Return the actual list of handler lists, represented directly (not as offsets), and concatenated sequentially
+        Return type:	a list of EncodedCatchHandler objects
+
+    get_size()
+
+        Return the size of this list, in entries
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.EncodedField(buff, cm)
+
+    This class can parse an encoded_field of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded field
+        cm (ClassManager) – a ClassManager object
+
+    get_access_flags()
+
+        Return the access flags of the field
+        Return type:	int
+
+    get_access_flags_string()
+
+        Return the access flags string of the field
+        Return type:	string
+
+    get_class_name()
+
+        Return the class name of the field
+        Return type:	string
+
+    get_descriptor()
+
+        Return the descriptor of the field
+        Return type:	string
+
+    get_field_idx()
+
+        Return the real index of the method
+        Return type:	int
+
+    get_field_idx_diff()
+
+        Return the index into the field_ids list for the identity of this field (includes the name and descriptor), represented as a difference from the index of previous element in the list
+        Return type:	int
+
+    get_init_value()
+
+        Return the init value object of the field
+        Return type:	EncodedValue
+
+    get_name()
+
+        Return the name of the field
+        Return type:	string
+
+    pretty_show()
+
+        Display the information (with a pretty print) about the field
+
+    set_init_value(value)
+
+        Setup the init value object of the field
+        Parameters:	value (EncodedValue) – the init value
+
+    show()
+
+        Display the information about the field
+
+    show_dref()
+
+        Display where this field is read or written
+
+class androguard.core.bytecodes.dvm.EncodedMethod(buff, cm)
+
+    This class can parse an encoded_method of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_method
+        cm (ClassManager) – a ClassManager object
+
+    access_flags = None
+
+        access flags of the method
+
+    add_inote(msg, idx, off=None)
+
+        Add a message to a specific instruction by using (default) the index of the address if specified
+        Parameters:	
+
+            msg (string) – the message
+            idx (int) – index of the instruction (the position in the list of the instruction)
+            off (int) – address of the instruction
+
+    add_note(msg)
+
+        Add a message to this method
+        Parameters:	msg (string) – the message
+
+    code_off = None
+
+        offset of the code section
+
+    get_access_flags()
+
+        Return the access flags of the method
+        Return type:	int
+
+    get_access_flags_string()
+
+        Return the access flags string of the method
+        Return type:	string
+
+    get_class_name()
+
+        Return the class name of the method
+        Return type:	string
+
+    get_code()
+
+        Return the code object associated to the method
+        Return type:	DalvikCode object
+
+    get_code_off()
+
+        Return the offset from the start of the file to the code structure for this method, or 0 if this method is either abstract or native
+        Return type:	int
+
+    get_debug()
+
+        Return the debug object associated to this method
+        Return type:	DebugInfoItem
+
+    get_descriptor()
+
+        Return the descriptor of the method
+        Return type:	string
+
+    get_instruction(idx, off=None)
+
+        Get a particular instruction by using (default) the index of the address if specified
+        Parameters:	
+
+            idx (int) – index of the instruction (the position in the list of the instruction)
+            off (int) – address of the instruction
+
+        Return type:	
+
+        an Instruction object
+
+    get_instructions()
+
+        Get the instructions
+        Return type:	a generator of each Instruction (or a cached list of instructions if you have setup instructions)
+
+    get_length()
+
+        Return the length of the associated code of the method
+        Return type:	int
+
+    get_method_idx()
+
+        Return the real index of the method
+        Return type:	int
+
+    get_method_idx_diff()
+
+        Return index into the method_ids list for the identity of this method (includes the name and descriptor), represented as a difference from the index of previous element in the lis
+        Return type:	int
+
+    get_name()
+
+        Return the name of the method
+        Return type:	string
+
+    method_idx_diff = None
+
+        method index diff in the corresponding section
+
+    pretty_show()
+
+        Display the information (with a pretty print) about the method
+
+    set_code_idx(idx)
+
+        Set the start address of the buffer to disassemble
+        Parameters:	idx (int) – the index
+
+    set_instructions(instructions)
+
+        Set the instructions
+        Parameters:	instructions (a list of Instruction) – the list of instructions
+
+    show()
+
+        Display the information about the method
+
+    show_info()
+
+        Display the basic information about the method
+
+    show_notes()
+
+        Display the notes about the method
+
+    show_xref()
+
+        Display where the method is called or which method is called
+
+    source()
+
+        Return the source code of this method
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.EncodedTypeAddrPair(buff)
+
+    This class can parse an encoded_type_addr_pair of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_type_addr_pair
+        cm (ClassManager) – a ClassManager object
+
+    get_addr()
+
+        Return the bytecode address of the associated exception handler
+        Return type:	int
+
+    get_type_idx()
+
+        Return the index into the type_ids list for the type of the exception to catch
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.EncodedValue(buff, cm)
+
+    This class can parse an encoded_value of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the encoded_value
+        cm (ClassManager) – a ClassManager object
+
+    get_value()
+
+        Return the bytes representing the value, variable in length and interpreted differently for different value_type bytes, though always little-endian
+        Return type:	an object representing the value
+
+class androguard.core.bytecodes.dvm.FieldAnnotation(buff, cm)
+
+    This class can parse a field_annotation of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the field_annotation
+        cm (ClassManager) – a ClassManager object
+
+    get_annotations_off()
+
+        Return the offset from the start of the file to the list of annotations for the field
+        Return type:	int
+
+    get_field_idx()
+
+        Return the index into the field_ids list for the identity of the field being annotated
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.FieldHIdItem(size, buff, cm)
+
+    This class can parse a list of field_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the list of field_id_item
+        cm (ClassManager) – a ClassManager object
+
+class androguard.core.bytecodes.dvm.FieldIdItem(buff, cm)
+
+    This class can parse a field_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the field_id_item
+        cm (ClassManager) – a ClassManager object
+
+    get_class_idx()
+
+        Return the index into the type_ids list for the definer of this field
+        Return type:	int
+
+    get_class_name()
+
+        Return the class name of the field
+        Return type:	string
+
+    get_descriptor()
+
+        Return the descriptor of the field
+        Return type:	string
+
+    get_name()
+
+        Return the name of the field
+        Return type:	string
+
+    get_name_idx()
+
+        Return the index into the string_ids list for the name of this field
+        Return type:	int
+
+    get_type()
+
+        Return the type of the field
+        Return type:	string
+
+    get_type_idx()
+
+        Return the index into the type_ids list for the type of this field
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.FillArrayData(buff)
+
+    This class can parse a FillArrayData instruction
+    Parameters:	buff – a Buff object which represents a buffer where the instruction is stored
+
+    add_note(msg)
+
+        Add a note to this instruction
+        Parameters:	msg (objects (string)) – the message
+
+    get_data()
+
+        Return the data of this instruction (the payload)
+        Return type:	string
+
+    get_length()
+
+        Return the length of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_notes()
+
+        Get all notes from this instruction
+        Return type:	a list of objects
+
+    get_op_value()
+
+        Get the value of the opcode
+        Return type:	int
+
+    get_output(idx=-1)
+
+        Return an additional output of the instruction
+        Return type:	string
+
+    show(pos)
+
+        Print the instruction
+
+    show_buff(pos)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.HeaderItem(size, buff, cm)
+
+    This class can parse an header_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the header_item
+        cm (ClassManager) – a ClassManager object
+
+class androguard.core.bytecodes.dvm.Instruction
+
+    Bases: object
+
+    This class represents a dalvik instruction
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_length()
+
+        Return the length of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_output(idx=-1)
+
+        Return an additional output of the instruction
+        Return type:	string
+
+    get_raw()
+
+        Return the object in a raw format
+        Return type:	string
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction10t(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 10t format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction10x(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 10x format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction11n(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 11n format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction11x(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 11x format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction12x(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 12x format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction20bc(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 20bc format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction20t(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 20t format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction21c(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 21c format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction21h(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 21h format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction21s(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 21s format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction21t(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 21t format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction22b(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 22b format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction22c(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 22c format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction22cs(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 22cs format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction22s(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 22s format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction22t(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 22t format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction22x(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 22x format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction23x(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 23x format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction30t(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 30t format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction31c(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 31c format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_string()
+
+        Return the string associated to the ‘kind’ argument
+        Return type:	string
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction31i(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 3li format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction31t(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 31t format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction32x(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 32x format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction35c(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 35c format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction35mi(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 35mi format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction35ms(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 35ms format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction3rc(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 3rc format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction3rmi(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 3rmi format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction3rms(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 3rms format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction40sc(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 40sc format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction41c(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 41c format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction51l(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 51l format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction52c(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 52c format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.Instruction5rc(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents all instructions which have the 5rc format
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.InstructionInvalid(cm, buff)
+
+    Bases: androguard.core.bytecodes.dvm.Instruction
+
+    This class represents an invalid instruction
+
+    get_kind()
+
+        Return the ‘kind’ argument of the instruction
+        Return type:	int
+
+    get_literals()
+
+        Return the associated literals
+        Return type:	list of int
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_op_value()
+
+        Return the value of the opcode
+        Return type:	int
+
+    get_ref_kind()
+
+        Return the value of the ‘kind’ argument
+        Return type:	value
+
+    get_translated_kind()
+
+        Return the translated value of the ‘kind’ argument
+        Return type:	string
+
+    show(idx)
+
+        Print the instruction
+
+    show_buff(idx)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.LinearSweepAlgorithm
+
+    This class is used to disassemble a method. The algorithm used by this class is linear sweep.
+
+    get_instructions(cm, size, insn, idx)
+        Parameters:	
+
+            cm (ClassManager object) – a ClassManager object
+            size (int) – the total size of the buffer
+            insn (string) – a raw buffer where are the instructions
+            idx (int) – a start address in the buffer
+
+        Return type:	
+
+        a generator of Instruction objects
+
+class androguard.core.bytecodes.dvm.MapList(cm, off, buff)
+
+    This class can parse the “map_list” of the dex format
+
+    get_item_type(ttype)
+
+        Get a particular item type
+        Parameters:	ttype – a string which represents the desired type
+        Return type:	None or the item object
+
+    pretty_show()
+
+        Print with a pretty display the MapList object
+
+    show()
+
+        Print the MapList object
+
+class androguard.core.bytecodes.dvm.MethodAnnotation(buff, cm)
+
+    This class can parse a method_annotation of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the method_annotation
+        cm (ClassManager) – a ClassManager object
+
+    get_annotations_off()
+
+        Return the offset from the start of the file to the list of annotations for the method
+        Return type:	int
+
+    get_method_idx()
+
+        Return the index into the method_ids list for the identity of the method being annotated
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.MethodHIdItem(size, buff, cm)
+
+    This class can parse a list of method_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the list of method_id_item
+        cm (ClassManager) – a ClassManager object
+
+class androguard.core.bytecodes.dvm.MethodIdItem(buff, cm)
+
+    This class can parse a method_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the method_id_item
+        cm (ClassManager) – a ClassManager object
+
+    get_class_idx()
+
+        Return the index into the type_ids list for the definer of this method
+        Return type:	int
+
+    get_class_name()
+
+        Return the class name of the method
+        Return type:	string
+
+    get_descriptor()
+
+        Return the descriptor
+        Return type:	string
+
+    get_name()
+
+        Return the name of the method
+        Return type:	string
+
+    get_name_idx()
+
+        Return the index into the string_ids list for the name of this method
+        Return type:	int
+
+    get_proto()
+
+        Return the prototype of the method
+        Return type:	string
+
+    get_proto_idx()
+
+        Return the index into the proto_ids list for the prototype of this method
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.OdexDependencies(buff)
+
+    This class can parse the odex dependencies
+    Parameters:	buff – a Buff object string which represents the odex dependencies
+
+    get_dependencies()
+
+        Return the list of dependencies
+        Return type:	a list of strings
+
+class androguard.core.bytecodes.dvm.OdexHeaderItem(buff)
+
+    This class can parse the odex header
+    Parameters:	buff – a Buff object string which represents the odex dependencies
+
+class androguard.core.bytecodes.dvm.PackedSwitch(buff)
+
+    This class can parse a PackedSwitch instruction
+    Parameters:	buff – a Buff object which represents a buffer where the instruction is stored
+
+    add_note(msg)
+
+        Add a note to this instruction
+        Parameters:	msg (objects (string)) – the message
+
+    get_keys()
+
+        Return the keys of the instruction
+        Return type:	a list of long
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_notes()
+
+        Get all notes from this instruction
+        Return type:	a list of objects
+
+    get_op_value()
+
+        Get the value of the opcode
+        Return type:	int
+
+    get_output(idx=-1)
+
+        Return an additional output of the instruction
+        Return type:	string
+
+    get_targets()
+
+        Return the targets (address) of the instruction
+        Return type:	a list of long
+
+    show(pos)
+
+        Print the instruction
+
+    show_buff(pos)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.ParameterAnnotation(buff, cm)
+
+    This class can parse a parameter_annotation of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the parameter_annotation
+        cm (ClassManager) – a ClassManager object
+
+    get_annotations_off()
+
+        Return the offset from the start of the file to the list of annotations for the method parameters
+        Return type:	int
+
+    get_method_idx()
+
+        Return the index into the method_ids list for the identity of the method whose parameters are being annotated
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.ProtoHIdItem(size, buff, cm)
+
+    This class can parse a list of proto_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the list of proto_id_item
+        cm (ClassManager) – a ClassManager object
+
+class androguard.core.bytecodes.dvm.ProtoIdItem(buff, cm)
+
+    This class can parse a proto_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the proto_id_item
+        cm (ClassManager) – a ClassManager object
+
+    get_parameters_off()
+
+        Return the offset from the start of the file to the list of parameter types for this prototype, or 0 if this prototype has no parameters
+        Return type:	int
+
+    get_parameters_off_value()
+
+        Return the string associated to the parameters_off
+        Return type:	string
+
+    get_return_type_idx()
+
+        Return the index into the type_ids list for the return type of this prototype
+        Return type:	int
+
+    get_return_type_idx_value()
+
+        Return the string associated to the return_type_idx
+        Return type:	string
+
+    get_shorty_idx()
+
+        Return the index into the string_ids list for the short-form descriptor string of this prototype
+        Return type:	int
+
+    get_shorty_idx_value()
+
+        Return the string associated to the shorty_idx
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.SparseSwitch(buff)
+
+    This class can parse a SparseSwitch instruction
+    Parameters:	buff – a Buff object which represents a buffer where the instruction is stored
+
+    add_note(msg)
+
+        Add a note to this instruction
+        Parameters:	msg (objects (string)) – the message
+
+    get_keys()
+
+        Return the keys of the instruction
+        Return type:	a list of long
+
+    get_name()
+
+        Return the name of the instruction
+        Return type:	string
+
+    get_notes()
+
+        Get all notes from this instruction
+        Return type:	a list of objects
+
+    get_op_value()
+
+        Get the value of the opcode
+        Return type:	int
+
+    get_output(idx=-1)
+
+        Return an additional output of the instruction
+        Return type:	string
+
+    get_targets()
+
+        Return the targets (address) of the instruction
+        Return type:	a list of long
+
+    show(pos)
+
+        Print the instruction
+
+    show_buff(pos)
+
+        Return the display of the instruction
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.StringDataItem(buff, cm)
+
+    This class can parse a string_data_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the string_data_item
+        cm (ClassManager) – a ClassManager object
+
+    get_data()
+
+        Return a series of MUTF-8 code units (a.k.a. octets, a.k.a. bytes) followed by a byte of value 0
+        Return type:	string
+
+    get_utf16_size()
+
+        Return the size of this string, in UTF-16 code units
+
+        :rtype:int
+
+class androguard.core.bytecodes.dvm.StringIdItem(buff, cm)
+
+    This class can parse a string_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the string_id_item
+        cm (ClassManager) – a ClassManager object
+
+    get_string_data_off()
+
+        Return the offset from the start of the file to the string data for this item
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.TryItem(buff, cm)
+
+    This class represents the try_item format
+    Parameters:	
+
+        buff (string) – a raw buffer where are the try_item format
+        cm (ClassManager object) – the ClassManager
+
+    get_handler_off()
+
+        Get the offset in bytes from the start of the associated EncodedCatchHandlerList to the EncodedCatchHandler for this entry.
+        Return type:	int
+
+    get_insn_count()
+
+        Get the number of 16-bit code units covered by this entry
+        Return type:	int
+
+    get_start_addr()
+
+        Get the start address of the block of code covered by this entry. The address is a count of 16-bit code units to the start of the first covered instruction.
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.TypeHIdItem(size, buff, cm)
+
+    This class can parse a list of type_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the list of type_id_item
+        cm (ClassManager) – a ClassManager object
+
+    get_type()
+
+        Return the list of type_id_item
+        Return type:	a list of TypeIdItem objects
+
+class androguard.core.bytecodes.dvm.TypeIdItem(buff, cm)
+
+    This class can parse a type_id_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the type_id_item
+        cm (ClassManager) – a ClassManager object
+
+    get_descriptor_idx()
+
+        Return the index into the string_ids list for the descriptor string of this type
+        Return type:	int
+
+    get_descriptor_idx_value()
+
+        Return the string associated to the descriptor
+        Return type:	string
+
+class androguard.core.bytecodes.dvm.TypeItem(buff, cm)
+
+    This class can parse a type_item of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the type_item
+        cm (ClassManager) – a ClassManager object
+
+    get_string()
+
+        Return the type string
+        Return type:	string
+
+    get_type_idx()
+
+        Return the index into the type_ids list
+        Return type:	int
+
+class androguard.core.bytecodes.dvm.TypeList(buff, cm)
+
+    This class can parse a type_list of a dex file
+    Parameters:	
+
+        buff (Buff object) – a string which represents a Buff object of the type_list
+        cm (ClassManager) – a ClassManager object
+
+    get_list()
+
+        Return the list of TypeItem
+        Return type:	a list of TypeItem objects
+
+    get_pad()
+
+        Return the alignment string
+        Return type:	string
+
+    get_size()
+
+        Return the size of the list, in entries
+        Return type:	int
+
+    get_string()
+
+        Return the concatenation of all strings
+        Return type:	string
+
+    get_type_list_off()
+
+        Return the offset of the item
+        Return type:	int
+
+androguard.core.bytecodes.dvm.auto(filename, raw=None)
+    Parameters:	
+
+        filename –
+        raw –
+
+androguard.core.bytecodes.dvm.get_access_flags_string(value)
+
+    Transform an access flags to the corresponding string
+    Parameters:	value (int) – the value of the access flags
+    Return type:	string
+
+androguard.core.bytecodes.dvm.get_kind(cm, kind, value)
+
+    Return the value of the ‘kind’ argument
+    Parameters:	
+
+        cm (ClassManager) – a ClassManager object
+        kind (int) – the type of the ‘kind’ argument
+        value (int) – the value of the ‘kind’ argument
+
+    Return type:	
+
+    string
+
+androguard.core.bytecodes.dvm.get_type(atype, size=None)
+
+    Retrieve the type of a descriptor (e.g : I)
+
+
+
