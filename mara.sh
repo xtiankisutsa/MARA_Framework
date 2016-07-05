@@ -112,6 +112,10 @@ function preliminary_stage_1(){
 		#strings - getting all strings from APK
 		echo -e "${no_color}[+] ${brown}Dumping apk strings"
 		./$aapt_ dump strings ../../data/$file_/$file_ >> ../../data/$file_/analysis/static/general_analysis/strings_aapt.txt
+
+		#configurations - getting all configurations from APK
+		echo -e "${no_color}[+] ${brown}Dumping configurations"
+		./$aapt_ dump configurations ../../data/$file_/$file_ >> ../../data/$file_/analysis/static/general_analysis/configurations.txt
 		cd ../../ 		
 	}
 	
@@ -124,6 +128,14 @@ function preliminary_stage_1(){
 		aapt_=aapt
 		aapt_dump	
 	fi
+
+	#Dump methods and classes
+	cd tools/
+	java -jar ClassyShark.jar -inspect ../data/$file_/$file_ >> ../data/$file_/analysis/static/general_analysis/inspect.txt
+	java -jar ClassyShark.jar -export ../data/$file_/$file_ >> /dev/null
+	mv *.txt ../data/$file_/analysis/static/general_analysis/
+	rm AndroidManifest.xml_dump
+	cd ..
 
 	#bugs - hunting for bugs in the APK :D 
 	echo -e "${no_color}[+] ${brown}Analyzing apk for potential bugs"
