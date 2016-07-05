@@ -10,6 +10,6 @@
 * Scan for apk vulnerabilities via [androbugs](https://github.com/AndroBugs/AndroBugs_Framework)
 * Scan ssl domains found in the app via the standalone SSL scanner that makes use of [pyssltest](https://github.com/moheshmohan/pyssltest) and [testssl](https://github.com/drwetter/testssl.sh) 
 
-Additional information about the framework, prerequisites and the installation guide is available on the [wiki] (https://github.com/xtiankisutsa/MARA_Framework/wiki)
+Additional information about the framework, prerequisites and the installation guide is available on the [wiki] (https://github.com/xtiankisutsa/MARA_Framework/wiki/Documentation)
 
 
