@@ -1,0 +1,16 @@
+ Running the script
+To run the script you can use the following command
+
+    python pyssltest.py -i inp.txt -o inp.csv -n
+
+
+I will explain each switches,
+
+    -i <filename> :- A text file with target urls listed line by line 
+
+    -o <filename> :- A csv file to which the output will be written 
+
+    -n  :- Optional, To always initiate new tests. If this is omitted cached results from qualys is fetched 
+
+Its pretty simple and fast way to run ssl labs against a bunch of servers.
+
