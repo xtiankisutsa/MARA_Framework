@@ -1,0 +1,174 @@
+{%- macro render_string_h_level(string, h_level) -%}
+{%- if string -%}
+	<h{{h_level}}>{{ string|replace("\n","<br/><br/>") }}</h{{h_level}}>
+{%- endif -%}
+{%- endmacro -%} 
+
+{%- macro render_list_h_level(list, h_level) -%}
+{%- if list -%}
+	{%- for item in list -%}
+		<h{{h_level}}>{{ item|replace("\n","<br/>") }}</h{{h_level}}>
+	{%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_application_name(data) -%}
+{%- if data -%}
+	{%- for key, value in data[0]["application_information"] -%}
+		{%- if key == "package_name" -%}
+			{{ value[0]|striptags }}
+		{%- endif -%}
+	{%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_menu(data) -%}
+{%- if data -%}
+	{%- for item in data -%}
+		{%- for nav_menu_header, nav_menu_item in item.iteritems() -%}
+			<li class="nav-header">{{ nav_menu_header|replace('_', ' ')|title }}</li>
+			{% for name,content in nav_menu_item -%}
+				{%- if content -%}
+					{%- if name == "application_name" -%}
+						<li class="active"><a href="#{{ name|replace('_', '-') }}" data-toggle="tab">{{ name|replace('_', ' ')|title }}</a></li>
+					{%- else -%}
+						<li><a href="#{{ name|replace('_', '-') }}" data-toggle="tab">{{ name|replace('_', ' ')|title }}</a></li>
+					{%- endif -%}
+				{%- endif %}
+			{% endfor %}
+		{%- endfor -%}
+	{%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro render_content(data) -%}
+{%- if data -%}
+	{%- for item in data -%}
+		{%- for nav_menu_header, nav_menu_item in item.iteritems() -%}
+				{%- for name,content in nav_menu_item %}
+					{%- if content -%}
+						{%- if name == "application_name" %}
+						<div class="tab-pane active" id="{{ name|replace('_', '-') }}">
+						{%- else %}
+						<div class="tab-pane" id="{{ name|replace('_', '-') }}">
+						{%- endif %}
+							{{ render_string_h_level(name|replace('_', ' ')|title, 2) }}
+							{{ render_list_h_level(content, 3) }}
+						</div>
+					{% endif -%}
+				{% endfor -%}
+		{%- endfor -%}
+	{%- endfor -%}
+{%- endif -%}
+{%- endmacro -%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<title>Androwarn report</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Le styles -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<style type="text/css">
+	body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+	.sidebar-nav {
+		padding: 9px 0;
+	}
+	</style>
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le fav and touch icons -->
+	<link rel="shortcut icon" href="ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand">Androwarn Report</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li><a>{{ render_application_name(data) }}</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+
+			<div class="span3">
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+					{{ render_menu(data) }}			
+					</ul>
+				</div><!--/.well -->
+			</div><!--/span-->
+
+			<div class="span9">
+				<div class="hero-unit" id="Package_name">
+					<div class="tab-content">
+					{{ render_content(data) }}
+					</div>
+				</div>
+			</div><!--/span-->
+
+		</div><!--/row-->
+	<hr>
+
+	<footer>
+		<p>&copy; Androwarn</p>
+		<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/fr/"><img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/fr/80x15.png" /></a></p>
+	</footer>
+
+	</div><!--/.fluid-container-->
+
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap-transition.js"></script>
+	<script src="js/bootstrap-alert.js"></script>
+	<script src="js/bootstrap-modal.js"></script>
+	<script src="js/bootstrap-dropdown.js"></script>
+	<script src="js/bootstrap-scrollspy.js"></script>
+	<script src="js/bootstrap-tab.js"></script>
+	<script src="js/bootstrap-tooltip.js"></script>
+	<script src="js/bootstrap-popover.js"></script>
+	<script src="js/bootstrap-button.js"></script>
+	<script src="js/bootstrap-collapse.js"></script>
+	<script src="js/bootstrap-carousel.js"></script>
+	<script src="js/bootstrap-typeahead.js"></script>
+
+	<script>
+		$(function () {
+			$('#myTab a:last').tab('show');
+			$('.sidebar-nav a[href*=#]').click(function(){$('body').animate({ scrollTop: 0}, 200); });
+		})
+	</script>
+
+  </body>
+</html>

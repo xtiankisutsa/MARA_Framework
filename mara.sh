@@ -43,12 +43,12 @@ function reversing(){
 	echo "========================="
 	#baksmali - Convert APK/Dex to smali code (for better smali code)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to smali bytecode"
-	java -jar tools/baksmali-2.1.1.jar data/$file_/unzipped/classes.dex -o data/$file_/smali/baksmali >> /dev/null
+	java -jar tools/baksmali-2.1.1.jar data/$file_/unzipped/classes.dex -o data/$file_/smali/baksmali >> /dev/null 2>/dev/null
 
 	#enjarify - convert APK/Dex to jar (dex2jar replacement)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to java bytecode"
 	cd tools/enjarify/ 
-	./enjarify.sh ../../data/$file_/$file_ -o ../../data/$file_/$file_.jar >> /dev/null 
+	./enjarify.sh ../../data/$file_/$file_ -o ../../data/$file_/$file_.jar >> /dev/null 2>/dev/null
 	cd ../../
 }
 
@@ -67,6 +67,10 @@ function preliminary_stage_1(){
 	echo "================================="
 	echo -e "${yellow} Performing Preliminary Analysis ${no_color}"
 	echo "================================="
+    #Parsing smali files for analysis by smalisca
+	echo -e "${no_color}[+] ${brown}Parsing smali files for analysis"
+    smalisca parser -l data/$file_/smali/baksmali -s java -f sqlite --quiet -o data/$file_/smali/$file_.sqlite -d 10 >> /dev/null
+
 	#Dumping assets,libraries and resources
 	echo -e "${no_color}[+] ${brown}Dumping apk assets,libraries and resources"
 	cd data/$file_/unzipped/
@@ -102,8 +106,7 @@ function preliminary_stage_1(){
 	fi
 	cd ../../../../
 
-	#aapt - extract app permissions
-	
+	#aapt - extract app permissions	
 	function aapt_dump(){	
 		cd tools/aapt
 		echo -e "${no_color}[+] ${brown}Extracting permissions"
@@ -144,6 +147,16 @@ function preliminary_stage_1(){
 	python2 androbugs.py -f $file_ >> ../../data/$file_/analysis/static/general_analysis/bugs.txt
 	rm $file_
 	cd ../../ 
+
+	#Looking for potential malicious behaviours 
+	echo -e "${no_color}[+] ${brown}Analyzing apk for potential malicious behaviour"
+	cd tools/androwarn
+	cp ../../data/$file_/$file_ .
+	python androwarn.py -i $file_ -r html -v 3 > /dev/null 2>/dev/null		
+	cp -r Report/ ../../data/$file_/analysis/static/malicious_activity/ > /dev/null 2>/dev/null
+	rm Report/*.html > /dev/null 2>/dev/null
+	rm $file_
+	cd ../../
 }
 
 function preliminary_stage_2(){

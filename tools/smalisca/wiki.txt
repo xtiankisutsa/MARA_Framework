@@ -1,0 +1,98 @@
+========
+Parsing
+========
+smalisca parser -l ~/tmp/FakeBanker2/dumped/smali -s java -f sqlite -o fakebanker.sqlite 
+
+=========
+Analyzing
+==========
+smalisca analyzer -f sqlite -i fakebanker.sqlite --config tools/smalisca/data/config/config.conf
+
+=========
+searching
+==========
+Specify by '-c' in which column you'd like to search for a pattern (specified by '-p').
+Examples:
+a) List available columns
+sc -c ?
+
+b) Search for pattern "test" in column "class_name" (first 10 results)
+sc -c class_name -p test -r 10
+
+c) Search for pattern "test2" in column "class_type" (print only from index 10 to 20)
+sc -c class_type -p test2 -r 10,20
+
+You can also exclude table fields using '-x':
+a) Exclude only one column
+sc -c class_type -p test2 -x depth
+
+b) Exclude multiple columns:
+sc -c class_type -p test2 -x depth,id,class_name
+
+sc
+[S]earch for [c]lasses. You can search for a specific pattern (-p) in the available columns:
+smalisca>sc -c ?
+['id', 'class_name', 'class_type', 'class_package', 'depth', 'path']
+Example:
+smalisca>sc -c class_type -p public
+
+sp
+[S]earch for [p]roperties. You can search for a specific pattern (-p) in the available columns:
+smalisca>sp -c ?
+['id', 'property_name', 'property_type', 'property_info', 'property_class']
+Example:
+smalisca>sp -c property_class -p com/gmail
+
+scs
+[S]earch for [c]onstant [s]trings. You can search for a specific pattern (-p) in the available columns:
+smalisca>scs -c ?
+['id', 'const_string_var', 'const_string_value', 'const_string_class']
+Example:
+smalisca>scs -c const_string_value -p http
+
+[S]earch for [m]ethods. You can search for a specific method (-m) in the available columns:
+smalisca>sm -c ?
+['id', 'method_name', 'method_type', 'method_args', 'method_ret', 'method_class']
+Example:
+smlisca>sm -c method_ret -p I
+
+scl
+[S]earch for calls [cl]. Every call has a source (class, method) and a destination (class, method). Additionally a
+call can have several parameters and a return value. Using this command you can apply several filters to each call “component”:
+smalisca>scl --help
+usage: scl [-h] [-fc FROM_CLASS] [-fm FROM_METHOD] [-tc TO_CLASS]
+[-tm TO_METHOD] [-fa LOCAL_ARGS] [-ta DEST_ARGS] [-s SORTBY]
+[--reverse] [-r RANGE] [--max-width MAX_WIDTH] [-x EXCLUDE_FIELDS]
+
+Batch like:
+In the batch modues one could provide the commands in a file. These will be executed in that specific order:
+$ cat cmd.txt
+sc -c class_name -p gmail -x path -r 10
+quit
+$ smalisca analyzer -i /tmp/fakebanker.sqlite -f sqlite -c cmd.txt
+
+========
+Drawing
+========
+dc
+[D]raws [c]lass graphs. Similar to the sc command you can search for classes by specifying the column type (-c) and
+a pattern (-p)
+smalisca>dc -c class_name -p gmail/xlibs -f png --prog dot -o /tmp/smalisca/classes.png
+smalisca>dc -c class_name -p gmail/xlibs -f png --prog fdp -o /tmp/smalisca/classes.png
+
+dcl
+[D]raws calls [cl]. Similar to the scl command you can search for calls by specifiny the calling method/class and/or
+the destinated method/class
+smalisca>dcl -fc gmail/xlibs -fm init -f png --prog dot -o /tmp/smalisca/calls.png
+smalisca>dcl -fc gmail/xlibs -fm init -f png --prog fdp -o /tmp/smalisca/calls.png
+
+dxcl
+[D]raws cross [x] calls [cl]. Similar to the sxcl command you can search for cross-calls by specifying class name
+and/or method name
+smalisca>dxcl -c gmail/xlibs -d to --max-depth 0 -f png --prog dot -o /tmp/smalisca/xcalls.png
+smalisca>dxcl -c gmail/xlibs -d to --max-depth 1 -f png --prog dot -o /tmp/smalisca/xcalls.png
+smalisca>dxcl -c gmail -m create -d from --max-depth 1 -f png --prog dot -o /tmp/smalisca/xcalls.png
+
+
+
+

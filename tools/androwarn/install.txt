@@ -1,0 +1,22 @@
+#Install
+sudo apt-get install python python-jinja2 git
+
+git clone https://github.com/maaaaz/androwarn.git
+
+cd androwarn
+
+wget -nc -cq --show-progress https://www.chilkatsoft.com/download/9.5.0.58/chilkat-9.5.0-python-2.7-x86_64-linux.tar.gz
+
+tar -zxvf chilkat-9.5.0-python-2.7-x86_64-linux.tar.gz
+
+cd chilkat-9.5.0-python-2.7-x86_64-linux
+
+cp _chilkat.so chilkat.py ../androwarn/search/manifest
+
+cd ..
+
+
+
+
+
+
