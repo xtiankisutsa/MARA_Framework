@@ -38,7 +38,15 @@ The following are the requirements for running MARA. The domain SSL scanning com
 
 #### Python3
     apt-get install -y python3
+    
+#### Androwarn dependencies
+    sudo apt-get -y install python python-jinja2 git
 
+#### Smali graph generation dependency
+    pip install pydot
+
+#### Smalisca
+    sudo pip install smalisca
 
 MARA ships with a script that assists in downloading and installing the dependencies above. Simply run the **requirements.sh** script with sudo privilege and it will install them. 
 
