@@ -1,7 +1,7 @@
 #MARA Framework wiki
 
 ##Introduction
-**MARA** is a **M**obile **A**pplication **R**everse engineering and **A**nalysis Framework. It is a toolkit that puts together commonly used mobile application reverse engineering tools, in order to make the task or reverse engineering and analysis easier and friendly to mobile application developers and security professionals. 
+**MARA** is a **M**obile **A**pplication **R**everse engineering and **A**nalysis Framework. It is a toolkit that puts together commonly used mobile application reverse engineering tools, in order to make the task of reverse engineering and analysis easier and friendlier to mobile application developers and security professionals. 
 
 
 ##Features supported
@@ -78,8 +78,20 @@ These are the people who have assisted in ensuring the success of this tool's ca
 * Gabby - [@_V1VI](https://twitter.com/_V1VI)- https://thevivi.net
 * AfricaHackOn Team - @AfricaHackon - http://africahackon.com
 
+
+##Disclaimer
+MARA Framework is intended to be used for ethical hacking and educational purposes. Ensure consent is provided to allow reverse engineering of the various mobile applications as well as the scanning and interaction with the identified domains/IP addresses. 
+
 ##Licensing
-MARA framework is intended to be free to use by anyone. It shall be available on github for contribution and collaboration. The tool is currently licensed under GNU GPL v3 license to allow interested users to copy, distribute and adapt it, provided that the work is attributed.
+MARA framework is intended to be free to use by anyone. It is available here on github for contribution and collaboration. The tool is currently licensed under GNU GPL v3 license to allow interested users to copy, distribute and adapt it, provided that the work is attributed to the creators of the framework.
+
+##Copyright
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
 
 
