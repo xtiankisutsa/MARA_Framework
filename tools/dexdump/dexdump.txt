@@ -1,0 +1,10 @@
+-----
+Usage
+------
+./dexdump -l plain <path_to_dex_file> dex.txt
+./dexdump -l xml <path_to_dex_file> dex.xml
+
+	
+
+
+
