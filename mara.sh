@@ -33,7 +33,7 @@ function minions(){
 	mkdir -p data/$file_/analysis/static/vulnerabilities
 	mkdir -p data/$file_/analysis/static/malicious_activity
 	mkdir -p data/$file_/analysis/static/ssl_scan/logs
-	mkdir -p data/$file_/source
+	mkdir -p data/$file_/source/dex
 	mkdir -p data/domain_scans/
 }
 
@@ -67,9 +67,9 @@ function preliminary_stage_1(){
 	echo "================================="
 	echo -e "${yellow} Performing Preliminary Analysis ${no_color}"
 	echo "================================="
-    #Parsing smali files for analysis by smalisca
+        #Parsing smali files for analysis by smalisca
 	echo -e "${no_color}[+] ${brown}Parsing smali files for analysis"
-    smalisca parser -l data/$file_/smali/baksmali -s java -f sqlite --quiet -o data/$file_/smali/$file_.sqlite -d 10 >> /dev/null
+        smalisca parser -l data/$file_/smali/baksmali -s java -f sqlite --quiet -o data/$file_/smali/$file_.sqlite -d 10 >> /dev/null
 
 	#Dumping assets,libraries and resources
 	echo -e "${no_color}[+] ${brown}Dumping apk assets,libraries and resources"
@@ -133,12 +133,24 @@ function preliminary_stage_1(){
 	fi
 
 	#Dump methods and classes
+	echo -e "${no_color}[+] ${brown}Dumping methods and classes"
 	cd tools/
 	java -jar ClassyShark.jar -inspect ../data/$file_/$file_ >> ../data/$file_/analysis/static/general_analysis/inspect.txt
 	java -jar ClassyShark.jar -export ../data/$file_/$file_ >> /dev/null
 	mv *.txt ../data/$file_/analysis/static/general_analysis/
 	rm AndroidManifest.xml_dump
 	cd ..
+
+	#Dump dex from unzipped apk
+	echo -e "${no_color}[+] ${brown}Dumping dex bytecode"
+	if ! [  "$arch" == armhf ]  || ! [ "$arch" == armel ] || ! [ "$arch" == arm64 ] ;
+	then 
+	cd tools/dexdump/
+	./dexdump -l plain ../../data/$file_/unzipped/classes.dex > dex.txt
+	./dexdump -l xml ../../data/$file_/unzipped/classes.dex > dex.xml	
+	mv dex.xml dex.txt ../../data/$file_/source/dex
+	cd ../../
+	fi
 
 	#bugs - hunting for bugs in the APK :D 
 	echo -e "${no_color}[+] ${brown}Analyzing apk for potential bugs"
