@@ -32,8 +32,12 @@ sudo apt-get -y install python python-jinja2 git
 #Smali graph generation dependency
 sudo pip install pydot
 
+#configparser
+sudo pip install configparser
+
 #Smalisca
 sudo pip install smalisca
+
 
 
 
