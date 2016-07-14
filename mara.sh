@@ -130,6 +130,14 @@ function preliminary_stage_1(){
 	else
 		aapt_=aapt
 		aapt_dump	
+
+		#Dump dex from unzipped apk
+		echo -e "${no_color}[+] ${brown}Dumping dex bytecode"
+		cd tools/dexdump
+		./dexdump -l plain ../../data/$file_/unzipped/classes.dex > dex.txt
+		./dexdump -l xml ../../data/$file_/unzipped/classes.dex > dex.xml	
+		mv dex.xml dex.txt ../../data/$file_/source/dex
+		cd ../../
 	fi
 
 	#Dump methods and classes
@@ -140,17 +148,6 @@ function preliminary_stage_1(){
 	mv *.txt ../data/$file_/analysis/static/general_analysis/
 	rm AndroidManifest.xml_dump
 	cd ..
-
-	#Dump dex from unzipped apk
-	echo -e "${no_color}[+] ${brown}Dumping dex bytecode"
-	if ! [  "$arch" == armhf ]  || ! [ "$arch" == armel ] || ! [ "$arch" == arm64 ] ;
-	then 
-	cd tools/dexdump/
-	./dexdump -l plain ../../data/$file_/unzipped/classes.dex > dex.txt
-	./dexdump -l xml ../../data/$file_/unzipped/classes.dex > dex.xml	
-	mv dex.xml dex.txt ../../data/$file_/source/dex
-	cd ../../
-	fi
 
 	#bugs - hunting for bugs in the APK :D 
 	echo -e "${no_color}[+] ${brown}Analyzing apk for potential bugs"
