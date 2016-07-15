@@ -1,7 +1,7 @@
 #MARA Framework wiki
 
 ##Introduction
-**MARA** is a **M**obile **A**pplication **R**everse engineering and **A**nalysis Framework. It is a toolkit that puts together commonly used mobile application reverse engineering tools, in order to make the task of reverse engineering and analysis easier and friendlier to mobile application developers and security professionals. 
+**MARA** is a **M**obile **A**pplication **R**everse engineering and **A**nalysis Framework. It is a tool that puts together commonly used mobile application reverse engineering and analysis tools, to assist in testing mobile applications against the OWASP mobile security threats.Its objective is to make this task easier and friendlier to mobile application developers and security professionals. 
 
 
 ##Features supported
