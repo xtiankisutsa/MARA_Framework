@@ -43,7 +43,7 @@ The following are the requirements for running MARA. The domain SSL scanning com
     sudo apt-get -y install python python-jinja2 git
 
 #### Smali graph generation dependency
-    pip install pydot
+    sudo pip install pydot
 
 #### Smalisca
     sudo pip install smalisca
