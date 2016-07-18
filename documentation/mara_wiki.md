@@ -37,7 +37,7 @@ The following are the requirements for running MARA. The domain SSL scanning com
     sudo apt-get -y install aha
 
 #### Python3
-    apt-get install -y python3
+    sudo apt-get -y install python3
     
 #### Androwarn dependencies
     sudo apt-get -y install python python-jinja2 git
