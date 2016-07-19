@@ -46,6 +46,7 @@ The following are the requirements for running MARA. The domain SSL scanning com
     sudo pip install pydot
 
 #### Smalisca
+    sudo pip install configparser
     sudo pip install smalisca
 
 MARA ships with a script that assists in downloading and installing the dependencies above. Simply run the **requirements.sh** script with sudo privilege and it will install them. 
