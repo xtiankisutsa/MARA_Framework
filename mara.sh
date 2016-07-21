@@ -369,15 +369,7 @@ multiple APK analysis e.g $0 -m </path/to/apk/folder/>
 dex file analysis e.g $0 -d </path/to/dex/file/>
 jar file analysis e.g $0 -j </path/to/jar/file/>
 class file analysis e.g $0 -c </path/to/class/file/>${no_color}"
-echo ""
-echo -e "${light_green}${bold}Example:"
-echo -e "${yellow}single APK analysis e.g $0 -s </path/to/apk/>
-multiple APK analysis e.g $0 -m </path/to/apk/folder/>
-dex file analysis e.g $0 -d </path/to/dex/file/>
-jar file analysis e.g $0 -j </path/to/jar/file/>
-class file analysis e.g $0 -c </path/to/class/file/>${no_color}"
-echo ""
-    exit -1
+exit -1
 fi
 
 #++++++++++++++
