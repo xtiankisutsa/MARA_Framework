@@ -41,9 +41,13 @@ sudo pip install configparser
 sudo pip install smalisca
 
 #APKiD
-cd toolsd/yara-python
+cd tools/yara-python/
 sudo python setup.py install
 sudo pip install apkid
+cd ../../
+
+
+
 
 
 
