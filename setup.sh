@@ -2,6 +2,9 @@
 
 #These are the requirements for running this tool:
 
+#Package update
+sudo apt-get update
+
 #Java JDK
 sudo apt-get -y install openjdk-7-jdk
 
@@ -10,8 +13,7 @@ sudo apt-get -y install tree
 
 #install 32bit libs
 sudo dpkg --add-architecture i386
-sudo apt-get update
-sudo apt-get -y install libgtk2.0-0:i386 libxxf86vm1:i386 libsm6:i386 lib32stdc++6
+sudo apt-get -y install libgtk2.0-0:i386 libxxf86vm1:i386 libsm6:i386 libstdc++6:i386
 
 #Figlet
 sudo apt-get -y install figlet
@@ -37,6 +39,13 @@ sudo pip install configparser
 
 #Smalisca
 sudo pip install smalisca
+
+#APKiD
+cd toolsd/yara-python
+sudo python setup.py install
+sudo pip install apkid
+
+
 
 
 

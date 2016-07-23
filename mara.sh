@@ -54,7 +54,7 @@ function reversing(){
 
 function decompile(){
 	#jadx - decompile .dex, .apk, .jar or .class to java source code
-	echo -e "${no_color}[+] ${brown}Decompiling ${blue}$file_ ${brown}to Java source code"
+	echo -e "${no_color}[+] ${brown}Decompiling ${blue}$file_ ${brown}to java source code"
 	cd tools/jadx-0.6.0/bin
 	./jadx ../../../data/$file_/$file_ -d ../../../data/$file_/source/java >> /dev/null 
 	./jadx -f ../../../data/$file_/$file_ -d ../../../data/$file_/source/jadx >> /dev/null 
@@ -92,7 +92,7 @@ function preliminary_stage_1(){
 
 	cd ../../../
 
-	#Extractting the certificate data
+	#Extracting the certificate data
 	echo -e "${no_color}[+] ${brown}Extracting certificate data"
 	echo -e "   ${no_color}[-] ${brown}Loading..."
 	cp -r data/$file_/unzipped/META-INF data/$file_/certificate/
@@ -144,7 +144,7 @@ function preliminary_stage_1(){
 	echo -e "${no_color}[+] ${brown}Dumping methods and classes"
 	cd tools/
 	java -jar ClassyShark.jar -inspect ../data/$file_/$file_ >> ../data/$file_/analysis/static/general_analysis/inspect.txt
-	java -jar ClassyShark.jar -export ../data/$file_/$file_ >> /dev/null
+	java -jar ClassyShark.jar -export ../data/$file_/$file_ > /dev/null 2>/dev/null
 	mv *.txt ../data/$file_/analysis/static/general_analysis/
 	rm AndroidManifest.xml_dump
 	cd ..
@@ -168,8 +168,13 @@ function preliminary_stage_1(){
 	cd ../../
 }
 
-function preliminary_stage_2(){
+function compiler(){
+	#Identifying compilers, packers and obfuscators
+	echo -e "${no_color}[+] ${brown}Identifying compiler/packer"
+	apkid data/$file_/$file_ >> data/$file_/analysis/static/general_analysis/compiler_detection.txt
+}
 
+function preliminary_stage_2(){
 	#Dump any file system commands and binary execution paths
 	echo -e "${no_color}[+] ${brown}Dumping execution paths"
 	echo -e "\n==========================\nJadx:\n==========================\n" >> data/$file_/analysis/static/general_analysis/exec_paths.txt 
@@ -222,7 +227,7 @@ function preliminary_stage_2(){
 	grep -rE "[\w.-]+@[\w-]+\.[\w.]+" data/$file_/source/jadx | sort -u >> data/$file_/analysis/static/general_analysis/emails.txt
 
 	#Dump all strings
-	echo -e "${no_color}[+] ${brown}Dumping strings additonal strings "
+	echo -e "${no_color}[+] ${brown}Dumping additonal strings"
 	strings data/$file_/$file_ >> data/$file_/analysis/static/general_analysis/strings.txt
 	echo -e "${blue}[INFO] ${light_green}Done ${no_color}"
 	echo " "
@@ -399,6 +404,7 @@ if [ $1 == '-s' ] || [ $1 == '--single' ] ; then
 	reversing
 	decompile
 	preliminary_stage_1
+	compiler
 	preliminary_stage_2
 	manifest
 	android_analysis
@@ -438,6 +444,7 @@ if [ $1 == '-m' ] || [ $1 == '--multiple' ] ; then
 	reversing
 	decompile
 	preliminary_stage_1
+	compiler
 	preliminary_stage_2
 	manifest
 	android_analysis
@@ -471,6 +478,10 @@ if [ $1 == '-d' ] || [ $1 == '--dex' ] ; then
 
 	#Call the necessary functions
 	decompile
+	echo "====================="
+	echo -e "${yellow} Performing Analysis ${no_color}"
+	echo "=====================" 
+	compiler
 	preliminary_stage_2
 	android_analysis
 	final
@@ -497,7 +508,10 @@ if  [ $1 == '-j' ] || [ $1 == '--jar' ] ; then
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
 	echo " "
 
-	#Call the necessary functions 
+	#Call the necessary functions
+	echo "====================="
+	echo -e "${yellow} Performing Analysis ${no_color}"
+	echo "====================="  
 	decompile
 	preliminary_stage_2
 	android_analysis
@@ -527,6 +541,9 @@ if [ $1 == '-c' ] || [ $1 == '--class' ] ; then
 	echo " "
 
 	#Call the necessary functions
+	echo "====================="
+	echo -e "${yellow} Performing Analysis ${no_color}"
+	echo "=====================" 
 	decompile
 	preliminary_stage_2
 	android_analysis
