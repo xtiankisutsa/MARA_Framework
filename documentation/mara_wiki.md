@@ -3,14 +3,38 @@
 ##Introduction
 **MARA** is a **M**obile **A**pplication **R**everse engineering and **A**nalysis Framework. It is a tool that puts together commonly used mobile application reverse engineering and analysis tools, to assist in testing mobile applications against the OWASP mobile security threats. Its objective is to make this task easier and friendlier to mobile application developers and security professionals. 
 
-
 ##Features supported
-* Reverse engineer apk files to smali, java jar files, java source code and dalvik bytecode  (jadx format)
-* Reverse engineer dex, jar and class files into java source code and dalvik bytecode (jadx format)
-* Statically Analyze java source code and dalvik bytecode
-* Scan for apk vulnerabilities via [androbugs](https://github.com/AndroBugs/AndroBugs_Framework)
-* Scan ssl domains found in the app via the standalone SSL scanner that makes use of [pyssltest](https://github.com/moheshmohan/pyssltest) and [testssl](https://github.com/drwetter/testssl.sh) 
+###APK Reverse Engineering
+* Disassembling Dalvik bytecode to smali bytecode via [baksmali](https://bitbucket.org/JesusFreke/smali/downloads) and [apktool](https://ibotpeaches.github.io/Apktool/install/)
+* Disassembling Dalvik bytecode to java bytecode via [enjarify](https://github.com/google/enjarify)
+* Decompiling APK to Java source code via [jadx](https://github.com/skylot/jadx) 
 
+###Preliminary Analsyis
+* Parsing smali files for analysis via [smalisca](https://github.com/dorneanu/smalisca) 
+* Dump apk assets,libraries and resources
+* Extracting certificate data via [openssl](https://github.com/openssl/openssl)
+* Extract strings and app permissions via aapt
+* Identify methods and classes via [ClassyShark](https://github.com/google/android-classyshark)
+* Scan for apk vulnerabilities via [androbugs](https://github.com/AndroBugs/AndroBugs_Framework)
+* Analyze apk for potential malicious behaviour via [androwarn](https://github.com/maaaaz/androwarn)
+* Identify compilers, packers and obfuscators via [APKiD](https://github.com/rednaga/APKiD)
+* Extract execution paths, IP addresses, URL, URI, emails via regex
+* Domain SSL scan via [pyssltest](https://github.com/moheshmohan/pyssltest) and [testssl](https://github.com/drwetter/testssl.sh) 
+
+###APK Manifest Analysis
+* Extract Intents
+* Extract exported activities
+* Extract receivers
+* Extract exported receivers
+* Extract Services
+* Extract exported services
+* Check if apk is debuggable
+* Check if apk allows backups
+* Check if apk allows sending of secret codes
+* Check if apk can receive binary SMS
+
+###Security Analysis
+* Source code static analysis based on [OWASP Top Mobile Top 10](https://www.owasp.org/index.php/Mobile_Top_10_2016-Top_10) and the [OWASP Mobile Apps Checklist](https://www.owasp.org/index.php/OWASP_Mobile_Security_Project)
 
 ##Installing MARA on Linux/Nethunter
 The following are the requirements for running MARA. The domain SSL scanning component requires an active internet connection. MARA works with Open JDK or Oracle JDK. We recommend version 7 and above when using either of them. 
@@ -38,7 +62,7 @@ The following are the requirements for running MARA. The domain SSL scanning com
 
 #### Python3
     sudo apt-get -y install python3
-    
+
 #### Androwarn dependencies
     sudo apt-get -y install python python-jinja2 git
 
@@ -49,24 +73,23 @@ The following are the requirements for running MARA. The domain SSL scanning com
     sudo pip install configparser
     sudo pip install smalisca
 
-MARA ships with a script that assists in downloading and installing the dependencies above. Simply run the **requirements.sh** script with sudo privilege and it will install them. 
+MARA ships with a script that assists in downloading and installing the dependencies above. Simply run the **setup.sh** script with sudo privilege and it will install them. 
 
 After meeting all the requirements. If you run **./mara.sh** --help you should see the MARA help menu as shown below.
 
 ![](https://cloud.githubusercontent.com/assets/7021125/16488085/5a5c17e8-3ed7-11e6-85c5-d56035b91f94.png)
 
-All the analysis data and file conversions are stored in the data folder i.e. **/MARA_Framework/data/file_name**. MARA also keeps a compressed copy of the analysis in the data folder i.e **/MARA_Framework/data/file_name.zip**.
+All the analysis data and file conversions are stored in the data folder i.e. **/MARA_Framework/data/file_name**. MARA also keeps a compressed copy of the analysis in the data folder i.e **/MARA_Framework/data/file_name.zip**. All the tools included in the Framework can be used standalone, they are all available in the tools folder i.e. **/MARA_Framework/tools**.
 
 ###SSL Scanner
-MARA ships with a SSL scanner script that makes use of pyssltest and testssl. The stand alone SSL scanner can be run using the command **./ssl_scanner.sh** and follow the instructions displayed. The findings from the scan are dumped in the domain scans folder i.e. **/MARA_Framework/data/domain_scans/<domain_name>** 
-
+MARA ships with a SSL scanner script that makes use of pyssltest and testssl. The stand alone SSL scanner can be run using the command **./ssl_scanner.sh** and follow the instructions displayed. The findings from the scan are dumped in the domain scans folder i.e. **/MARA_Framework/data/domain_scans/<domain_name>**. Please note that pyssltest scanner is intended to be used for scanning domains with SSL enabled. Do not scan IP addresses. 
 
 While analyzing APK files, MARA provides the option of scanning domains found in the apk using the above mentioned tools. This scan runs in the background and can be skipped. In the event the scan is performed, the user is required to tail the two log files i.e **pyssltest.log** and **testssl.log** in **/MARA_Framework/data/apk_name/analysis/static/ssl_scan/log/**
 
 ##To do list
 MARA is still in the very early stages of development. We intend to work on the following features: 
-* Integrate dynamic mobile app analysis
-* Rewrite the tool in python
+* Integrate dynamic mobile application analysis
+* Rewrite the MARA Framework in python
 * Integrate iOS, Blackberry and Windows phone application analysis
 * Develop web panel to display data
 * Include additional disassembly and analysis tools 
@@ -78,7 +101,6 @@ These are the people who have assisted in ensuring the success of this tool's ca
 * Munir - [@muntopia](https://twitter.com/muntopia) - http://munir.skilledsoft.com/
 * Gabby - [@_V1VI](https://twitter.com/_V1VI)- https://thevivi.net
 * AfricaHackOn Team - @AfricaHackon - http://africahackon.com
-
 
 ##Disclaimer
 MARA Framework is intended to be used for ethical hacking and educational purposes. Ensure consent is provided to allow reverse engineering of the various mobile applications as well as the scanning and interaction with the identified domains/IP addresses. 
@@ -92,8 +114,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-
-
