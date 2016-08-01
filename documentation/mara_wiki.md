@@ -73,6 +73,16 @@ The following are the requirements for running MARA. The domain SSL scanning com
     sudo pip install configparser
     sudo pip install smalisca
 
+### APKiD
+   cd tools/yara-python/
+   sudo python setup.py install
+   sudo pip install apkid
+   cd ../../
+
+### Increase maximum java heap size for Jadx
+  export JAVA_OPTS="-Xmx4G"
+  source ~/.bashrc
+
 MARA ships with a script that assists in downloading and installing the dependencies above. Simply run the **setup.sh** script with sudo privilege and it will install them. 
 
 After meeting all the requirements. If you run **./mara.sh** --help you should see the MARA help menu as shown below.
