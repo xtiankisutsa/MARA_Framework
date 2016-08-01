@@ -6,7 +6,7 @@
 ##Features supported
 
 ###Reverse Engineering
-* Disassembling Dalvik bytecode to smali bytecode via [baksmali](https://bitbucket.org/JesusFreke/smali/downloads) and [aoktool](https://ibotpeaches.github.io/Apktool/install/)
+* Disassembling Dalvik bytecode to smali bytecode via [baksmali](https://bitbucket.org/JesusFreke/smali/downloads) and [apktool](https://ibotpeaches.github.io/Apktool/install/)
 * Disassembling Dalvik bytecode to java bytecode via [enjarify](https://github.com/google/enjarify)
 * Decompiling APK to Java source code via [jadx](https://github.com/skylot/jadx) 
 
@@ -35,7 +35,7 @@
 * Check if apk can receive binary SMS
 
 ###Security Analysis
-Source code static analysis 
+* Source code static analysis based on [OWASP Top Mobile Top 10](https://www.owasp.org/index.php/Mobile_Top_10_2016-Top_10) and the [OWASP Mobile Apps Checklist](https://www.owasp.org/index.php/OWASP_Mobile_Security_Project)
 
 Additional information about the framework, prerequisites and the installation guide is available on the [wiki] (https://github.com/xtiankisutsa/MARA_Framework/wiki)
 
