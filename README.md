@@ -35,7 +35,7 @@
 * Check if apk can receive binary SMS
 
 ###Security Analysis
-* Source code static analysis based on [OWASP Top Mobile Top 10](https://www.owasp.org/index.php/Mobile_Top_10_2016-Top_10) and the [OWASP Mobile Apps Checklist](https://www.owasp.org/index.php/OWASP_Mobile_Security_Project)
+* Source code static analysis based on [OWASP Top Mobile Top 10](https://www.owasp.org/index.php/Mobile_Top_10_2016-Top_10) and the [OWASP Mobile Apps Checklist](https://drive.google.com/file/d/0BxOPagp1jPHWYmg3Y3BfLVhMcmc/view)
 
 Additional information about the framework, prerequisites and the installation guide is available on the [wiki] (https://github.com/xtiankisutsa/MARA_Framework/wiki)
 
