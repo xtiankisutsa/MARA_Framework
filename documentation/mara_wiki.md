@@ -34,13 +34,15 @@
 * Check if apk can receive binary SMS
 
 ###Security Analysis
-* Source code static analysis based on [OWASP Top Mobile Top 10](https://www.owasp.org/index.php/Mobile_Top_10_2016-Top_10) and the [OWASP Mobile Apps Checklist](https://www.owasp.org/index.php/OWASP_Mobile_Security_Project)
+* Source code static analysis based on [OWASP Top Mobile Top 10](https://www.owasp.org/index.php/Mobile_Top_10_2016-Top_10) and the [OWASP Mobile Apps Checklist](https://drive.google.com/file/d/0BxOPagp1jPHWYmg3Y3BfLVhMcmc/view)
 
 ##Installing MARA on Linux/Nethunter
 The following are the requirements for running MARA. The domain SSL scanning component requires an active internet connection. MARA works with Open JDK or Oracle JDK. We recommend version 7 and above when using either of them. 
-
 #### Java JDK
     sudo apt-get -y install openjdk-7-jdk 
+
+#### Git
+    sudo apt-get -y install git
 
 #### Tree
     sudo apt-get -y install tree
@@ -73,7 +75,15 @@ The following are the requirements for running MARA. The domain SSL scanning com
     sudo pip install configparser
     sudo pip install smalisca
 
-MARA ships with a script that assists in downloading and installing the dependencies above. Simply run the **setup.sh** script with sudo privilege and it will install them. 
+###Downloading MARA
+* git clone --recursive https://github.com/xtiankisutsa/MARA_Framework
+
+###Updating MARA
+* cd MARA_Framework
+* git pull https://github.com/xtiankisutsa/MARA_Framework
+* ./setup.sh
+
+MARA ships with a script that assists in downloading and installing the dependencies above. Simply run the **setup.sh** script with sudo privilege and it will install them. You will also need to re-run this script when you update MARA. 
 
 After meeting all the requirements. If you run **./mara.sh** --help you should see the MARA help menu as shown below.
 
