@@ -8,6 +8,9 @@ sudo apt-get update
 #Java JDK
 sudo apt-get -y install openjdk-7-jdk
 
+#Git
+sudo apt-get -y install git
+
 #Tree
 sudo apt-get -y install tree
 
