@@ -244,6 +244,7 @@ function manifest(){
 	java -jar tools/apktool_2.1.0.jar d -q data/$file_/$file_ -o data/$file_/buffer >> /dev/null 
 	mv data/$file_/buffer/AndroidManifest.xml data/$file_
 	mv data/$file_/buffer/smali data/$file_/smali/apktool
+	mv data/$file_/buffer/res/values* data/$file_/unzipped/res/ 
 	rm -r data/$file_/buffer
 
 	echo "===========================" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
