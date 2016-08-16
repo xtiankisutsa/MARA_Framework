@@ -113,7 +113,7 @@ These are the people who have assisted in ensuring the success of this tool's ca
 * AfricaHackOn Team - @AfricaHackon - http://africahackon.com
 
 ##Contributors
-* Charles - [@icrackthecode](https://twitter.com/icrackthecode) -[https://github.com/icrackthecode]
+* Charles - [@icrackthecode](https://twitter.com/icrackthecode) - [https://github.com/icrackthecode]
 
 ##Disclaimer
 MARA Framework is intended to be used for ethical hacking and educational purposes. Ensure consent is provided to allow reverse engineering of the various mobile applications as well as the scanning and interaction with the identified domains/IP addresses. 
