@@ -86,10 +86,6 @@ function preliminary_stage_1(){
 		cp -r res/raw ../../../data/$file_/source 
 	fi
 
-	if [ -f res/values/strings.xml ];then
-		cp res/values/strings.xml ../../../data/$file_/analysis/static
-	fi
-
 	cd ../../../
 
 	#Extracting the certificate data
