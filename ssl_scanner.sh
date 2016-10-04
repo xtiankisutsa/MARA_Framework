@@ -15,30 +15,30 @@ no_color='\e[0m'
 	#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	#SSL Implementation 
 	#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	echo -e "   ${no_color}[-] ${light_red}Enter domain to scan:${no_color}" 
-	echo -e "   ${light_red}[NOTE] ${light_red}Domain scanning takes about 3 minutes! ${no_color}"
+	echo -e "   ${no_color}[-] ${brown}Enter domain to scan:${no_color}" 
+	echo -e "   ${light_red}[NOTE] ${brown}Domain scanning takes about 3 minutes! ${no_color}"
 	read domain_	
 	dump=`echo $domain_ | rev | cut -d '/' -f 1 | rev` 
-	mkdir -p data/$file_/analysis/static/ssl_scan/$dump/logs
-	echo $domain_ > data/$file_/analysis/static/ssl_scan/$dump/domain.txt 
+	mkdir -p data/domain_scans/$dump/logs
+	echo $domain_ > data/domain_scans/$dump/domain.txt 
 	echo -e "   ${no_color}[-] ${brown}Stage 1 - Scanning ${blue}$domain_ ${brown}...please be patient!!${no_color}"
 
 	#pyssltest
 	cd tools/pyssltest/ 
-	python pyssltest.py -i ../../data/$file_/analysis/static/ssl_scan/$dump/domain.txt -o ../../data/$file_/analysis/static/ssl_scan/$dump/data.csv -n > ../../data/$file_/analysis/static/ssl_scan/$dump/logs/debug.txt
-	cat ../../data/$file_/analysis/static/ssl_scan/$dump/logs/debug.txt  | sed '/^$/d' | awk '!a[$0]++' >> ../../data/$file_/analysis/static/ssl_scan/$dump/scan.log
-	rm ../../data/$file_/analysis/static/ssl_scan/$dump/logs/debug.txt
-	mv results/*.txt ../../data/$file_/analysis/static/ssl_scan/$dump/
+	python pyssltest.py -i ../../data/domain_scans/$dump/domain.txt -o ../../data/domain_scans/$dump/data.csv -n > ../../data/domain_scans/$dump/logs/debug.txt
+	cat ../../data/domain_scans/$dump/logs/debug.txt  | sed '/^$/d' | awk '!a[$0]++' >> ../../data/domain_scans/$dump/scan.log
+	rm ../../data/domain_scans/$dump/logs/debug.txt
+	mv results/*.txt ../../data/domain_scans/$dump/
 	
 	#This is a script to clean up the ssl scan data 
 	echo -e "   ${no_color}[-] ${brown}Cleaning up scan data${no_color}"
-	echo -e "\n===================\nSSL Scan Summary:\n===================\n" >> ../../data/$file_/analysis/static/ssl_scan/$dump/ssl_summary.txt
+	echo -e "\n===================\nSSL Scan Summary:\n===================\n" >> ../../data/domain_scans/$dump/ssl_summary.txt
 	count=1
 
 	while [ $count -le 55 ]
 	do
-		cat ../../data/$file_/analysis/static/ssl_scan/$dump/data.csv | cut -d ',' -f $count >> ../../data/$file_/analysis/static/ssl_scan/$dump/ssl_summary.txt
-		echo " " >> ../../data/$file_/analysis/static/ssl_scan/$dump/ssl_summary.txt
+		cat ../../data/domain_scans/$dump/data.csv | cut -d ',' -f $count >> ../../data/domain_scans/$dump/ssl_summary.txt
+		echo " " >> ../../data/domain_scans/$dump/ssl_summary.txt
 		count=`expr $count + 1`
 	done
 	echo -e "   ${no_color}[-] ${brown}Stage 1 - Domain scanning completed ${no_color}" 
@@ -47,13 +47,13 @@ no_color='\e[0m'
 
 	#testssl 
 	echo -e "\n===================\nTestssl Log:\n===================\n"
-	echo `date` >> ../data/$file_/analysis/static/ssl_scan/$dump/logs/testssl.log 
+	echo `date` >> ../data/domain_scans/$dump/logs/testssl.log 
 	echo -e "   ${no_color}[-] ${brown}Stage 2 - Scanning ${blue}$domain_ ${brown}${no_color}"
 	cd testssl.sh/ 
-	./testssl.sh -U -R -I -E -H -S -P -e -p -f -4  --sneaky --logfile ../../data/$file_/analysis/static/ssl_scan/$dump/ssl_detailed.txt $domain_ | aha > ../../data/$file_/analysis/static/ssl_scan/$dump/ssl_detailed.html
+	./testssl.sh -U -R -I -E -H -S -P -e -p -f -4  --sneaky --logfile ../../data/domain_scans/$dump/ssl_detailed.txt $domain_ | aha > ../../data/domain_scans/$dump/ssl_detailed.html
 	echo -e "   ${no_color}[-] ${brown}Stage 2 - Domain scanning completed ${no_color}" 
 	cd ../../
 	echo -e "   ${no_color}[-] ${brown}SSL data is ready for review!!${no_color}"
-	echo -e "   ${light_red}[NOTE] ${brown}The SSL data has been dumped in ${blue}data/$file_/analysis/static/ssl_scan/$dump ${no_color}"	
+	echo -e "   ${light_red}[NOTE] ${brown}The SSL data has been dumped in ${blue}data/domain_scans/$dump ${no_color}"	
 	echo " "
 

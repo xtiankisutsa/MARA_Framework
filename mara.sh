@@ -34,6 +34,7 @@ function minions(){
 	mkdir -p data/$file_/analysis/static/malicious_activity
 	mkdir -p data/$file_/analysis/static/ssl_scan/logs
 	mkdir -p data/$file_/source/dex
+	mkdir -p data/domain_scans
 }
 
 function reversing(){

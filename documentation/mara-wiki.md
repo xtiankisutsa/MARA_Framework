@@ -87,7 +87,7 @@ MARA ships with a script that assists in downloading and installing the dependen
 
 After meeting all the requirements. If you run **./mara.sh** --help you should see the MARA help menu as shown below.
 
-![](https://cloud.githubusercontent.com/assets/7021125/16488085/5a5c17e8-3ed7-11e6-85c5-d56035b91f94.png)
+![](https://raw.githubusercontent.com/xtiankisutsa/MARA_Framework/master/documentation/help.png)
 
 All the analysis data and file conversions are stored in the data folder i.e. **/MARA_Framework/data/file_name**. MARA also keeps a compressed copy of the analysis in the data folder i.e **/MARA_Framework/data/file_name.zip**. All the tools included in the Framework can be used standalone, they are all available in the tools folder i.e. **/MARA_Framework/tools**.
 
@@ -95,6 +95,11 @@ All the analysis data and file conversions are stored in the data folder i.e. **
 MARA ships with a SSL scanner script that makes use of pyssltest and testssl. The stand alone SSL scanner can be run using the command **./ssl_scanner.sh** and follow the instructions displayed. The findings from the scan are dumped in the domain scans folder i.e. **/MARA_Framework/data/domain_scans/<domain_name>**. Please note that pyssltest scanner is intended to be used for scanning domains with SSL enabled. Do not scan IP addresses. 
 
 While analyzing APK files, MARA provides the option of scanning domains found in the apk using the above mentioned tools. This scan runs in the background and can be skipped. In the event the scan is performed, the user is required to tail the two log files i.e **pyssltest.log** and **testssl.log** in **/MARA_Framework/data/apk_name/analysis/static/ssl_scan/log/**
+
+###Generate smali control flow graphs
+MARA is capable of generating control flow graphs from smali code. This is achieved by utilizing Smali-CFGs. The graph generation is optional and can be time consuming depending on the size of the android app being analyzed. The graphs are stored in two folders i.e. **apktool_cfg** and **baksmali_cfg** respectively in the location **/MARA_Framework/data/apk_name/smali/**
+
+The graph generation runs in the background and you can check its completion by tailing the log files **apktool_cfg.log** and **baksmali_cfg.log** in the location mentioned above. 
 
 ##To do list
 MARA is still in the very early stages of development. We intend to work on the following features: 
