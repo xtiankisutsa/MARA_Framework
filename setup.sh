@@ -35,7 +35,7 @@ sudo apt-get -y install python3
 sudo apt-get -y install python python-jinja2 git
 
 #Smali graph generation dependency
-sudo pip install pydot
+sudo pip install pydot --user
 
 #configparser
 sudo pip install configparser
@@ -52,6 +52,7 @@ cd ../../
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
 source ~/.bashrc
+
 
 
 

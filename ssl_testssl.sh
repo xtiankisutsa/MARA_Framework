@@ -24,7 +24,7 @@ no_color='\e[0m'
 	echo -e "   ${no_color}[-] ${brown}SSL data is ready for review!!${no_color}" >> ../../data/$file_/analysis/static/ssl_scan/logs/testssl.log 
 	cd ../../
 	echo " " data/$file_/analysis/static/ssl_scan/logs/testssl.log 
-	echo "=====================================================================" >> data/$file_/analysis/static/ssl_scan/logs/pyssltest.log
+	echo "=====================================================================" >> data/$file_/analysis/static/ssl_scan/logs/testssl.log
 	echo " "
 	
 

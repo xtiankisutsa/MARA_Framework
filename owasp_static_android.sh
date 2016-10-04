@@ -108,6 +108,15 @@ echo -e "${no_color}[+] ${blue}M2-Insecure Data Storage"
 	grep -rE 'rawQuery|SQLiteDatabase|execSQL|android.database.sqlite' data/$file_/source/java | sort -u >> data/$file_/analysis/static/vulnerabilities/SQLite_Database.txt
 	echo -e "   ${light_red}[NOTE] ${brown}Sensitive information should be encrypted"
 
+	#Checking for content providers
+	echo -e "   ${no_color}[-] ${brown}Checking for content providers"
+	echo -e "\n==========================\nContent providers:\n==========================\n" >> data/$file_/analysis/static/vulnerabilities/content_providers.txt
+	echo "Jadx:" >>  data/$file_/analysis/static/vulnerabilities/content_providers.txt
+	grep -rE 'content://' data/$file_/source/jadx | sort -u >> data/$file_/analysis/static/vulnerabilities/content_providers.txt
+	echo " " >> data/$file_/analysis/static/vulnerabilities/content_providers.txt
+	echo "Java:" >>  data/$file_/analysis/static/vulnerabilities/content_providers.txt
+	grep -rE 'content://' data/$file_/source/java | sort -u >> data/$file_/analysis/static/vulnerabilities/content_providers.txt
+
 	#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	#Filesystem Access
 	#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -460,18 +469,18 @@ echo -e "${no_color}[+] ${blue}SSL implementation"
 	#echo "Extracting domains from source files"
 	grep -rEo '(http|https|ftp|ftps)://[^/\n ]*' data/$file_/source/jadx | cut -d ':' -f 2-3 | sort -u | sed "s/^/       /" 
 	#Ask if they want to scan domain
-	echo -e "   ${no_color}[-] ${brown}Scan domain? (yes/no)"
-	echo -e "   ${light_red}[NOTE] ${brown}Domain scanning takes about 2 minutes! ${no_color}"
+	echo -e "   ${no_color}[-] ${brown}Scan domain? ${light_red}(yes/no)"
+	echo -e "   ${light_red}[NOTE] ${light_red}Domain scanning takes about 2 minutes! This will however run in the background while analysis continues ${no_color}"
 	read input
 
 	if [ $input == 'yes' ] || [ $input == 'y' ] ; then 
 		scan_domain	
 	elif
 		[ $input == 'no' ] || [ $input == 'n' ] ; then 
-		echo -e "   ${light_red}[NOTE] ${brown}Skipped domain scanning!!"	
+		echo -e "   ${light_red}[NOTE] ${light_red}Skipped domain scanning!!"	
 	else
 
-		if ! [ $input == 'yes' ] || ! [ $input == 'no' ] ; then 
+		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ]  ; then 
 			echo -e "   ${light_red}[NOTE] ${brown}Invalid response!!"	
 		fi
 	fi	
