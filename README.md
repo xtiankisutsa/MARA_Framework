@@ -19,6 +19,7 @@
 * Scan for apk vulnerabilities via [androbugs](https://github.com/AndroBugs/AndroBugs_Framework)
 * Analyze apk for potential malicious behaviour via [androwarn](https://github.com/maaaaz/androwarn)
 * Identify compilers, packers and obfuscators via [APKiD](https://github.com/rednaga/APKiD)
+* Generate control flow graphs from smali code via [smali-CFGs](https://github.com/ch0psticks/Smali-CFGs)
 * Extract execution paths, IP addresses, URL, URI, emails via regex
 * Domain SSL scan via [pyssltest](https://github.com/moheshmohan/pyssltest) and [testssl](https://github.com/drwetter/testssl.sh) 
 
