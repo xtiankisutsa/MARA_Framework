@@ -96,7 +96,7 @@ MARA ships with a SSL scanner script that makes use of pyssltest and testssl. Th
 
 While analyzing APK files, MARA provides the option of scanning domains found in the apk using the above mentioned tools. This scan runs in the background and can be skipped. In the event the scan is performed, the user is required to tail the two log files i.e **pyssltest.log** and **testssl.log** in **/MARA_Framework/data/apk_name/analysis/static/ssl_scan/log/**
 
-###Generate smali control flow graphs
+###Smali control flow graphs
 MARA is capable of generating control flow graphs from smali code. This is achieved by utilizing Smali-CFGs. The graph generation is optional and can be time consuming depending on the size of the android app being analyzed. The graphs are stored in two folders i.e. **apktool_cfg** and **baksmali_cfg** respectively in the location **/MARA_Framework/data/apk_name/smali/**
 
 The graph generation runs in the background and you can check its completion by tailing the log files **apktool_cfg.log** and **baksmali_cfg.log** in the location mentioned above. 
