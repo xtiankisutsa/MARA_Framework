@@ -8,11 +8,12 @@
 ###APK Reverse engineering
 * Disassembling Dalvik bytecode to smali bytecode via [baksmali](https://bitbucket.org/JesusFreke/smali/downloads) and [apktool](https://ibotpeaches.github.io/Apktool/install/)
 * Disassembling Dalvik bytecode to java bytecode via [enjarify](https://github.com/google/enjarify)
-* Decompiling APK to Java source code via [jadx](https://github.com/skylot/jadx) 
+* Decompiling APK to Java source code via [jadx](https://github.com/skylot/jadx)
+* Decoding Manifest file and resources via [apktool] (https://ibotpeaches.github.io/Apktool/install/)
 
 ###Preliminary Analsyis
 * Parsing smali files for analysis via [smalisca](https://github.com/dorneanu/smalisca) 
-* Dump apk assets,libraries and resources
+* Dump apk assets,libraries and resources 
 * Extracting certificate data via [openssl](https://github.com/openssl/openssl)
 * Extract strings and app permissions via aapt
 * Identify methods and classes via [ClassyShark](https://github.com/google/android-classyshark)
