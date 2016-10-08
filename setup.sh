@@ -54,19 +54,3 @@ cd ../../
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
 source ~/.bashrc
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
