@@ -1,3 +1,0 @@
-[submodule "yara"]
-	path = yara
-	url = https://git@github.com/rednaga/yara.git
