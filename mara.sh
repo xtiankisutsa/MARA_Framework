@@ -226,7 +226,7 @@ function preliminary_stage_1(){
 	#Dump methods and classes
 	echo -e "${no_color}[+] ${brown}Dumping methods and classes"
 	cd tools/
-	java -jar ClassyShark.jar -inspect ../data/$file_/$file_ >> ../data/$file_/analysis/static/general_analysis/inspect.txt
+	java -jar ClassyShark.jar -inspect ../data/$file_/$file_ >> ../data/$file_/analysis/static/general_analysis/inspect.txt  > /dev/null 2>/dev/null 
 	java -jar ClassyShark.jar -export ../data/$file_/$file_ > /dev/null 2>/dev/null
 	mv *.txt ../data/$file_/analysis/static/general_analysis/
 	rm AndroidManifest.xml_dump
