@@ -1,5 +1,7 @@
 # Androguard
 
+[![Build Status](https://travis-ci.org/androguard/androguard.svg?branch=master)](https://travis-ci.org/androguard/androguard)
+
 ## Features
 
 Androguard is a full python tool to play with Android files.
@@ -7,8 +9,9 @@ Androguard is a full python tool to play with Android files.
 * DEX, ODEX
 * APK
 * Android's binary xml
+* Android resources
 * Disassemble DEX/ODEX bytecodes
-* Decompiler DEX files
+* Decompiler for DEX/ODEX files
 
 ##1. Authors: Androguard Team
 
@@ -16,12 +19,16 @@ Androguard + tools: Anthony Desnos (desnos at t0t0.fr).
 
 DAD (DAD is A Decompiler): Geoffroy Gueguen (geoffroy dot gueguen at gmail dot com)
 
+##2. Stable release
 
-##2. Licenses
+See the stable release here:
+https://github.com/androguard/androguard/releases
+
+##3. Licenses
 
 * Androguard
 
-Copyright (C) 2012 - 2015, Anthony Desnos (desnos at t0t0.fr)
+Copyright (C) 2012 - 2016, Anthony Desnos (desnos at t0t0.fr)
 All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +45,7 @@ limitations under the License.
 
 * DAD
 
-Copyright (C) 2012 - 2015, Geoffroy Gueguen (geoffroy dot gueguen at gmail dot com)
+Copyright (C) 2012 - 2016, Geoffroy Gueguen (geoffroy dot gueguen at gmail dot com)
 All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");

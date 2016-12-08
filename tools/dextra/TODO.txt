@@ -11,3 +11,7 @@
 
 - Either two pass, or buffer output of entire function so I can insert back label (and switch labels)
 
+
+
+--
+-- Fixed crazy operands (> 80 bytes) by adjusting buffer length. May want to enforce snprintf at some point

@@ -21,7 +21,7 @@ mv ../../data/$file_/smali/android_baksmali  ../../data/$file_/smali/baksmali/an
 
 cd ../../
 
-
+exit
 
 
 

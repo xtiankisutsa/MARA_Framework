@@ -15,11 +15,6 @@
 from .. import ir
 from ..jvmops import *
 
-_dup = bytes([DUP])
-_dup2 = bytes([DUP2])
-_pop = bytes([POP])
-_pop2 = bytes([POP2])
-
 def visitLinearCode(irdata, visitor):
     # Visit linear sections of code, pessimistically treating all exception
     # handler ranges as jumps.
@@ -40,7 +35,7 @@ def visitLinearCode(irdata, visitor):
             visitor.visitReturn()
         else:
             visitor.visit(instr)
-    assert(except_level == 0)
+    assert except_level == 0
     return visitor
 
 class NoExceptVisitorBase:
@@ -86,7 +81,6 @@ def inlineConsts(irdata):
     instrs = irdata.flat_instructions
     visitor = visitLinearCode(irdata, ConstInliner())
 
-    remove = set()
     replace = {}
     for ins1, ins2 in zip(instrs, instrs[1:]):
         if ins2 in visitor.notmultiused and isinstance(ins1, (ir.PrimConstant, ir.OtherConstant)):
@@ -108,7 +102,7 @@ class StoreLoadPruner(NoExceptVisitorBase):
 
     def visitReturn(self):
         for pair in self.current.values():
-            assert(pair[0].store and not pair[1].store)
+            assert pair[0].store and not pair[1].store
             self.removed.update(pair)
         self.reset()
 
@@ -118,7 +112,7 @@ class StoreLoadPruner(NoExceptVisitorBase):
             if instr.store:
                 if key in self.current:
                     pair = self.current[key]
-                    assert(pair[0].store and not pair[1].store)
+                    assert pair[0].store and not pair[1].store
                     self.removed.update(self.current.pop(key))
                 self.last = instr
             else:
@@ -150,17 +144,17 @@ def genDups(needed, needed_after):
         cur = []
         if have < needed:
             if have == 1 and needed >= 2:
-                cur.append(_dup)
+                cur.append(ir.Dup())
                 have += 1
             if have == 2 and needed >= 4:
-                cur.append(_dup2)
+                cur.append(ir.Dup2())
                 have += 2
         have -= 1
         needed -= 1
         yield cur
-    assert(have >= needed)
+    assert have >= needed
     # check if we have to pop at end
-    yield [_pop]*(have-needed)
+    yield [ir.Pop() for _ in range(have-needed)]
 
 # Range of instruction indexes at which a given register is read (in linear code)
 class UseRange:
@@ -187,7 +181,7 @@ class UseRange:
     def sortkey(self): return len(self.uses), self.uses[0]
 
 def makeRange(instr):
-    assert(isinstance(instr, ir.RegAccess) and not instr.store)
+    assert isinstance(instr, ir.RegAccess) and not instr.store
     return UseRange([])
 
 def dup2ize(irdata):
@@ -243,7 +237,7 @@ def dup2ize(irdata):
     for ur in chosen:
         gen = genDups(len(ur.uses), 0)
         for pos in ur.uses:
-            ops = [ir.Other(bytecode) for bytecode in next(gen)]
+            ops = next(gen)
             # remember to include initial load!
             if pos == ur.start:
                 ops = [instrs[pos]] + ops

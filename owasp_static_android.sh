@@ -454,12 +454,14 @@ echo -e "${no_color}[+] ${blue}SSL implementation"
 	echo -e "   ${no_color}[-] ${brown}Enter domain to scan:${no_color}" 
 	read domain	
 	export domain
-	echo $domain > data/$file_/analysis/static/ssl_scan/domain.txt 
+	echo $domain > data/$file_/analysis/dynamic/ssl_scan/domain.txt 
 	echo -e "   ${no_color}[-] ${brown}Scanning ${blue}$domain ${brown}in the background...please be patient!!${no_color}"
+	#whatweb
+	whatweb -v $domain > data/$file_/analysis/dynamic/domain_info.txt 2>>/dev/null &
 	#pyssltest
-	nohup ./ssl_pyssltest.sh > /dev/null 2>>data/$file_/analysis/static/ssl_scan/logs/pyssltest_errors.log &
+	nohup ./ssl_pyssltest.sh > /dev/null 2>>data/$file_/analysis/dynamic/ssl_scan/logs/pyssltest_errors.log &
 	#testssl 
-	nohup ./ssl_testssl.sh > /dev/null 2>>data/$file_/analysis/static/ssl_scan/logs/testssl_errors.log &
+	nohup ./ssl_testssl.sh > /dev/null 2>>data/$file_/analysis/dynamic/ssl_scan/logs/testssl_errors.log &
 	}
 
 	#This is the code for scanning domains
@@ -470,7 +472,7 @@ echo -e "${no_color}[+] ${blue}SSL implementation"
 	grep -rEo '(http|https|ftp|ftps)://[^/\n ]*' data/$file_/source/jadx | cut -d ':' -f 2-3 | sort -u | sed "s/^/       /" 
 	#Ask if they want to scan domain
 	echo -e "   ${no_color}[-] ${brown}Scan domain? ${light_red}(yes/no)"
-	echo -e "   ${light_red}[NOTE] ${light_red}Domain scanning takes about 2 minutes! This will however run in the background while analysis continues ${no_color}"
+	echo -e "   ${light_red}[NOTE] ${light_red}Domain scanning may take upto 3 minutes. This will run in the background!!${no_color}"
 	read input
 
 	if [ $input == 'yes' ] || [ $input == 'y' ] ; then 
@@ -732,3 +734,4 @@ echo -e "${no_color}[+] ${blue}Application makes use of encoding/decoding"
 	grep -rE 'android.util.Base64|.decode' data/$file_/source/java | sort -u >> data/$file_/analysis/static/vulnerabilities/crypto_implementation.txt
 	echo " "
 
+exit

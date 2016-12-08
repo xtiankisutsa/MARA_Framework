@@ -15,6 +15,9 @@ no_color='\e[0m'
 	#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	#SSL Implementation 
 	#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	echo -e "=================="
+	echo -e "${yellow} MARA SSL scanner ${no_color}"
+	echo -e "=================="	
 	echo -e "   ${no_color}[-] ${brown}Enter domain to scan:${no_color}" 
 	echo -e "   ${light_red}[NOTE] ${brown}Domain scanning takes about 3 minutes! ${no_color}"
 	read domain_	
@@ -56,4 +59,6 @@ no_color='\e[0m'
 	echo -e "   ${no_color}[-] ${brown}SSL data is ready for review!!${no_color}"
 	echo -e "   ${light_red}[NOTE] ${brown}The SSL data has been dumped in ${blue}data/domain_scans/$dump ${no_color}"	
 	echo " "
+
+exit
 

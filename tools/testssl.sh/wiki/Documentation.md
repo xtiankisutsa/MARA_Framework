@@ -1,1 +1,0 @@
-`testssl(sh)`

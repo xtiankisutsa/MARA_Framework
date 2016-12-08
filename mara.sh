@@ -32,8 +32,9 @@ function minions(){
 	mkdir -p data/$file_/analysis/static/general_analysis
 	mkdir -p data/$file_/analysis/static/vulnerabilities
 	mkdir -p data/$file_/analysis/static/malicious_activity
-	mkdir -p data/$file_/analysis/static/ssl_scan/logs
-	mkdir -p data/$file_/source/dex
+	mkdir -p data/$file_/analysis/dynamic/ssl_scan/logs
+    	mkdir -p data/$file_/source/deobfuscated
+        mkdir -p data/$file_/source/dex
 	mkdir -p data/domain_scans
 }
 
@@ -43,7 +44,7 @@ function reversing(){
 	echo "====================="
 	#baksmali - Convert APK/Dex to smali code (for better smali code)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to smali bytecode"
-	java -jar tools/baksmali-2.1.1.jar data/$file_/unzipped/classes.dex -o data/$file_/smali/baksmali >> /dev/null 2>/dev/null
+	java -jar tools/baksmali-2.2b4.jar d data/$file_/unzipped/classes.dex -o data/$file_/smali/baksmali >> /dev/null 2>/dev/null
 
 	#enjarify - convert APK/Dex to jar (dex2jar replacement)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to java bytecode"
@@ -64,13 +65,35 @@ function decompile(){
 function decode(){
 	#apktool - Convert Android Manifest, decode resources and dump smali
 	echo -e "${no_color}[+] ${brown}Decoding Manifest file and resources" 
-	java -jar tools/apktool_2.1.0.jar d -q data/$file_/$file_ -o data/$file_/buffer >> /dev/null 2>/dev/null
-	mv data/$file_/buffer/AndroidManifest.xml data/$file_
-	mv data/$file_/buffer/smali data/$file_/smali/apktool
-	mv data/$file_/buffer/res/values* data/$file_/unzipped/res/ 
-	rm -r data/$file_/buffer
-	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
-	echo " "
+	java -jar tools/apktool_2.2.1.jar d -q data/$file_/$file_ -o data/$file_/buffer >> /dev/null 2>/dev/null
+	mv data/$file_/buffer/AndroidManifest.xml data/$file_ >> /dev/null 2>/dev/null
+	mv data/$file_/buffer/smali data/$file_/smali/apktool >> /dev/null 2>/dev/null
+	mv data/$file_/buffer/res/values* data/$file_/unzipped/res/ >> /dev/null 2>/dev/null
+	rm -r data/$file_/buffer >> /dev/null 2>/dev/null
+}
+
+function deobfuscate(){
+ 	#Deobfuscate APK file via apk-deguard
+	echo -e "${no_color}[+] ${brown}Deobfuscate ${blue}$file_${brown}? ${light_red}(yes/no)"
+	echo -e "    ${light_red}[NOTE] ${light_red}Deobfuscating ${blue}$file_ ${light_red}may take upto 5 minutes. This will run in the background!!"
+    	echo -e "    ${light_red}[NOTE] ${light_red}Maximum file size for analysis is 16MB${no_color}"
+	
+	read input
+
+	if [ $input == 'yes' ] || [ $input == 'y' ] ; then 		
+		    nohup ./de-guard.sh > /dev/null 2>>/dev/null & 
+	elif
+		[ $input == 'no' ] || [ $input == 'n' ] ; then 
+		echo -e "    ${light_red}[NOTE] Skipped Deobfuscation!!"	
+	else
+
+		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then 
+		echo -e "    ${light_red}[NOTE] ${brown}Invalid response!!"	
+		fi
+	fi
+    
+    echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
+	echo " "  
 }
 
 function manifest(){
@@ -156,7 +179,7 @@ function preliminary_stage_1(){
 	echo "================================="
 	#Parsing smali files for analysis by smalisca
 	echo -e "${no_color}[+] ${brown}Parsing smali files for analysis"
-        smalisca parser -l data/$file_/smali/baksmali -s java -f sqlite --quiet -o data/$file_/smali/$file_.sqlite -d 10 >> /dev/null
+    smalisca parser -l data/$file_/smali/baksmali -s java -f sqlite --quiet -o data/$file_/smali/$file_.sqlite -d 10 >> /dev/null 2>/dev/null
 
 	#Dumping assets,libraries and resources
 	echo -e "${no_color}[+] ${brown}Dumping apk assets,libraries and resources"
@@ -254,7 +277,7 @@ function preliminary_stage_1(){
 function cfg(){
 	#Generate smali control flow graphs
 	echo -e "${no_color}[+] ${brown}Generate smali control flow graphs? ${light_red}(yes/no)"
-	echo -e "    ${light_red}[NOTE] ${light_red}Generating CFGs may take upto 20 minutes!! This will however run in the background while analysis continues ${no_color}"
+	echo -e "    ${light_red}[NOTE] ${light_red}Generating CFGs may take upto 20 minutes. This will run in the background!!${no_color}"
 	read input
 
 	if [ $input == 'yes' ] || [ $input == 'y' ] ; then 		
@@ -262,11 +285,11 @@ function cfg(){
 		nohup ./apktool_cfg.sh > /dev/null 2>/dev/null &	
 	elif
 		[ $input == 'no' ] || [ $input == 'n' ] ; then 
-		echo -e "    ${light_red}[NOTE] ${brown}Skipped CFG generation!!"	
+		echo -e "    ${light_red}[NOTE] Skipped CFG generation!!"	
 	else
 
 		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then 
-		echo -e "    ${light_red}[NOTE] ${brown}Invalid response!!"	
+		echo -e "    ${light_red}[NOTE] Invalid response!!"	
 		fi
 	fi
 }
@@ -351,25 +374,12 @@ function final(){
 	echo "====================="
 	echo -e "${yellow} Finalizing Analysis ${no_color}"
 	echo "====================="
-	#Listing files
-	#echo -e "${no_color}[+] ${brown}Listing files"
-	#tree data/$file_/analysis > data/$file_/analysis/static/general_analysis/file_list.txt
-
-	#zipping apk for extraction
-	#cd data/
-	#echo -e "${no_color}[+] ${brown}Zipping analysis data for extraction"
-	#zip -r $file_.zip $file_ >> /dev/null
 	echo -e "${no_color}[+] ${brown}Dispersing minions..."
 	#cd ..
 	echo -e "${blue}[INFO] ${light_green}Done${no_color}"
 	echo " "
 	echo -e "${no_color}[+] ${brown}That was easy wasnt it? :D\n"
-	echo -e "${light_red}[NOTE] ${brown}The analysis data has been dumped in ${blue}data/$file_ ${no_color}\n"
-	echo -e "${light_red}[NOTE] ${brown}You can check the completion of the domain ssl scan by running\n ${blue}tail -f data/$file_/analysis/static/ssl_scan/logs/pyssltest.log\n ${brown}and\n ${blue}tail -f data/$file_/analysis/static/ssl_scan/logs/testssl.log"
-	echo -e "${light_red}[NOTE] ${brown}You can check the completion of the CFG generation by running\n ${blue}tail -f data/$file_/smali/apktool_cfg.log\n ${brown}and\n ${blue}tail -f data/$file_/smali/baksmali_cfg.log $no_color "
-	echo " "
 	echo "====================================================================="
-	echo " "
 } 
 
 #+++++++++++++++++++++++
@@ -379,22 +389,22 @@ function final(){
 if ! [ "$1" ] || [ "$1" == '-h' ]  || [ "$1" == '--help' ] || ! [ "$2" ]; then 
 mara
 echo -e "${light_green}${bold}Usage:"
-echo -e "${yellow}$0 [options] <path> (.dex, .apk, .jar or .class)"
+echo -e "${yellow}$0 [options] <path> (.apk, .dex, .jar or .class)"
 echo ""
 echo -e "${light_green}${bold}Options:"
-echo -e "${yellow}-s, --single-apk     - analyze single apk
+echo -e "${yellow}-s, --apk            - analyze apk file
 -d, --dex            - analyze dex file 
 -j, --jar            - analyze jar file
 -c, --class          - analyze class file
--m, --multiple-apk   - analyze multiple apks
+-m, --multiple-apk   - analyze multiple apk files
 -x, --multiple-dex   - analyze multiple dex files
 -r, --multiple-jar   - analyze multiple jar files
 -h, --help           - print this help"
 echo ""
 echo -e "${light_green}${bold}Example:"
-echo -e "${yellow}single APK analysis e.g $0 -s </path/to/apk/>
-dex file analysis e.g $0 -d </path/to/dex/file/>
-jar file analysis e.g $0 -j </path/to/jar/file/>
+echo -e "${yellow}apk file analysis e.g $0 -s </path/to/apk/file>
+dex file analysis e.g $0 -d </path/to/dex/file>
+jar file analysis e.g $0 -j </path/to/jar/file>
 class file analysis e.g $0 -c </path/to/class/file/>
 multiple apk analysis e.g $0 -m </path/to/apk/folder/>
 multiple dex analysis e.g $0 -x </path/to/dex/folder/>
@@ -430,6 +440,7 @@ if [ $1 == '-s' ] || [ $1 == '--single-apk' ] ; then
 	reversing
 	decompile
 	decode
+    deobfuscate
 	manifest
 	preliminary_stage_1
 	cfg
@@ -474,6 +485,7 @@ if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
 	reversing
 	decompile
 	decode
+    deobfuscate
 	manifest
 	preliminary_stage_1
 	cfg

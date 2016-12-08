@@ -21,7 +21,7 @@ mv ../../data/$file_/smali/android_apktool  ../../data/$file_/smali/apktool/andr
 
 cd ../../
 
-
+exit
 
 
 

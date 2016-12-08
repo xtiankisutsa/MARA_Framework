@@ -6,7 +6,7 @@
 sudo apt-get update
 
 #Java JDK
-sudo apt-get -y install openjdk-7-jdk
+sudo apt-get -y install openjdk-8-jdk
 
 #Git
 sudo apt-get -y install git
@@ -14,9 +14,9 @@ sudo apt-get -y install git
 #Tree
 sudo apt-get -y install tree
 
-#install 32bit libs
+#install libs
 sudo dpkg --add-architecture i386
-sudo apt-get -y install libgtk2.0-0:i386 libxxf86vm1:i386 libsm6:i386 libstdc++6:i386
+sudo apt-get -y install libgtk2.0-0:i386 libxxf86vm1:i386 libsm6:i386 libstdc++6:i386 lib32z1 
 
 #Figlet
 sudo apt-get -y install figlet
@@ -51,6 +51,11 @@ sudo python setup.py install
 sudo pip install apkid
 cd ../../
 
+#whatweb
+sudo apt-get install -y whatweb
+ 
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
 source ~/.bashrc
+
+exit

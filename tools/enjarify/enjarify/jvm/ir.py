@@ -40,7 +40,6 @@ class Label(JvmInstruction):
 
 _ilfdaOrd = [scalars.INT, scalars.LONG, scalars.FLOAT, scalars.DOUBLE, scalars.OBJ].index
 class RegAccess(JvmInstruction):
-    max = 4 # upper limit on length of bytecode
     def __init__(self, dreg, st, store):
         super().__init__()
         self.key = dreg, st
@@ -54,7 +53,7 @@ class RegAccess(JvmInstruction):
         return new
 
     def calcBytecode(self, local):
-        assert(self.bytecode is None)
+        assert self.bytecode is None
         stype = self.key[1]
         op_off = (ISTORE - ILOAD) if self.store else 0
         if local < 4:
@@ -175,7 +174,7 @@ class Switch(JvmInstruction):
         self.default = default
         self.jumps = jumps
 
-        assert(jumps)
+        assert jumps
         self.low = min(jumps)
         self.high = max(jumps)
 
@@ -214,3 +213,8 @@ _return_or_throw_bytecodes = {bytes([op]) for op in range(IRETURN, RETURN+1) }
 _return_or_throw_bytecodes.add(bytes([ATHROW]))
 class Other(JvmInstruction):
     def fallsthrough(self): return self.bytecode not in _return_or_throw_bytecodes
+
+def Pop(): return Other(bytes([POP]))
+def Pop2(): return Other(bytes([POP2]))
+def Dup(): return Other(bytes([DUP]))
+def Dup2(): return Other(bytes([DUP2]))

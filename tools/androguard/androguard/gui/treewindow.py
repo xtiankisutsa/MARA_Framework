@@ -1,11 +1,13 @@
-from PySide import QtCore, QtGui
+from PyQt5 import QtWidgets, QtGui
 
 from androguard.core import androconf
 from androguard.gui.xrefwindow import XrefDialogClass
 from androguard.gui.sourcewindow import SourceWindow
 from androguard.gui.helpers import classdot2class, Signature
 
-class TreeWindow(QtGui.QTreeWidget):
+
+class TreeWindow(QtWidgets.QTreeWidget):
+
     def __init__(self, parent=None, win=None, session=None):
         super(TreeWindow, self).__init__(parent)
         self.itemDoubleClicked.connect(self.itemDoubleClickedHandler)
@@ -34,19 +36,21 @@ class TreeWindow(QtGui.QTreeWidget):
                 if sig.class_path == []:
                     path = '.'
                     if path not in path_node[0]:
-                        path_node[0][path] = ({}, QtGui.QTreeWidgetItem(path_node[1]))
+                        path_node[0][path] = (
+                            {}, QtWidgets.QTreeWidgetItem(path_node[1]))
                         path_node[0][path][1].setText(0, path)
                     path_node = path_node[0][path]
                 else:
                     # Namespaces
                     for path in sig.class_path:
                         if path not in path_node[0]:
-                            path_node[0][path] = ({}, QtGui.QTreeWidgetItem(path_node[1]))
+                            path_node[0][path] = (
+                                {}, QtWidgets.QTreeWidgetItem(path_node[1]))
                             path_node[0][path][1].setText(0, path)
                         path_node = path_node[0][path]
 
                 # Class
-                path_node[0][path] = ({}, QtGui.QTreeWidgetItem(path_node[1]))
+                path_node[0][path] = ({}, QtWidgets.QTreeWidgetItem(path_node[1]))
 
                 class_name = sig.class_name
 
@@ -54,36 +58,37 @@ class TreeWindow(QtGui.QTreeWidget):
                     class_name += "@%d" % idx
 
                 c.current_title = class_name
-                self._reverse_cache[path_node[0][path][1]] = (c,
-                                                              filename,
+                self._reverse_cache[path_node[0][path][1]] = (c, filename,
                                                               digest)
-
 
                 path_node[0][path][1].setText(0, class_name)
 
-
     def itemDoubleClickedHandler(self, item, column):
-        '''Signal sent by PySide when a tree element is clicked'''
-
-        androconf.debug("item %s has been double clicked at column %s" % (str(item), str(column)))
+        androconf.debug("item %s has been double clicked at column %s" %
+                        (str(item), str(column)))
         if item.childCount() != 0:
-            self.mainwin.showStatus("Sources not available. %s is not a class" % path)
+            self.mainwin.showStatus("Sources not available.")
             return
 
-        current_class, current_filename, current_digest = self._reverse_cache[item]
-        self.mainwin.openSourceWindow(current_class)
+        current_class, current_filename, current_digest = self._reverse_cache[
+            item
+        ]
+        self.mainwin.openBinWindow(current_class)
 
     def createActions(self):
-        self.xrefAct = QtGui.QAction("Xref from/to...", self,
-#                shortcut=QtGui.QKeySequence("CTRL+B"),
-                statusTip="List the references where this element is used",
-                triggered=self.actionXref)
-        self.expandAct = QtGui.QAction("Expand...", self,
-                statusTip="Expand all the subtrees",
-                triggered=self.actionExpand)
-        self.collapseAct = QtGui.QAction("Collapse...", self,
-                statusTip="Collapse all the subtrees",
-                triggered=self.actionCollapse)
+        self.xrefAct = QtWidgets.QAction(
+            "Xref from/to",
+            self,
+            statusTip="List the references where this element is used",
+            triggered=self.actionXref)
+        self.expandAct = QtWidgets.QAction("Expand",
+                                       self,
+                                       statusTip="Expand all the subtrees",
+                                       triggered=self.actionExpand)
+        self.collapseAct = QtWidgets.QAction("Collapse",
+                                         self,
+                                         statusTip="Collapse all the subtrees",
+                                         triggered=self.actionCollapse)
 
     def actionXref(self):
         item = self.currentItem()
@@ -98,16 +103,19 @@ class TreeWindow(QtGui.QTreeWidget):
             self.mainwin.showStatus("No xref returned (no analysis object).")
             return
 
-        print current_analysis
-        class_analysis = current_analysis.get_class_analysis(current_class.get_name())
+        class_analysis = current_analysis.get_class_analysis(
+            current_class.get_name())
         if not class_analysis:
-            self.mainwin.showStatus("No xref returned (no class_analysis object).")
+            self.mainwin.showStatus(
+                "No xref returned (no class_analysis object).")
             return
 
-        print class_analysis
-
-        xwin = XrefDialogClass(parent=self.mainwin, win=self.mainwin, current_class=current_class, class_analysis=class_analysis)
+        xwin = XrefDialogClass(parent=self.mainwin,
+                               win=self.mainwin,
+                               current_class=current_class,
+                               class_analysis=class_analysis)
         xwin.show()
+
 
     def expand_children(self, item):
         self.expandItem(item)
@@ -126,7 +134,7 @@ class TreeWindow(QtGui.QTreeWidget):
         self.collapse_children(self.currentItem())
 
     def contextMenuEvent(self, event):
-        menu = QtGui.QMenu(self)
+        menu = QtWidgets.QMenu(self)
         menu.addAction(self.xrefAct)
         menu.addAction(self.expandAct)
         menu.addAction(self.collapseAct)

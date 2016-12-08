@@ -1,8 +1,9 @@
-from PySide import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui
 from androguard.core import androconf
 from androguard.gui.helpers import display2classmethod, class2func, classmethod2display, method2func
 
-class XrefDialogClass(QtGui.QDialog):
+
+class XrefDialogClass(QtWidgets.QDialog):
     '''Dialog holding our Xref listview.
         parent: SourceWindow that started the new XrefDialog
         path: complete path of the class we are looking an xref from
@@ -13,7 +14,11 @@ class XrefDialogClass(QtGui.QDialog):
         xrefs_list for the content of the QListView
     '''
 
-    def __init__(self, parent=None, win=None, current_class=None, class_analysis=None):
+    def __init__(self,
+                 parent=None,
+                 win=None,
+                 current_class=None,
+                 class_analysis=None):
         super(XrefDialogClass, self).__init__(parent)
         self.current_class = current_class
         self.class_analysis = class_analysis
@@ -24,40 +29,48 @@ class XrefDialogClass(QtGui.QDialog):
 
         xrefs_list = []
 
-        ref_kind_map = {0:"Class instanciation", 1:"Class reference"}
+        ref_kind_map = {0: "Class instanciation", 1: "Class reference"}
 
         xrefs_from = class_analysis.get_xref_from()
         for ref_class in xrefs_from:
-            for ref_kind, ref_method in xrefs_from[ref_class]:
-                xrefs_list.append(('From', ref_kind_map[ref_kind], ref_method, ref_class.get_vm_class()))
+            for ref_kind, ref_method, _ in xrefs_from[ref_class]:
+                xrefs_list.append(('From', ref_kind_map[ref_kind], ref_method,
+                                   ref_class.get_vm_class()))
 
         xrefs_to = class_analysis.get_xref_to()
         for ref_class in xrefs_to:
-            for ref_kind, ref_method in xrefs_to[ref_class]:
-                xrefs_list.append(('To', ref_kind_map[ref_kind], ref_method, ref_class.get_vm_class()))
+            for ref_kind, ref_method, _ in xrefs_to[ref_class]:
+                xrefs_list.append(('To', ref_kind_map[ref_kind], ref_method,
+                                   ref_class.get_vm_class()))
 
-        closeButton = QtGui.QPushButton("Close")
+        closeButton = QtWidgets.QPushButton("Close")
         closeButton.clicked.connect(self.close)
 
-        xreflayout = QtGui.QGridLayout()
-        xrefwin = XrefListView(self, win=win, xrefs=xrefs_list, headers=["Origin", "Kind", "Method"])
+        xreflayout = QtWidgets.QGridLayout()
+        xrefwin = XrefListView(self,
+                               win=win,
+                               xrefs=xrefs_list,
+                               headers=["Origin", "Kind", "Method"])
         xreflayout.addWidget(xrefwin, 0, 0)
 
-        buttonsLayout = QtGui.QHBoxLayout()
+        buttonsLayout = QtWidgets.QHBoxLayout()
         buttonsLayout.addStretch(1)
         buttonsLayout.addWidget(closeButton)
 
-        mainLayout = QtGui.QVBoxLayout()
+        mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addLayout(xreflayout)
         mainLayout.addLayout(buttonsLayout)
 
         self.setLayout(mainLayout)
 
-class XrefDialogMethod(QtGui.QDialog):
-    def __init__(self, parent=None, win=None, current_class=None, class_analysis=None, method_analysis=None):
+
+class XrefDialogMethod(QtWidgets.QDialog):
+
+    def __init__(self,
+                 parent=None,
+                 win=None,
+                 method_analysis=None):
         super(XrefDialogMethod, self).__init__(parent)
-        self.current_class = current_class
-        self.class_analysis = class_analysis
         self.method_analysis = method_analysis
 
         title = "Xrefs for the method %s" % self.method_analysis.method
@@ -67,32 +80,39 @@ class XrefDialogMethod(QtGui.QDialog):
         xrefs_list = []
 
         xrefs_from = self.method_analysis.get_xref_from()
-        for ref_class, ref_method in xrefs_from:
+        for ref_class, ref_method, _ in xrefs_from:
             xrefs_list.append(('From', ref_method, ref_class.get_vm_class()))
 
         xrefs_to = self.method_analysis.get_xref_to()
-        for ref_class, ref_method in xrefs_to:
+        for ref_class, ref_method, _ in xrefs_to:
             xrefs_list.append(('To', ref_method, ref_class.get_vm_class()))
 
-        closeButton = QtGui.QPushButton("Close")
+        closeButton = QtWidgets.QPushButton("Close")
         closeButton.clicked.connect(self.close)
 
-        xreflayout = QtGui.QGridLayout()
+        xreflayout = QtWidgets.QGridLayout()
         xrefwin = XrefListView(self, win=win, xrefs=xrefs_list)
         xreflayout.addWidget(xrefwin, 0, 0)
 
-        buttonsLayout = QtGui.QHBoxLayout()
+        buttonsLayout = QtWidgets.QHBoxLayout()
         buttonsLayout.addStretch(1)
         buttonsLayout.addWidget(closeButton)
 
-        mainLayout = QtGui.QVBoxLayout()
+        mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addLayout(xreflayout)
         mainLayout.addLayout(buttonsLayout)
 
         self.setLayout(mainLayout)
 
-class XrefDialogField(QtGui.QDialog):
-    def __init__(self, parent=None, win=None, current_class=None, class_analysis=None, field_analysis=None):
+
+class XrefDialogField(QtWidgets.QDialog):
+
+    def __init__(self,
+                 parent=None,
+                 win=None,
+                 current_class=None,
+                 class_analysis=None,
+                 field_analysis=None):
         super(XrefDialogField, self).__init__(parent)
         self.current_class = current_class
         self.class_analysis = class_analysis
@@ -112,24 +132,26 @@ class XrefDialogField(QtGui.QDialog):
         for ref_class, ref_method in xrefs_write:
             xrefs_list.append(('Write', ref_method, ref_class.get_vm_class()))
 
-        closeButton = QtGui.QPushButton("Close")
+        closeButton = QtWidgets.QPushButton("Close")
         closeButton.clicked.connect(self.close)
 
-        xreflayout = QtGui.QGridLayout()
+        xreflayout = QtWidgets.QGridLayout()
         xrefwin = XrefListView(self, win=win, xrefs=xrefs_list)
         xreflayout.addWidget(xrefwin, 0, 0)
 
-        buttonsLayout = QtGui.QHBoxLayout()
+        buttonsLayout = QtWidgets.QHBoxLayout()
         buttonsLayout.addStretch(1)
         buttonsLayout.addWidget(closeButton)
 
-        mainLayout = QtGui.QVBoxLayout()
+        mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addLayout(xreflayout)
         mainLayout.addLayout(buttonsLayout)
 
         self.setLayout(mainLayout)
 
-class XrefDialogString(QtGui.QDialog):
+
+class XrefDialogString(QtWidgets.QDialog):
+
     def __init__(self, parent=None, win=None, string_analysis=None):
         super(XrefDialogString, self).__init__(parent)
         self.string_analysis = string_analysis
@@ -144,24 +166,25 @@ class XrefDialogString(QtGui.QDialog):
         for ref_class, ref_method in xrefs_from:
             xrefs_list.append(('From', ref_method, ref_class.get_vm_class()))
 
-        closeButton = QtGui.QPushButton("Close")
+        closeButton = QtWidgets.QPushButton("Close")
         closeButton.clicked.connect(self.close)
 
-        xreflayout = QtGui.QGridLayout()
+        xreflayout = QtWidgets.QGridLayout()
         xrefwin = XrefListView(self, win=win, xrefs=xrefs_list)
         xreflayout.addWidget(xrefwin, 0, 0)
 
-        buttonsLayout = QtGui.QHBoxLayout()
+        buttonsLayout = QtWidgets.QHBoxLayout()
         buttonsLayout.addStretch(1)
         buttonsLayout.addWidget(closeButton)
 
-        mainLayout = QtGui.QVBoxLayout()
+        mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addLayout(xreflayout)
         mainLayout.addLayout(buttonsLayout)
 
         self.setLayout(mainLayout)
 
-class XrefDialog(QtGui.QDialog):
+
+class XrefDialog(QtWidgets.QDialog):
     '''Dialog holding our Xref listview.
         parent: SourceWindow that started the new XrefDialog
         path: complete path of the class we are looking an xref from
@@ -185,7 +208,7 @@ class XrefDialog(QtGui.QDialog):
             title = "Xrefs to %s -> %s" % (path.split("/")[-1], method)
 
         self.setWindowTitle(title)
-        layout = QtGui.QGridLayout()
+        layout = QtWidgets.QGridLayout()
         xrefwin = XrefListView(self, win=win, xrefs=xrefs_list)
         layout.addWidget(xrefwin, 0, 0)
         self.setLayout(layout)
@@ -216,7 +239,7 @@ class XrefDialog(QtGui.QDialog):
 
         xref_items = element.XREFfrom.items
         androconf.debug("%d XREFs found" % len(xref_items))
-#        print xref_items
+        #        print xref_items
         xrefs = []
         for xref_item in xref_items:
             class_ = xref_item[0].get_class_name()
@@ -226,8 +249,14 @@ class XrefDialog(QtGui.QDialog):
 #        print xrefs
         return xrefs
 
-class XrefListView(QtGui.QWidget):
-    def __init__(self, parent=None, win=None, xrefs=None, headers=["Origin", "Method"]):
+
+class XrefListView(QtWidgets.QWidget):
+
+    def __init__(self,
+                 parent=None,
+                 win=None,
+                 xrefs=None,
+                 headers=["Origin", "Method"]):
         super(XrefListView, self).__init__(parent)
         self.parent = parent
         self.mainwin = win
@@ -236,14 +265,14 @@ class XrefListView(QtGui.QWidget):
 
         self.setMinimumSize(600, 400)
 
-        self.filterPatternLineEdit = QtGui.QLineEdit()
-        self.filterPatternLabel = QtGui.QLabel("&Filter origin pattern:")
+        self.filterPatternLineEdit = QtWidgets.QLineEdit()
+        self.filterPatternLabel = QtWidgets.QLabel("&Filter origin pattern:")
         self.filterPatternLabel.setBuddy(self.filterPatternLineEdit)
         self.filterPatternLineEdit.textChanged.connect(self.filterRegExpChanged)
 
         self.xrefwindow = XrefValueWindow(self, win, self.xrefs, self.headers)
 
-        sourceLayout = QtGui.QVBoxLayout()
+        sourceLayout = QtWidgets.QVBoxLayout()
         sourceLayout.addWidget(self.xrefwindow)
         sourceLayout.addWidget(self.filterPatternLabel)
         sourceLayout.addWidget(self.filterPatternLineEdit)
@@ -257,7 +286,9 @@ class XrefListView(QtGui.QWidget):
     def close(self):
         self.parent.close()
 
-class XrefValueWindow(QtGui.QTreeView):
+
+class XrefValueWindow(QtWidgets.QTreeView):
+
     def __init__(self, parent=None, win=None, xrefs=None, headers=None):
         super(XrefValueWindow, self).__init__(parent)
         self.parent = parent
@@ -267,10 +298,11 @@ class XrefValueWindow(QtGui.QTreeView):
 
         self.reverse_strings = {}
 
-        self.proxyModel = QtGui.QSortFilterProxyModel()
+        self.proxyModel = QtCore.QSortFilterProxyModel()
         self.proxyModel.setDynamicSortFilter(True)
 
-        self.model = QtGui.QStandardItemModel(len(self.xrefs), len(self.headers), self)
+        self.model = QtGui.QStandardItemModel(len(self.xrefs),
+                                              len(self.headers), self)
 
         column = 0
         for header in headers:
@@ -280,7 +312,8 @@ class XrefValueWindow(QtGui.QTreeView):
         row = 0
         for ref in xrefs:
             for column in range(len(self.headers)):
-                self.model.setData(self.model.index(row, column, QtCore.QModelIndex()), "%s" % ref[column])
+                self.model.setData(self.model.index(
+                    row, column, QtCore.QModelIndex()), "%s" % ref[column])
             row += 1
 
         self.proxyModel.setSourceModel(self.model)
@@ -289,7 +322,7 @@ class XrefValueWindow(QtGui.QTreeView):
         self.setAlternatingRowColors(True)
         self.setModel(self.proxyModel)
         self.setSortingEnabled(True)
-        self.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
         self.doubleClicked.connect(self.slotDoubleClicked)
 
