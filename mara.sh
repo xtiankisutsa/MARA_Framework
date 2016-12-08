@@ -19,7 +19,7 @@ function mara(){
 	echo -e "${light_green}${bold}$(figlet -f doom MARA Framework)"
 	echo -e "${light_green}${bold}[M]${yellow}obile ${light_green}${bold}[A]${yellow}pplication ${light_green}${bold}[R]${yellow}everse Engineering & ${light_green}${bold}[A]${yellow}nalysis Framework"
 	echo ""
-	echo -e "${light_green}${bold}version: ${yellow}0.2.1 beta"
+	echo -e "${light_green}${bold}version: ${yellow}0.2.2 beta"
 	echo -e "${light_green}${bold}Developed by: ${yellow}Christian Kisutsa ${green}${bold}and ${yellow}Chrispus Kamau"
 	echo -e "${light_green}${bold}URL: ${yellow}https://github.com/xtiankisutsa/MARA_Framework${no_color}"
 	echo ""
