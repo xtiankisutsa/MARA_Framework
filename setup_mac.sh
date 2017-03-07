@@ -2,9 +2,15 @@
 
 #These are the requirements for running this tool:
 
+#Update bash path in scripts
+sed -i 's|'/bin/bash'|/usr/local/bin/bash|g' *.sh
+
 #Package update
 brew update -y -v
 sudo pip install --upgrade pip
+
+#Install bash
+brew install bash -y -v 
 
 #Java JDK
 brew tap caskroom/cask -y -v
