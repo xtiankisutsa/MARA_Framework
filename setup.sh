@@ -4,6 +4,7 @@
 
 #Package update
 sudo apt-get update
+sudo pip install --upgrade pip
 
 #Java JDK
 sudo apt-get -y install openjdk-8-jdk
@@ -20,7 +21,6 @@ sudo apt-get -y install libgtk2.0-0:i386 libxxf86vm1:i386 libsm6:i386 libstdc++6
 
 #Figlet
 sudo apt-get -y install figlet
-sudo cp tools/figlet/doom.flf /usr/share/figlet
 
 #unrest
 sudo pip install unirest

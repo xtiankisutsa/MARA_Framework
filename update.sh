@@ -13,8 +13,8 @@ light_red='\e[1;31m'
 brown='\e[0;33m'
 no_color='\e[0m'
 
-mkdir -p update/
-cd update/
+#mkdir -p update/
+#cd update/
 
 echo -e "${no_color}${brown}Downloading the latest version of MARA${no_color}"
 git clone https://github.com/xtiankisutsa/MARA_Framework
@@ -29,7 +29,18 @@ mv update/MARA_Framework/* .
 echo " "
 
 echo -e "${no_color}${brown}Updating MARA dependencies${no_color}"
-sudo ./setup.sh
+
+
+if [ "$(uname)" = "Darwin" ] ; then
+	# Update on Mac OS X platform  
+	sudo ./setup_mac.sh
+	echo "Mac"
+else
+	# Update on Linux
+	sudo ./setup.sh
+fi
+
+
 echo " "
 
 echo -e "${no_color}${brown}Cleaning up...${no_color}"
@@ -38,7 +49,7 @@ rm -r tools_old/
 rm -r update/
 echo " "
 
-echo -e "${no_color}${brown} Update completed...!!${no_color}"
+echo -e "${no_color}${brown}Update completed...!!${no_color}"
 
 exit
 

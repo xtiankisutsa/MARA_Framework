@@ -16,7 +16,7 @@ no_color='\e[0m'
 function mara(){
 	echo " "
 	echo -e "==========================================================================="
-	echo -e "${light_green}${bold}$(figlet -f doom MARA Framework)"
+	echo -e "${light_green}${bold}$(figlet -f tools/figlet/doom.flf MARA Framework)"
 	echo -e "${light_green}${bold}[M]${yellow}obile ${light_green}${bold}[A]${yellow}pplication ${light_green}${bold}[R]${yellow}everse Engineering & ${light_green}${bold}[A]${yellow}nalysis Framework"
 	echo ""
 	echo -e "${light_green}${bold}version: ${yellow}0.2.2 beta"
@@ -378,7 +378,7 @@ function final(){
 	#cd ..
 	echo -e "${blue}[INFO] ${light_green}Done${no_color}"
 	echo " "
-	echo -e "${no_color}[+] ${brown}That was easy wasnt it? :D\n"
+	echo -e "${no_color}[+] ${brown}That was easy wasnt it? :D\n${no_color}"
 	echo "====================================================================="
 } 
 
