@@ -13,8 +13,8 @@ light_red='\e[1;31m'
 brown='\e[0;33m'
 no_color='\e[0m'
 
-#mkdir -p update/
-#cd update/
+mkdir -p update/
+cd update/
 
 echo -e "${no_color}${brown}Downloading the latest version of MARA${no_color}"
 git clone https://github.com/xtiankisutsa/MARA_Framework
