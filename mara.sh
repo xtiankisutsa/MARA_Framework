@@ -7,9 +7,9 @@ yellow='\e[1;33m'
 blue='\e[1;34m'
 light_green='\e[1;32m'
 light_cyan='\e[1;36m'
-cyan='\e[0;36m'  
+cyan='\e[0;36m'
 red='\e[0;31m'
-light_red='\e[1;31m'     
+light_red='\e[1;31m'
 brown='\e[0;33m'
 no_color='\e[0m'
 
@@ -48,7 +48,7 @@ function reversing(){
 
 	#enjarify - convert APK/Dex to jar (dex2jar replacement)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to java bytecode"
-	cd tools/enjarify/ 
+	cd tools/enjarify/
 	./enjarify.sh ../../data/$file_/$file_ -o ../../data/$file_/$file_.jar >> /dev/null 2>/dev/null
 	cd ../../
 }
@@ -57,14 +57,14 @@ function decompile(){
 	#jadx - decompile .dex, .apk, .jar or .class to java source code
 	echo -e "${no_color}[+] ${brown}Decompiling ${blue}$file_ ${brown}to java source code"
 	cd tools/jadx-0.6.0/bin
-	./jadx ../../../data/$file_/$file_ -d ../../../data/$file_/source/java >> /dev/null 
-	./jadx -f ../../../data/$file_/$file_ -d ../../../data/$file_/source/jadx >> /dev/null 
+	./jadx ../../../data/$file_/$file_ -d ../../../data/$file_/source/java >> /dev/null
+	./jadx -f ../../../data/$file_/$file_ -d ../../../data/$file_/source/jadx >> /dev/null
 	cd ../../../
 }
 
 function decode(){
 	#apktool - Convert Android Manifest, decode resources and dump smali
-	echo -e "${no_color}[+] ${brown}Decoding Manifest file and resources" 
+	echo -e "${no_color}[+] ${brown}Decoding Manifest file and resources"
 	java -jar tools/apktool_2.2.1.jar d -q data/$file_/$file_ -o data/$file_/buffer >> /dev/null 2>/dev/null
 	mv data/$file_/buffer/AndroidManifest.xml data/$file_ >> /dev/null 2>/dev/null
 	mv data/$file_/buffer/smali data/$file_/smali/apktool >> /dev/null 2>/dev/null
@@ -77,27 +77,27 @@ function deobfuscate(){
 	echo -e "${no_color}[+] ${brown}Deobfuscate ${blue}$file_${brown}? ${light_red}(yes/no)"
 	echo -e "    ${light_red}[NOTE] ${light_red}Deobfuscating ${blue}$file_ ${light_red}may take upto 5 minutes. This will run in the background!!"
     	echo -e "    ${light_red}[NOTE] ${light_red}Maximum file size for analysis is 16MB${no_color}"
-	
+
 	read input
 
-	if [ $input == 'yes' ] || [ $input == 'y' ] ; then 		
-		    nohup ./de-guard.sh > /dev/null 2>>/dev/null & 
+	if [ $input == 'yes' ] || [ $input == 'y' ] ; then
+		    nohup ./de-guard.sh > /dev/null 2>>/dev/null &
 	elif
-		[ $input == 'no' ] || [ $input == 'n' ] ; then 
-		echo -e "    ${light_red}[NOTE] Skipped Deobfuscation!!"	
+		[ $input == 'no' ] || [ $input == 'n' ] ; then
+		echo -e "    ${light_red}[NOTE] Skipped Deobfuscation!!"
 	else
 
-		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then 
-		echo -e "    ${light_red}[NOTE] ${brown}Invalid response!!"	
+		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then
+		echo -e "    ${light_red}[NOTE] ${brown}Invalid response!!"
 		fi
 	fi
-    
+
     echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
-	echo " "  
+	echo " "
 }
 
 function manifest(){
-	#This is where the fun starts :) 
+	#This is where the fun starts :)
 	echo "=============================="
 	echo -e "${yellow} Performing Manifest Analysis ${no_color}"
 	echo "=============================="
@@ -117,7 +117,7 @@ function manifest(){
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 
 	#Lets dump exported activties
-	echo -e "${no_color}[+] ${brown}Extracting exported activties" 
+	echo -e "${no_color}[+] ${brown}Extracting exported activties"
 	echo -e "\n==========================\nExported activities:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	sed -n '/activity/,/activity/p'  data/$file_/AndroidManifest.xml | grep -B 100 "<activity" | grep -E 'exported="true"' | sed -e 's/.*name="//;s/".*//' >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
@@ -129,11 +129,11 @@ function manifest(){
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 
 	#Lets dump exported receivers
-	echo -e "${no_color}[+] ${brown}Extracting exported receivers" 
+	echo -e "${no_color}[+] ${brown}Extracting exported receivers"
 	echo -e "\n==========================\nExported receivers:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	sed -n '/receiver/,/receiver/p'  data/$file_/AndroidManifest.xml | grep -B 100 "</receiver>"  | grep 'exported="true"' | sed -e 's/.*name="//;s/".*//' >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
-	
+
 	#Lets dump services
 	echo -e "${no_color}[+] ${brown}Extracting services"
 	echo -e "\n==========================\nServices:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
@@ -145,26 +145,26 @@ function manifest(){
 	echo -e "\n==========================\nExported services:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	sed -n '/service/,/service/p'  data/$file_/AndroidManifest.xml | grep -B 100 "</service>" | grep 'service' | grep 'exported="true"' | sed -e 's/.*name="//;s/".*//'  >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
-	
+
 	#Lets check if the app is debuggable
 	echo -e "${no_color}[+] ${brown}Checking if apk is debuggable"
 	echo -e "\n==========================\nDebuggable:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	grep -E 'android:debuggable="true"' data/$file_/AndroidManifest.xml >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
-	
+
 	#Lets check if the app allows backups
 	echo -e "${no_color}[+] ${brown}Checking if apk can be backed up"
 	echo -e "\n==========================\nBackup:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	grep -E 'android:allowBackup="true"' data/$file_/AndroidManifest.xml >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
-	
+
 	#Lets check if the apk can run secret code to the dialer
 	echo -e "${no_color}[+] ${brown}Checking if apk can run secret codes into the dialer"
 	echo -e "\n==========================\nSecret Codes:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	grep -E 'android_secret_code' data/$file_/AndroidManifest.xml >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	echo " " >> data/$file_/analysis/static/general_analysis/attack_surface.txt
-	
-	#Lets check if binary SMS recevier is configured to listen on a port. 
+
+	#Lets check if binary SMS recevier is configured to listen on a port.
 	echo -e "${no_color}[+] ${brown}Checking if apk can receive binary SMS"
 	echo -e "\n==========================\nBinary SMS:\n==========================\n" >> data/$file_/analysis/static/general_analysis/attack_surface.txt
 	grep -E 'android:port' data/$file_/AndroidManifest.xml >> data/$file_/analysis/static/general_analysis/attack_surface.txt
@@ -189,11 +189,11 @@ function preliminary_stage_1(){
 	fi
 
 	if [ -d lib ]; then
-		cp -r lib ../../../data/$file_/source 
+		cp -r lib ../../../data/$file_/source
 	fi
 
 	if [ -d res/raw ]; then
-		cp -r res/raw ../../../data/$file_/source 
+		cp -r res/raw ../../../data/$file_/source
 	fi
 
 	cd ../../../
@@ -212,8 +212,8 @@ function preliminary_stage_1(){
 	fi
 	cd ../../../../
 
-	#aapt - extract app permissions	
-	function aapt_dump(){	
+	#aapt - extract app permissions
+	function aapt_dump(){
 		cd tools/aapt
 		echo -e "${no_color}[+] ${brown}Extracting permissions"
 		./$aapt_ dump permissions ../../data/$file_/$file_ >> ../../data/$file_/analysis/static/general_analysis/permissions.txt
@@ -225,49 +225,68 @@ function preliminary_stage_1(){
 		#configurations - getting all configurations from APK
 		echo -e "${no_color}[+] ${brown}Dumping configurations"
 		./$aapt_ dump configurations ../../data/$file_/$file_ >> ../../data/$file_/analysis/static/general_analysis/configurations.txt
-		cd ../../ 		
-	}
-	
-	arch=`dpkg --print-architecture`
-	if [  "$arch" == armhf ]  || [ "$arch" == armel ] || [ "$arch" == arm64 ] ;
-	then 
-	    aapt_=aapt_arm
-		aapt_dump
-	else
-		aapt_=aapt
-		aapt_dump	
-
-		#Dump dex from unzipped apk
-		echo -e "${no_color}[+] ${brown}Dumping dex bytecode"
-		cd tools/dexdump
-		./dexdump -l plain ../../data/$file_/unzipped/classes.dex > dex.txt
-		./dexdump -l xml ../../data/$file_/unzipped/classes.dex > dex.xml	
-		mv dex.xml dex.txt ../../data/$file_/source/dex
 		cd ../../
-	fi
+	}
+
+
+
+	if [ "$(uname)" = "Darwin" ] ; then
+				# Run aapt for mac
+				aapt_=aapt_mac
+				aapt_dump
+
+				#Dump dex from unzipped apk
+				echo -e "${no_color}[+] ${brown}Dumping dex bytecode"
+				cd tools/dexdump
+				./dexdump_mac -l plain ../../data/$file_/unzipped/classes.dex > dex.txt
+				./dexdump_mac -l xml ../../data/$file_/unzipped/classes.dex > dex.xml
+				mv dex.xml dex.txt ../../data/$file_/source/dex
+				cd ../../
+
+		else
+				# Run aapt for ARM
+					arch=`dpkg --print-architecture`
+				if [  "$arch" == armhf ]  || [ "$arch" == armel ] || [ "$arch" == arm64 ] ;
+				then
+				  aapt_=aapt_arm
+					aapt_dump
+				else
+					# Run aapt for Linux
+					aapt_=aapt
+					aapt_dump
+
+					#Dump dex from unzipped apk
+					echo -e "${no_color}[+] ${brown}Dumping dex bytecode"
+					cd tools/dexdump
+					./dexdump -l plain ../../data/$file_/unzipped/classes.dex > dex.txt
+					./dexdump -l xml ../../data/$file_/unzipped/classes.dex > dex.xml
+					mv dex.xml dex.txt ../../data/$file_/source/dex
+					cd ../../
+				fi
+  fi
 
 	#Dump methods and classes
 	echo -e "${no_color}[+] ${brown}Dumping methods and classes"
 	cd tools/
-	java -jar ClassyShark.jar -inspect ../data/$file_/$file_ >> ../data/$file_/analysis/static/general_analysis/inspect.txt  > /dev/null 2>/dev/null 
+	java -jar ClassyShark.jar -inspect ../data/$file_/$file_ >> ../data/$file_/analysis/static/general_analysis/inspect.txt  > /dev/null 2>/dev/null
 	java -jar ClassyShark.jar -export ../data/$file_/$file_ > /dev/null 2>/dev/null
 	mv *.txt ../data/$file_/analysis/static/general_analysis/
 	rm AndroidManifest.xml_dump
 	cd ..
 
-	#bugs - hunting for bugs in the APK :D 
+	#bugs - hunting for bugs in the APK :D
 	echo -e "${no_color}[+] ${brown}Analyzing apk for potential bugs"
 	cd tools/AndroBugs
 	cp ../../data/$file_/$file_ .
 	python2 androbugs.py -f $file_ >> ../../data/$file_/analysis/static/general_analysis/bugs.txt
 	rm $file_
-	cd ../../ 
+	cd ../../
 
-	#Looking for potential malicious behaviours 
+	#Looking for potential malicious behaviours
 	echo -e "${no_color}[+] ${brown}Analyzing apk for potential malicious behaviour"
 	cd tools/androwarn
 	cp ../../data/$file_/$file_ .
-	python androwarn.py -i $file_ -r html -v 3 > /dev/null 2>/dev/null		
+	python androwarn.py -i $file_ -r html -v 3 > /dev/null 2>/dev/null
 	cp -r Report/ ../../data/$file_/analysis/static/malicious_activity/ > /dev/null 2>/dev/null
 	rm Report/*.html > /dev/null 2>/dev/null
 	rm $file_
@@ -280,16 +299,16 @@ function cfg(){
 	echo -e "    ${light_red}[NOTE] ${light_red}Generating CFGs may take upto 20 minutes. This will run in the background!!${no_color}"
 	read input
 
-	if [ $input == 'yes' ] || [ $input == 'y' ] ; then 		
+	if [ $input == 'yes' ] || [ $input == 'y' ] ; then
 		nohup ./baksmali_cfg.sh > /dev/null 2>/dev/null &
-		nohup ./apktool_cfg.sh > /dev/null 2>/dev/null &	
+		nohup ./apktool_cfg.sh > /dev/null 2>/dev/null &
 	elif
-		[ $input == 'no' ] || [ $input == 'n' ] ; then 
-		echo -e "    ${light_red}[NOTE] Skipped CFG generation!!"	
+		[ $input == 'no' ] || [ $input == 'n' ] ; then
+		echo -e "    ${light_red}[NOTE] Skipped CFG generation!!"
 	else
 
-		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then 
-		echo -e "    ${light_red}[NOTE] Invalid response!!"	
+		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then
+		echo -e "    ${light_red}[NOTE] Invalid response!!"
 		fi
 	fi
 }
@@ -303,11 +322,11 @@ function compiler(){
 function preliminary_stage_2(){
 	#Dump any file system commands and binary execution paths
 	echo -e "${no_color}[+] ${brown}Dumping execution paths"
-	echo -e "\n==========================\nJadx:\n==========================\n" >> data/$file_/analysis/static/general_analysis/exec_paths.txt 
+	echo -e "\n==========================\nJadx:\n==========================\n" >> data/$file_/analysis/static/general_analysis/exec_paths.txt
 	grep -rE "/acct/|/cache/|/data/|/dev/|/etc/|/init/|/mnt/|/proc/|/sbin/|/sdcard/|/sys/|/system/|/vendor/" data/$file_/source/jadx | sort -u >> data/$file_/analysis/static/general_analysis/exec_paths.txt
-	echo " " >> data/$file_/analysis/static/general_analysis/exec_paths.txt 
+	echo " " >> data/$file_/analysis/static/general_analysis/exec_paths.txt
 	echo -e "\n==========================\nJava:\n==========================\n" >> data/$file_/analysis/static/general_analysis/exec_paths.txt
-	grep -rE "/acct/|/cache/|/data/|/dev/|/etc/|/init/|/mnt/|/proc/|/sbin/|/sdcard/|/sys/|/system/|/vendor/" data/$file_/source/java | sort -u >> data/$file_/analysis/static/general_analysis/exec_paths.txt 
+	grep -rE "/acct/|/cache/|/data/|/dev/|/etc/|/init/|/mnt/|/proc/|/sbin/|/sdcard/|/sys/|/system/|/vendor/" data/$file_/source/java | sort -u >> data/$file_/analysis/static/general_analysis/exec_paths.txt
 
 	#Dump any IP addresses
 	echo -e "${no_color}[+] ${brown}Dumping IP addresses"
@@ -327,7 +346,7 @@ function preliminary_stage_2(){
 	grep -rE '(http|https|ftp|ftps)://[a-zA-Z0-9./?=_-]*' data/$file_/source/java | sort -u >> data/$file_/analysis/static/general_analysis/url.txt
 	echo " " >> data/$file_/analysis/static/general_analysis/url.txt
 
-	#Cleaned up IP addresses and URL 
+	#Cleaned up IP addresses and URL
 	echo -e "\n==========================\nIPs:\n==========================\n" >> data/$file_/analysis/static/general_analysis/ip_url.txt
 	grep -rEo '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' data/$file_/source/jadx | cut -d ':' -f 2 | awk -F "." 'NF==4' |sort -u >> data/$file_/analysis/static/general_analysis/ip_url.txt
 	echo -e "\n==========================\nDomains:\n==========================\n" >> data/$file_/analysis/static/general_analysis/ip_url.txt
@@ -344,12 +363,12 @@ function preliminary_stage_2(){
 
 	#Dump any email in the fileunary
 	echo -e "${no_color}[+] ${brown}Dumping emails"
-	echo -e "\n==========================\nJadx:\n==========================\n" >> data/$file_/analysis/static/general_analysis/emails.txt 
-	#grep -rE "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" data/$file_/source/jadx | sort -u >> data/$file_/analysis/static/general_analysis/emails.txt 
+	echo -e "\n==========================\nJadx:\n==========================\n" >> data/$file_/analysis/static/general_analysis/emails.txt
+	#grep -rE "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" data/$file_/source/jadx | sort -u >> data/$file_/analysis/static/general_analysis/emails.txt
 	grep -rE "[\w.-]+@[\w-]+\.[\w.]+" data/$file_/source/jadx | sort -u >> data/$file_/analysis/static/general_analysis/emails.txt
-	echo " " >> data/$file_/analysis/static/general_analysis/emails.txt 
-	echo -e "\n==========================\nJava:\n==========================\n" >> data/$file_/analysis/static/general_analysis/emails.txt 
-	#grep -rE "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" data/$file_/source/java | sort -u >> data/$file_/analysis/static/general_analysis/emails.txt 
+	echo " " >> data/$file_/analysis/static/general_analysis/emails.txt
+	echo -e "\n==========================\nJava:\n==========================\n" >> data/$file_/analysis/static/general_analysis/emails.txt
+	#grep -rE "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" data/$file_/source/java | sort -u >> data/$file_/analysis/static/general_analysis/emails.txt
 	grep -rE "[\w.-]+@[\w-]+\.[\w.]+" data/$file_/source/jadx | sort -u >> data/$file_/analysis/static/general_analysis/emails.txt
 
 	#Dump all strings
@@ -360,11 +379,11 @@ function preliminary_stage_2(){
 }
 
 function android_analysis(){
-	#Start android analysis 
+	#Start android analysis
 	./owasp_static_android.sh
 }
 
-#This feature is coming soon 
+#This feature is coming soon
 #function iOS_analysis(){
 	#Start analysis
 #	./owasp_static_iOS.sh
@@ -380,20 +399,20 @@ function final(){
 	echo " "
 	echo -e "${no_color}[+] ${brown}That was easy wasnt it? :D\n${no_color}"
 	echo "====================================================================="
-} 
+}
 
 #+++++++++++++++++++++++
 #Mara Framework Options
 #+++++++++++++++++++++++
 #Check if APK file has been provided
-if ! [ "$1" ] || [ "$1" == '-h' ]  || [ "$1" == '--help' ] || ! [ "$2" ]; then 
+if ! [ "$1" ] || [ "$1" == '-h' ]  || [ "$1" == '--help' ] || ! [ "$2" ]; then
 mara
 echo -e "${light_green}${bold}Usage:"
 echo -e "${yellow}$0 [options] <path> (.apk, .dex, .jar or .class)"
 echo ""
 echo -e "${light_green}${bold}Options:"
 echo -e "${yellow}-s, --apk            - analyze apk file
--d, --dex            - analyze dex file 
+-d, --dex            - analyze dex file
 -j, --jar            - analyze jar file
 -c, --class          - analyze class file
 -m, --multiple-apk   - analyze multiple apk files
@@ -490,7 +509,7 @@ if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
 	preliminary_stage_1
 	cfg
 	compiler
-	preliminary_stage_2	
+	preliminary_stage_2
 	android_analysis
 	final
 	done
@@ -524,8 +543,8 @@ if [ $1 == '-d' ] || [ $1 == '--dex' ] ; then
 	decompile
 	echo "====================="
 	echo -e "${yellow} Performing Analysis ${no_color}"
-	echo "=====================" 
-	cfg	
+	echo "====================="
+	cfg
 	compiler
 	preliminary_stage_2
 	android_analysis
@@ -570,8 +589,8 @@ if [ $1 == '-x' ] || [ $1 == '--multiple-dex' ] ; then
 	echo ""
 	echo -e "${no_color}====================="
 	echo -e "${yellow} Performing Analysis ${no_color}"
-	echo -e "${no_color}=====================" 
-	cfg	
+	echo -e "${no_color}====================="
+	cfg
 	compiler
 	preliminary_stage_2
 	android_analysis
@@ -603,11 +622,11 @@ if  [ $1 == '-j' ] || [ $1 == '--jar' ] ; then
 	#Call the necessary functions
 	echo "====================="
 	echo -e "${yellow} Performing Analysis ${no_color}"
-	echo "====================="  
+	echo "====================="
 	decompile
 	preliminary_stage_2
 	android_analysis
-	final	
+	final
 	exit 1
 fi
 
@@ -644,13 +663,13 @@ if [ $1 == '-r' ] || [ $1 == '--multiple-jar' ] ; then
 	echo ""
 	echo -e "${no_color}====================="
 	echo -e "${yellow} Performing Analysis ${no_color}"
-	echo -e "${no_color}=====================" 	
+	echo -e "${no_color}====================="
 	preliminary_stage_2
 	android_analysis
 	final
 	done
 fi
-	
+
 #+++++++++++++++
 #Class analysis
 #+++++++++++++++
@@ -675,10 +694,9 @@ if [ $1 == '-c' ] || [ $1 == '--class' ] ; then
 	#Call the necessary functions
 	echo "====================="
 	echo -e "${yellow} Performing Analysis ${no_color}"
-	echo "=====================" 
+	echo "====================="
 	decompile
 	preliminary_stage_2
 	android_analysis
 	final
 fi
-	

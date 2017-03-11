@@ -3,19 +3,62 @@
 #These are the requirements for running this tool:
 
 #Update bash path in scripts
-sed -i 's|'/bin/bash'|/usr/local/bin/bash|g' *.sh
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' apktool_cfg.sh >> apktool_cfg.sh.tmp
+rm apktool_cfg.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' deobfuscator.sh >> deobfuscator.sh.tmp
+rm deobfuscator.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' setup.sh >> setup.sh.tmp
+rm setup.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' update.sh >> update.sh.tmp
+rm update.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' baksmali_cfg.sh >> baksmali_cfg.sh.tmp
+rm baksmali_cfg.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' mara.sh >> mara.sh.tmp
+rm mara.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' ssl_pyssltest.sh >> ssl_pyssltest.sh.tmp
+rm ssl_pyssltest.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' cfg.sh >> cfg.sh.tmp
+rm cfg.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' owasp_static_android.sh >> owasp_static_android.sh.tmp
+rm owasp_static_android.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' ssl_scanner.sh >> ssl_scanner.sh.tmp
+rm ssl_scanner.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' de-guard.sh  >> de-guard.sh.tmp
+rm de-guard.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' setup_mac.sh >> setup_mac.sh.tmp
+rm setup_mac.sh.tmp
+
+sed -i.tmp 's|'/usr/local/bin/bash'|/usr/local/usr/local/bin/bash|g' ssl_testssl.sh >> ssl_testssl.sh.tmp
+rm ssl_testssl.sh.tmp
+
+chmod +x *.sh
 
 #Package update
 brew update -y -v
 sudo pip install --upgrade pip
 
 #Install bash
-brew install bash -y -v 
+brew install bash -y -v
 
 #Java JDK
 brew tap caskroom/cask -y -v
 brew tap caskroom/versions -y -v
 brew cask install java -y
+
+#Sed
+#Will replace your BSD sed with GNU sed
+brew install gnu-sed --with-default-names -y
 
 #Git
 brew install git -y -v
@@ -37,7 +80,7 @@ brew install aha -y -v
 brew install python3 -y -v
 
 #Androwarn dependencies
-sudo pip install Jinja2 
+sudo pip install Jinja2
 
 #Smali graph generation dependency
 sudo pip install pydot
@@ -58,5 +101,3 @@ cd ../../
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
 source ~/.bashrc
-
-
