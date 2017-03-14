@@ -46,7 +46,7 @@ chmod +x *.sh
 
 #Package update
 brew update -y -v
-sudo pip install --upgrade pip
+sudo -H pip install --upgrade pip
 
 #Install bash
 brew install bash -y -v
@@ -70,7 +70,7 @@ brew install tree -y -v
 brew install figlet -y -v
 
 #unrest
-sudo pip install unirest
+sudo -H pip install unirest
 
 #aha - Ansi HTML Adapter
 #sudo apt-get -y install aha
@@ -80,22 +80,22 @@ brew install aha -y -v
 brew install python3 -y -v
 
 #Androwarn dependencies
-sudo pip install Jinja2
+sudo -H pip install Jinja2
 
 #Smali graph generation dependency
-sudo pip install pydot
+sudo -H pip install pydot
 
 #configparser
-sudo pip install configparser
+sudo -H pip install configparser
 
 #Smalisca
-sudo pip install smalisca
+sudo -H pip install smalisca
 
 #APKiD
 cd tools/
 git clone https://github.com/rednaga/yara-python
-sudo python setup.py install
-sudo pip install apkid
+sudo -H python setup.py install
+sudo -H pip install apkid
 cd ../../
 
 #Increase maximum java heap size for Jadx
