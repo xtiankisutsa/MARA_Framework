@@ -53,6 +53,9 @@ cd ../../
 
 #whatweb
 sudo apt-get install -y whatweb
+
+#trueseeing
+sudo pip install trueseeing
  
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
