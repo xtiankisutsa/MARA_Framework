@@ -276,10 +276,10 @@ function preliminary_stage_1(){
 
 	#bugs - hunting for bugs in the APK :D
 	echo -e "${no_color}[+] ${brown}Analyzing apk for potential bugs"
-	trueseeing $file_ >> ../../data/$file_/analysis/static/vulnerabilities/vulnerability_report.html 2>/dev/null
+	trueseeing $file_ >> data/$file_/analysis/static/vulnerabilities/vulnerability_report.html 2>/dev/null
 	cd tools/AndroBugs
 	cp ../../data/$file_/$file_ .
-	python2 androbugs.py -f $file_ >> ../../data/$file_/analysis/static/general_analysis/bugs.txt 
+	python2 androbugs.py -f $file_ >> ../../data/$file_/analysis/static/vulnerabilities/bugs.txt 
 	rm $file_
 	cd ../../
 
