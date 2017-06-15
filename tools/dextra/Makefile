@@ -23,4 +23,4 @@ android64:
 	./androidcc64 dextra.c adler32.c DexOpcodes.c -Wall -o dextra.arm64 -fpermissive
 
 dist:
-	tar cvf dextra.tar Makefile dextra.ELF64 TODO.txt	dextra dextra.armv7 doc/
+	tar cvf dextra.tar Makefile dextra.ELF64 TODO.txt	dextra dextra.arm64 dextra.armv7 doc/
