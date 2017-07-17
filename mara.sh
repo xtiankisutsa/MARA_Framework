@@ -479,8 +479,9 @@ if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
 	echo -e "${light_red}[NOTE] ${brown}- This analysis may take a while!!!${no_color}"
 	echo -e "${light_red}[NOTE] ${brown}- Better grab a cup of coffee or 10!!!${no_color}"
 	echo ""
-	apks=$2
-	for source_apk in $apks/*;
+	#Multiple APKS can be passed as arguments. eg ./mara -m one.apk  /some/dir/apps/two.apk three.apk
+	apks=${@:2}
+	for source_apk in $apks;
 	do
 	file_=`echo $source_apk | rev | cut -d '/' -f 1 | rev`
 	echo "========================="
