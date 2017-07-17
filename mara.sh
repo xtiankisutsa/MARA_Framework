@@ -443,6 +443,8 @@ if [ $1 == '-s' ] || [ $1 == '--single-apk' ] ; then
 	echo -e "${yellow} APK analysis ${no_color}"
 	echo "=============="
 	echo -e "${no_color}[+] ${brown}Initializing..."
+	#Check if args2 is a valid file
+	if [[ -f $2 ]] ; then
 	file_=`echo $2 | rev | cut -d '/' -f 1 | rev`
 	echo -e "${no_color}[+] ${brown}Setting up playground..."
 	export file_
@@ -468,6 +470,9 @@ if [ $1 == '-s' ] || [ $1 == '--single-apk' ] ; then
 	preliminary_stage_2
 	android_analysis
 	final
+else
+	echo -e "${red} Check the APK file path for [ $2 ] "
+fi
 fi
 
 #++++++++++++++++++++++
