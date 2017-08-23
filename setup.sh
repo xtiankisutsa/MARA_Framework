@@ -6,6 +6,9 @@
 sudo apt-get update
 sudo pip install --upgrade pip
 
+#Python-pip
+sudo apt-get -y install python-pip
+
 #Java JDK
 sudo apt-get -y install openjdk-8-jdk
 
