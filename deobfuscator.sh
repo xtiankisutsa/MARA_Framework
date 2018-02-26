@@ -18,40 +18,34 @@ no_color='\e[0m'
 
 #Check if APK file has been provided
 if ! [ "$1" ] || [ "$1" == '-h' ]  || [ "$1" == '--help' ] || ! [ "$1" ] || ! [ "$2" ]; then 
-echo -e "==================="
-echo -e "${yellow} MARA Deobfuscator ${no_color}"
-echo -e "==================="
-echo -e "${light_green}${bold}Usage:${no_color}"
-echo -e "${brown}$0 --apk <path/to/apk>${no_color}"
-echo ""
+	echo -e "==================="
+	echo -e "${yellow} MARA Deobfuscator ${no_color}"
+	echo -e "==================="
+	echo -e "${light_green}${bold}Usage:${no_color}"
+	echo -e "${brown}$0 --apk <path/to/apk>${no_color}"
+	echo ""
 
 else
 
-#++++++++++++++
-#Apk analysis
-#++++++++++++++
+	#++++++++++++++
+	#Apk analysis
+	#++++++++++++++
 
-echo -e "==================="
-echo -e "${yellow} MARA Deobfuscator ${no_color}"
-echo -e "==================="
+	echo -e "==================="
+	echo -e "${yellow} MARA Deobfuscator ${no_color}"
+	echo -e "==================="
 
-echo -e "${no_color}[+] ${brown}Preparing environment${no_color}"
+	echo -e "${no_color}[+] ${brown}Preparing environment${no_color}"
 
-fileName=`echo $2 | rev | cut -d '/' -f 1 | rev`
-mkdir -p data/deobf/$fileName
-cp $2 data/deobf/$fileName/
-cd data/deobf/$fileName/
+	fileName=`echo $2 | rev | cut -d '/' -f 1 | rev`
+	echo -e "   ${no_color}[-] ${brown}Setting up directories...${no_color}"
+	mkdir -p data/deobf/$fileName
+	cp $2 data/deobf/$fileName/
+	cd data/deobf/$fileName/
 
+	sessionFile="session.key"
+	actualsize=$(du -k "$fileName" | cut -f1)
 
-sessionFile="session.key"
-maxsize=16000    # 16MB
-actualsize=$(du -k "$fileName" | cut -f1)
-
-if [ $actualsize -ge $maxsize ]; then
-	echo -e "   ${no_color}[-] ${brown}File size is:${no_color}"${actualsize} "KB"
-	echo -e "    ${light_red}[NOTE] ${light_red}APK size is over 16 MB , deobfuscation module will now exit sorry :(${no_color}"   
-	exit
-else
 	begin=$(date +"%s")	
 	echo -e "   ${no_color}[-] ${brown}APK file size is:${no_color}" ${actualsize} "KB"
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
@@ -90,45 +84,44 @@ else
 		exit
 	else
 
-	echo $mapping > mapping-${fileName}.txt
-	echo " "
+		echo $mapping > mapping-${fileName}.txt
+		echo " "
 
-	#Fetching source file
-	fetchSource="&q=src" 
-	echo -e "   ${no_color}[-] ${brown}Downloading source file ${no_color}"	
-	curl --progress-bar "${FetchRoot}${line}${fetchSource}" --output source-${fileName}.zip
-
-	zipsize=$(du "source-${fileName}.zip" | cut -f1)
-
-	while [ ${zipsize} -eq 0 ]; do
-		echo "      [-] Retrying in 30 seconds"
-		sleep 30
+		#Fetching source file
+		fetchSource="&q=src" 
+		echo -e "   ${no_color}[-] ${brown}Downloading source file ${no_color}"	
 		curl --progress-bar "${FetchRoot}${line}${fetchSource}" --output source-${fileName}.zip
+
 		zipsize=$(du "source-${fileName}.zip" | cut -f1)
-	done
 
-    	unzip -q -d source-${fileName} source-${fileName}.zip
-  	rm -r source-${fileName}.zip
+		while [ ${zipsize} -eq 0 ]; do
+			echo "      [-] Retrying in 30 seconds"
+			sleep 30
+			curl --progress-bar "${FetchRoot}${line}${fetchSource}" --output source-${fileName}.zip
+			zipsize=$(du "source-${fileName}.zip" | cut -f1)
+		done
 
-	echo " "
+    		unzip -q -d source-${fileName} source-${fileName}.zip
+  		rm -r source-${fileName}.zip
+
+		echo " "
 	
-	#Fetching deobfusctated apk file
-	fetchApk="&q=apk" 
-	echo -e "   ${no_color}[-] ${brown}Downloading APK file ${no_color}"
-	ApkFile=$(curl --progress-bar "${FetchRoot}${line}${fetchApk}" --output "deobfuscated-${fileName}")    
-	echo $ApkFile  
+		#Fetching deobfuscated apk file
+		fetchApk="&q=apk" 
+		echo -e "   ${no_color}[-] ${brown}Downloading deobfuscated APK file ${no_color}"
+		ApkFile=$(curl --progress-bar "${FetchRoot}${line}${fetchApk}" --output "deobfuscated-${fileName}")    
+		echo $ApkFile  
 
-	echo -e "${blue}[INFO] - ${light_green}Deobfuscation complete...${no_color}"	
+		echo -e "${blue}[INFO] - ${light_green}Deobfuscation complete...${no_color}"	
  
-	termin=$(date +"%s")
-	difftimelps=$(($termin-$begin))
-	echo -e "   ${no_color}[-] ${brown}$(($difftimelps / 60)) minutes and $(($difftimelps % 60)) seconds elapsed for deobfuscation.${no_color}";  
+		termin=$(date +"%s")
+		difftimelps=$(($termin-$begin))
+		echo -e "   ${no_color}[-] ${brown}$(($difftimelps / 60)) minutes and $(($difftimelps % 60)) seconds elapsed for deobfuscation.${no_color}";  
 	
 
-    cd ../../../
+    		cd ../../../
 
-    fi
-fi
+    	fi
 
 fi
 

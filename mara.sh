@@ -75,8 +75,8 @@ function decode(){
 function deobfuscate(){
  	#Deobfuscate APK file via apk-deguard
 	echo -e "${no_color}[+] ${brown}Deobfuscate ${blue}$file_${brown}? ${light_red}(yes/no)"
-	echo -e "    ${light_red}[NOTE] ${light_red}Deobfuscating ${blue}$file_ ${light_red}may take upto 5 minutes. This will run in the background!!"
-    	echo -e "    ${light_red}[NOTE] ${light_red}Maximum file size for analysis is 16MB${no_color}"
+	echo -e "    ${light_red}[NOTE] ${light_red}Deobfuscating ${blue}$file_ ${light_red}may take upto 10 minutes. This will run in the background!!"
+    	echo -e "    ${light_red}[NOTE] ${light_red}No maximum file size limit...${no_color}"
 
 	read input
 
@@ -460,7 +460,7 @@ if [ $1 == '-s' ] || [ $1 == '--single-apk' ] ; then
 	reversing
 	decompile
 	decode
-    deobfuscate
+   	deobfuscate
 	manifest
 	preliminary_stage_1
 	cfg
@@ -505,7 +505,7 @@ if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
 	reversing
 	decompile
 	decode
-    deobfuscate
+    	deobfuscate
 	manifest
 	preliminary_stage_1
 	cfg
