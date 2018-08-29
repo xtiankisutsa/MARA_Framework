@@ -93,9 +93,9 @@ sudo -H pip install smalisca
 
 #APKiD
 cd tools/
-git clone https://github.com/rednaga/yara-python
+git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
 cd yara-python/
-sudo -H python setup.py install
+sudo -H python setup.py build --enable-dex install
 sudo -H pip install apkid
 cd ../../
 
