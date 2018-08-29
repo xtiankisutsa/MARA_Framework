@@ -443,7 +443,7 @@ if [ $1 == '-s' ] || [ $1 == '--single-apk' ] ; then
 	echo -e "${yellow} APK analysis ${no_color}"
 	echo "=============="
 	echo -e "${no_color}[+] ${brown}Initializing..."
-	file_=`echo $2 | rev | cut -d '/' -f 1 | rev`
+	file_=`echo "$2" | rev | cut -d '/' -f 1 | rev | sed -e 's/ /_/g'`
 	echo -e "${no_color}[+] ${brown}Setting up playground..."
 	export file_
 	mkdir -p data/$file_/unzipped
@@ -451,8 +451,8 @@ if [ $1 == '-s' ] || [ $1 == '--single-apk' ] ; then
 
 	minions
 	echo -e "${no_color}[+] ${brown}Preparing ${blue}$file_"
-	cp $2 data/$file_/
-	unzip $2 -d data/$file_/unzipped >> /dev/null
+	cp "$2" data/$file_/$file_
+	unzip "$2" -d data/$file_/unzipped >> /dev/null
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
 	echo " "
 
@@ -482,7 +482,7 @@ if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
 	apks=$2
 	for source_apk in $apks/*;
 	do
-	file_=`echo $source_apk | rev | cut -d '/' -f 1 | rev`
+	file_=`echo $source_apk | rev | cut -d '/' -f 1 | rev | sed -e 's/ /_/g'`
 	echo "========================="
 	echo -e "${yellow}Analyzing $file_ ${no_color}"
 	echo "========================="
@@ -495,7 +495,7 @@ if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
 	minions
 	sleep 1
 	echo -e "${no_color}[+] ${brown}Preparing ${blue}$file_"
-	cp $source_apk data/$file_/
+	cp $source_apk data/$file_/$file_
 	unzip $source_apk -d data/$file_/unzipped >> /dev/null
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
 	echo " "
@@ -505,7 +505,7 @@ if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
 	reversing
 	decompile
 	decode
-    	deobfuscate
+    deobfuscate
 	manifest
 	preliminary_stage_1
 	cfg
@@ -526,14 +526,14 @@ if [ $1 == '-d' ] || [ $1 == '--dex' ] ; then
 	echo -e "${yellow} Preparing Dex file ${no_color}"
 	echo "===================="
 	echo -e "${no_color}[+] ${brown}Initializing..."
-	file_=`echo $2 | rev | cut -d '/' -f 1 | rev`
+	file_=`echo "$2" | rev | cut -d '/' -f 1 | rev | sed -e 's/ /_/g'`
 	echo -e "${no_color}[+] ${brown}Setting up playground..."
 	export file_
 	mkdir -p data/$file_/unzipped
 	minions
 	echo -e "${no_color}[+] ${brown}Preparing ${blue}$file_${no_color}"
-	cp $2 data/$file_/
-	cp $2 data/$file_/unzipped
+	cp "$2" data/$file_/$file_
+	cp "$2" data/$file_/unzipped
 	mv data/$file_/unzipped/$file_ data/$file_/unzipped/classes.dex 2>/dev/null
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
 	echo " "
@@ -564,7 +564,7 @@ if [ $1 == '-x' ] || [ $1 == '--multiple-dex' ] ; then
 	dex=$2
 	for source_dex in $dex/*;
 	do
-	file_=`echo $source_dex | rev | cut -d '/' -f 1 | rev`
+	file_=`echo $source_dex | rev | cut -d '/' -f 1 | rev | sed -e 's/ /_/g'`
 	echo "========================="
 	echo -e "${yellow}Analyzing $file_ ${no_color}"
 	echo "========================="
@@ -576,7 +576,7 @@ if [ $1 == '-x' ] || [ $1 == '--multiple-dex' ] ; then
 
 	minions
 	echo -e "${no_color}[+] ${brown}Preparing ${blue}$file_${no_color}"
-	cp $source_dex data/$file_/
+	cp $source_dex data/$file_/$file_
 	cp $source_dex data/$file_/unzipped
 	mv data/$file_/unzipped/$file_ data/$file_/unzipped/classes.dex 2>/dev/null
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
@@ -609,14 +609,14 @@ if  [ $1 == '-j' ] || [ $1 == '--jar' ] ; then
 	echo -e "${yellow} Preparing Jar file ${no_color}"
 	echo "===================="
 	echo -e "${no_color}[+] ${brown}Initializing..."
-	file_=`echo $2 | rev | cut -d '/' -f 1 | rev`
+	file_=`echo "$2" | rev | cut -d '/' -f 1 | rev | sed -e 's/ /_/g'`
 
 	#Call the necessary functions
 	echo -e "${no_color}[+] ${brown}Setting up playground..."
 	export file_
 	minions
 	echo -e "${no_color}[+] ${brown}Preparing ${blue}$file_"
-	cp $2 data/$file_/
+	cp "$2" data/$file_/$file_
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
 	echo " "
 
@@ -643,7 +643,7 @@ if [ $1 == '-r' ] || [ $1 == '--multiple-jar' ] ; then
 	jar=$2
 	for source_jar in $jar/*;
 	do
-	file_=`echo $source_jar | rev | cut -d '/' -f 1 | rev`
+	file_=`echo $source_jar | rev | cut -d '/' -f 1 | rev | sed -e 's/ /_/g'`
 	echo "========================="
 	echo -e "${yellow}Analyzing $file_ ${no_color}"
 	echo "========================="
@@ -653,7 +653,7 @@ if [ $1 == '-r' ] || [ $1 == '--multiple-jar' ] ; then
 
 	minions
 	echo -e "${no_color}[+] ${brown}Preparing ${blue}$file_${no_color}"
-	cp $source_jar data/$file_/
+	cp $source_jar data/$file_/$file_
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
 	echo " "
 	reversing
@@ -681,14 +681,14 @@ if [ $1 == '-c' ] || [ $1 == '--class' ] ; then
 	echo -e "${yellow} Preparing Class file ${no_color}"
 	echo "======================"
 	echo -e "${no_color}[+] ${brown}Initializing..."
-	file_=`echo $2 | rev | cut -d '/' -f 1 | rev`
+	file_=`echo "$2" | rev | cut -d '/' -f 1 | rev | sed -e 's/ /_/g'`
 
 	#Call the necessary functions
 	echo -e "${no_color}[+] ${brown}Setting up playground..."
 	export file_
 	minions
 	echo -e "${no_color}[+] ${brown}Preparing ${blue}$file_"
-	cp $2 data/$file_/
+	cp "$2"data/$file_/$file_
 	echo -e "${blue}[INFO] - ${light_green}Done ${no_color}"
 	echo " "
 
