@@ -50,7 +50,7 @@ sudo pip install smalisca
 cd tools
 git clone --recursive https://github.com/rednaga/yara-python-1 yara-python             
 cd yara-python
-python setup.py build --enable-dex install
+sudo python setup.py build --enable-dex install
 sudo pip install apkid
 cd ../../
 
