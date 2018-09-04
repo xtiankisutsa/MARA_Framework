@@ -64,4 +64,7 @@ sudo pip install trueseeing
 export JAVA_OPTS="-Xmx4G"
 source ~/.bashrc
 
+#make tools executable
+chmod -R +x tools/
+
 exit
