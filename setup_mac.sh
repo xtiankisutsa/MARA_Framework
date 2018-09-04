@@ -99,6 +99,10 @@ sudo -H python setup.py build --enable-dex install
 sudo -H pip install apkid
 cd ../../
 
+
+#make tools executable
+chmod -R +x tools/
+
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
 source ~/.bashrc
