@@ -99,7 +99,6 @@ sudo -H python setup.py build --enable-dex install
 sudo -H pip install apkid
 cd ../../
 
-
 #make tools executable
 chmod -R +x tools/
 
