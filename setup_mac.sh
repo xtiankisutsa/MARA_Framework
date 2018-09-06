@@ -47,6 +47,7 @@ chmod +x *.sh
 #Package update
 brew update -y -v
 sudo -H pip install --upgrade pip
+sudo pip3 install --upgrade pip
 
 #Install bash
 brew install bash -y -v
@@ -99,9 +100,17 @@ sudo -H python setup.py build --enable-dex install
 sudo -H pip install apkid
 cd ../../
 
-#make tools executable
-chmod -R +x tools/
+#whatweb
+sudo apt-get install -y whatweb
+
+#trueseeing
+sudo pip3 install trueseeing
 
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
 source ~/.bashrc
+
+#make tools executable
+chmod -R +x tools/
+
+exit
