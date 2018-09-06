@@ -5,6 +5,7 @@
 #Package update
 sudo apt-get update
 sudo pip install --upgrade pip
+sudo pip3 install --upgrade pip
 
 #Python-pip
 sudo apt-get -y install python-pip
@@ -58,7 +59,7 @@ cd ../../
 sudo apt-get install -y whatweb
 
 #trueseeing
-sudo pip install trueseeing
+sudo pip3 install trueseeing
  
 #Increase maximum java heap size for Jadx
 export JAVA_OPTS="-Xmx4G"
