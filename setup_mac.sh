@@ -113,4 +113,7 @@ source ~/.bashrc
 #make tools executable
 chmod -R +x tools/
 
+#revert file and folder permissions
+chown -R $USER:$USER *
+
 exit
