@@ -43,7 +43,7 @@ echo -e "${no_color}${brown}Cleaning up...${no_color}"
 rm -r documentation_old/
 rm -r tools_old/
 rm -r update/
-chown -R $USER:$USER *
+chown -R $USER:$USER *.sh
 echo " "
 
 echo -e "${no_color}${brown}Update completed...!!${no_color}"
