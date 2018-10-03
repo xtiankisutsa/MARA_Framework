@@ -69,6 +69,6 @@ source ~/.bashrc
 chmod -R +x tools/
 
 #revert file and folder permissions
-chown -R $USER:USER *
+chown -R $USER:$USER *
 
 exit
