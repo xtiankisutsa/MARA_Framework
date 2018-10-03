@@ -30,7 +30,6 @@ echo " "
 
 echo -e "${no_color}${brown}Updating MARA dependencies${no_color}"
 
-
 if [ "$(uname)" = "Darwin" ] ; then
 	# Update on Mac OS X platform  
 	sudo ./setup_mac.sh
@@ -38,8 +37,6 @@ else
 	# Update on Linux
 	sudo ./setup.sh
 fi
-
-
 echo " "
 
 echo -e "${no_color}${brown}Cleaning up...${no_color}"
@@ -52,4 +49,3 @@ echo " "
 echo -e "${no_color}${brown}Update completed...!!${no_color}"
 
 exit
-
