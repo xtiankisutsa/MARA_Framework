@@ -24,7 +24,6 @@ echo " "
 echo -e "${no_color}${brown}Replacing the local files${no_color}"
 mv tools/ tools_old
 mv documentation/ documentation_old
-
 mv update/MARA_Framework/* .
 echo " "
 
