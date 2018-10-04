@@ -4,6 +4,11 @@
 
 #Package update
 sudo apt-get update
+
+#Install python
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev python-pip python3-dev python3-pip
+
+#Upgrade pip
 sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
 
