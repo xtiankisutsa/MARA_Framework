@@ -46,8 +46,19 @@ chmod +x *.sh
 
 #Package update
 brew update -y -v
+
+#Install python
+brew install python python3
+
+#Install pip
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo -H python get-pip.py
+sudo -H python3 get-pip.py
+rm get-pip.py
+
+#Upgrade pip
 sudo -H pip install --upgrade pip
-sudo pip3 install --upgrade pip
+sudo -H pip3 install --upgrade pip
 
 #Install bash
 brew install bash -y -v
