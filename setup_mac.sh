@@ -45,7 +45,7 @@ rm ssl_testssl.sh.tmp
 chmod +x *.sh
 
 #Package update
-brew update -y -v
+brew update -v
 
 #Install python
 brew install python python3
@@ -61,35 +61,35 @@ sudo -H pip install --upgrade pip
 sudo -H pip3 install --upgrade pip
 
 #Install bash
-brew install bash -y -v
+brew install bash -v
 
 #Java JDK
-brew tap caskroom/cask -y -v
-brew tap caskroom/versions -y -v
-brew cask install java -y
+brew tap caskroom/cask -v
+brew tap caskroom/versions -v
+brew cask install java 
 
 #Sed
 #Will replace your BSD sed with GNU sed
-brew install gnu-sed --with-default-names -y
+brew install gnu-sed 
 
 #Git
-brew install git -y -v
+brew install git -v
 
 #Tree
-brew install tree -y -v
+brew install tree -v
 
 #Figlet
-brew install figlet -y -v
+brew install figlet -v
 
 #unrest
 sudo -H pip install unirest
 
 #aha - Ansi HTML Adapter
 #sudo apt-get -y install aha
-brew install aha -y -v
+brew install aha -v
 
 #Python3
-brew install python3 -y -v
+brew install python3 -v
 
 #Androwarn dependencies
 sudo -H pip install Jinja2
