@@ -115,7 +115,7 @@ sudo -H pip install smalisca
 )
 
 #whatweb
-sudo apt-get install -y whatweb
+# sudo apt-get install -y whatweb
 
 #trueseeing
 sudo pip3 install trueseeing
