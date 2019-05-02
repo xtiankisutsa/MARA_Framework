@@ -47,8 +47,15 @@ chmod +x *.sh
 #Package update
 brew update -v
 
-#Install python
-brew install python python3
+declare -a brew_packages
+brew_packages=(python python3 bash gnu-sed git tree figlet aha)
+# Sed will replace your BSD sed with GNU sed
+#aha - Ansi HTML Adapter
+
+for package in "${brew_packages[@]}"; do
+	brew install "${package}"
+done
+
 
 #Install pip
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -60,36 +67,13 @@ rm get-pip.py
 sudo -H pip install --upgrade pip
 sudo -H pip3 install --upgrade pip
 
-#Install bash
-brew install bash -v
-
 #Java JDK
 brew tap caskroom/cask -v
 brew tap caskroom/versions -v
 brew cask install java 
-
-#Sed
-#Will replace your BSD sed with GNU sed
-brew install gnu-sed 
-
-#Git
-brew install git -v
-
-#Tree
-brew install tree -v
-
-#Figlet
-brew install figlet -v
-
 #unrest
 sudo -H pip install unirest
 
-#aha - Ansi HTML Adapter
-#sudo apt-get -y install aha
-brew install aha -v
-
-#Python3
-brew install python3 -v
 
 #Androwarn dependencies
 sudo -H pip install Jinja2
