@@ -111,7 +111,7 @@ sudo -H pip install smalisca
 	git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
 	cd yara-python/
 	sudo -H python setup.py build --enable-dex install
-	sudo -H pip install apkid
+	sudo -H pip2 install apkid
 )
 
 #whatweb
