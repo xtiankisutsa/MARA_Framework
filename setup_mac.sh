@@ -56,6 +56,10 @@ for package in "${brew_packages[@]}"; do
 	brew install "${package}"
 done
 
+#Java JDK
+brew tap caskroom/cask -v
+brew tap caskroom/versions -v
+brew cask install java 
 
 #Install pip
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -67,10 +71,6 @@ rm get-pip.py
 sudo -H pip install --upgrade pip
 sudo -H pip3 install --upgrade pip
 
-#Java JDK
-brew tap caskroom/cask -v
-brew tap caskroom/versions -v
-brew cask install java 
 #unrest
 sudo -H pip install unirest
 
