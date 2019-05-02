@@ -121,7 +121,7 @@ sudo -H pip install smalisca
 sudo pip3 install trueseeing
 
 #Increase maximum java heap size for Jadx
-export JAVA_OPTS="-Xmx4G"
+echo "export JAVA_OPTS='-Xmx4G'" >> ~/.bashrc
 source ~/.bashrc
 
 #make tools executable
