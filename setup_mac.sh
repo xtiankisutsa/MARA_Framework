@@ -104,12 +104,15 @@ sudo -H pip install configparser
 sudo -H pip install smalisca
 
 #APKiD
-cd tools/
-git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
-cd yara-python/
-sudo -H python setup.py build --enable-dex install
-sudo -H pip install apkid
-cd ../../
+(
+	# Do this in a sub shell 
+	# so we don't need to cd back into the top level MARA dir
+	cd tools/
+	git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
+	cd yara-python/
+	sudo -H python setup.py build --enable-dex install
+	sudo -H pip install apkid
+)
 
 #whatweb
 sudo apt-get install -y whatweb
