@@ -72,8 +72,7 @@ sudo -H pip install --upgrade pip
 sudo -H pip3 install --upgrade pip
 
 #unrest
-sudo -H pip install unirest
-
+sudo -H pip2 install unirest
 
 #Androwarn dependencies
 sudo -H pip install Jinja2
