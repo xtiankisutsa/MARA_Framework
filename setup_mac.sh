@@ -90,9 +90,9 @@ sudo -H pip install smalisca
 (
 	# Do this in a sub shell 
 	# so we don't need to cd back into the top level MARA dir
-	cd tools/
+	cd tools/ || exit
 	git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
-	cd yara-python/
+	cd yara-python/ || exit
 	sudo -H python setup.py build --enable-dex install
 	sudo -H pip2 install apkid
 )
