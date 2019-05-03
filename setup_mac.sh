@@ -75,16 +75,16 @@ sudo -H pip3 install --upgrade pip
 sudo -H pip2 install unirest
 
 #Androwarn dependencies
-sudo -H pip install Jinja2
+sudo -H pip3 install Jinja2
 
 #Smali graph generation dependency
-sudo -H pip install pydot
+sudo -H pip3 install pydot
 
 #configparser
-sudo -H pip install configparser
+sudo -H pip3 install configparser
 
 #Smalisca
-sudo -H pip install smalisca
+sudo -H pip3 install smalisca
 
 #APKiD
 (
