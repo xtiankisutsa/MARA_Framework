@@ -45,14 +45,25 @@ rm ssl_testssl.sh.tmp
 chmod +x *.sh
 
 #Package update
-brew update -y -v
+brew update -v
 
-#Install python
-brew install python python3
+declare -a brew_packages
+brew_packages=(python python3 bash gnu-sed git tree figlet aha)
+# Sed will replace your BSD sed with GNU sed
+#aha - Ansi HTML Adapter
+
+for package in "${brew_packages[@]}"; do
+	brew install "${package}"
+done
+
+#Java JDK
+brew tap caskroom/cask -v
+brew tap caskroom/versions -v
+brew cask install java 
 
 #Install pip
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-sudo -H python get-pip.py
+# sudo -H python get-pip.py
 sudo -H python3 get-pip.py
 rm get-pip.py
 
@@ -60,65 +71,40 @@ rm get-pip.py
 sudo -H pip install --upgrade pip
 sudo -H pip3 install --upgrade pip
 
-#Install bash
-brew install bash -y -v
-
-#Java JDK
-brew tap caskroom/cask -y -v
-brew tap caskroom/versions -y -v
-brew cask install java -y
-
-#Sed
-#Will replace your BSD sed with GNU sed
-brew install gnu-sed --with-default-names -y
-
-#Git
-brew install git -y -v
-
-#Tree
-brew install tree -y -v
-
-#Figlet
-brew install figlet -y -v
-
 #unrest
-sudo -H pip install unirest
-
-#aha - Ansi HTML Adapter
-#sudo apt-get -y install aha
-brew install aha -y -v
-
-#Python3
-brew install python3 -y -v
+sudo -H pip2 install unirest
 
 #Androwarn dependencies
-sudo -H pip install Jinja2
+sudo -H pip3 install Jinja2
 
 #Smali graph generation dependency
-sudo -H pip install pydot
+sudo -H pip3 install pydot
 
 #configparser
-sudo -H pip install configparser
+sudo -H pip3 install configparser
 
 #Smalisca
-sudo -H pip install smalisca
+sudo -H pip3 install smalisca
 
 #APKiD
-cd tools/
-git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
-cd yara-python/
-sudo -H python setup.py build --enable-dex install
-sudo -H pip install apkid
-cd ../../
+(
+	# Do this in a sub shell 
+	# so we don't need to cd back into the top level MARA dir
+	cd tools/ || exit
+	git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
+	cd yara-python/ || exit
+	sudo -H python setup.py build --enable-dex install
+	sudo -H pip2 install apkid
+)
 
 #whatweb
-sudo apt-get install -y whatweb
+# sudo apt-get install -y whatweb
 
 #trueseeing
 sudo pip3 install trueseeing
 
 #Increase maximum java heap size for Jadx
-export JAVA_OPTS="-Xmx4G"
+echo "export JAVA_OPTS='-Xmx4G'" >> ~/.bashrc
 source ~/.bashrc
 
 #make tools executable
