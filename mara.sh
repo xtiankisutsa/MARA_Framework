@@ -39,13 +39,13 @@ function reversing(){
 	echo "====================="
 	#baksmali - Convert APK/Dex to smali code (for better smali code)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to smali bytecode"
-	java -jar tools/baksmali-2.2b4.jar d data/${file_}/unzipped/classes.dex -o data/${file_}/smali/baksmali >> /dev/null 2>/dev/null
+	java -jar "tools/baksmali-2.2b4.jar" d "data/${file_}/unzipped/classes.dex" -o "data/${file_}/smali/baksmali" >/dev/null 2>&1
 
 	#enjarify - convert APK/Dex to jar (dex2jar replacement)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to java bytecode"
-	cd tools/enjarify/
-	./enjarify.sh ../../data/${file_}/${file_} -o ../../data/${file_}/${file_}.jar >> /dev/null 2>/dev/null
-	cd ../../
+	cd tools/enjarify/ || exit
+	./enjarify.sh "../../data/${file_}/${file_}" -o "../../data/${file_}/${file_}.jar" >/dev/null 2>&1
+	cd ../../ || exit
 }
 
 function decompile(){
