@@ -24,13 +24,13 @@ function mara(){
 
 function minions(){
 	echo -e "${no_color}[+] ${brown}Assembling minions..."
-	mkdir -p data/${file_}/analysis/static/general_analysis
-	mkdir -p data/${file_}/analysis/static/vulnerabilities
-	mkdir -p data/${file_}/analysis/static/malicious_activity
-	mkdir -p data/${file_}/analysis/dynamic/ssl_scan/logs
-    	mkdir -p data/${file_}/source/deobfuscated
-        mkdir -p data/${file_}/source/dex
-	mkdir -p data/domain_scans
+	mkdir -p "data/${file_}/analysis/static/general_analysis"
+	mkdir -p "data/${file_}/analysis/static/vulnerabilities"
+	mkdir -p "data/${file_}/analysis/static/malicious_activity"
+	mkdir -p "data/${file_}/analysis/dynamic/ssl_scan/logs"
+	mkdir -p "data/${file_}/source/deobfuscated"
+	mkdir -p "data/${file_}/source/dex"
+	mkdir -p "data/domain_scans"
 }
 
 function reversing(){
