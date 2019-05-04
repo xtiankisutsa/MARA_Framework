@@ -80,4 +80,4 @@ for dir in "${cleanup_dirs[@]}"; do
 	fi
 done
 
-exit
+exit 0
