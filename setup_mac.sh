@@ -71,8 +71,13 @@ source ~/.bashrc
 chmod -R +x tools/
 
 #Clean up
-rm -r documentation_old/
-rm -r tools_old/
-rm -r update/
+declare -a cleanup_dirs
+cleanup_dirs=(documentation_old tools_old update)
+
+for dir in "${cleanup_dirs[@]}"; do
+	if [[ -d "${dir}" ]]; then
+		rm -rf "{dir:?}"
+	fi
+done
 
 exit
