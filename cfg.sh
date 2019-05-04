@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 _file=com.selfcare.safaricom-18.apk
 

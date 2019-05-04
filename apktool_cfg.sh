@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 cd tools/Smali-CFGs/
 mv ../../data/$file_/smali/apktool/android ../../data/$file_/smali/android_apktool
