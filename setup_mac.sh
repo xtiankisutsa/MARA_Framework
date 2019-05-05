@@ -6,6 +6,17 @@
 # Tested on:
 #	macOS Mojave (10.14.4)
 
+function check_brew_installed {
+
+	if ! [ -x "$(command -v brew)" ]; then
+		echo "Brew not installed"
+		echo "It is required to install some dependencies"
+		echo "https://brew.sh"
+
+		exit 1
+	fi
+}
+
 
 function brew_deps {
 	# Update brew and all formulas
@@ -87,6 +98,7 @@ function main {
 
 	make_shell_files_executable
 
+	check_brew_installed
 	brew_deps
 	install_java
 	pip_deps
