@@ -4,14 +4,15 @@
 
 chmod +x *.sh
 
+declare -a brew_packages
 declare -a pip3_packages
+declare -a cleanup_dirs
 
 ## Brew ##
 
 # Update brew and all formulas
 brew update -v
 
-declare -a brew_packages
 brew_packages=(python python3 bash gnu-sed git tree figlet aha)
 # Sed will replace your BSD sed with GNU sed
 #aha - Ansi HTML Adapter
@@ -71,7 +72,6 @@ source ~/.bashrc
 chmod -R +x tools/
 
 #Clean up
-declare -a cleanup_dirs
 cleanup_dirs=(documentation_old tools_old update)
 
 for dir in "${cleanup_dirs[@]}"; do
