@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
+# MARA_Framework/setup_mac.sh
 
-#These are the requirements for running this tool:
+# setup_mac.sh
+#   Install MARA dependencies
+# Tested on:
+#	macOS Mojave (10.14.4)
+
 
 chmod +x *.sh
 
