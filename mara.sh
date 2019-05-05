@@ -75,14 +75,14 @@ function deobfuscate(){
 
 	read input
 
-	if [ $input == 'yes' ] || [ $input == 'y' ] ; then
+	if [ "$input" == "yes" ] || [ "$input" == "y" ] ; then
 		    nohup ./de-guard.sh > /dev/null 2>>/dev/null &
 	elif
-		[ $input == 'no' ] || [ $input == 'n' ] ; then
+		[ "$input" == "no" ] || [ "$input" == "n" ] ; then
 		echo -e "    ${light_red}[NOTE] Skipped Deobfuscation!!"
 	else
 
-		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then
+		if ! [ "$input" == "yes" ] || [ "$input" == "y" ] || ! [ "$input" == "no" ] || [ "$input" == "n" ] ; then
 		echo -e "    ${light_red}[NOTE] ${brown}Invalid response!!"
 		fi
 	fi
@@ -295,15 +295,15 @@ function cfg(){
 	echo -e "    ${light_red}[NOTE] ${light_red}Generating CFGs may take upto 20 minutes. This will run in the background!!${no_color}"
 	read input
 
-	if [ $input == 'yes' ] || [ $input == 'y' ] ; then
+	if [ "$input" == "yes" ] || [ "$input" == "y" ] ; then
 		nohup ./baksmali_cfg.sh > /dev/null 2>/dev/null &
 		nohup ./apktool_cfg.sh > /dev/null 2>/dev/null &
 	elif
-		[ $input == 'no' ] || [ $input == 'n' ] ; then
+		[ "$input" == "no" ] || [ "$input" == "n" ] ; then
 		echo -e "    ${light_red}[NOTE] Skipped CFG generation!!"
 	else
 
-		if ! [ $input == 'yes' ] || [ $input == 'y' ] || ! [ $input == 'no' ] || [ $input == 'n' ] ; then
+		if ! [ "$input" == "yes" ] || [ "$input" == "y" ] || ! [ "$input" == "no" ] || [ "$input" == "n" ] ; then
 		echo -e "    ${light_red}[NOTE] Invalid response!!"
 		fi
 	fi
@@ -401,7 +401,7 @@ function final(){
 #Mara Framework Options
 #+++++++++++++++++++++++
 #Check if APK file has been provided
-if ! [ "$1" ] || [ "$1" == '-h' ]  || [ "$1" == '--help' ] || ! [ "$2" ]; then
+if ! [ "$1" ] || [ "$1" == "-h" ]  || [ "$1" == "--help" ] || ! [ "$2" ]; then
 mara
 echo -e "${light_green}${bold}Usage:"
 echo -e "${yellow}$0 [options] <path> (.apk, .dex, .jar or .class)"
@@ -431,7 +431,7 @@ fi
 #++++++++++++++
 #Apk analysis
 #++++++++++++++
-if [ $1 == '-s' ] || [ $1 == '--single-apk' ] ; then
+if [ "$1" == "-s" ] || [ "$1" == "--single-apk" ] ; then
 	mara
 	sleep 2
 	echo "=============="
@@ -468,7 +468,7 @@ fi
 #++++++++++++++++++++++
 #Multiple Apk analysis
 #++++++++++++++++++++++
-if [ $1 == '-m' ] || [ $1 == '--multiple-apk' ] ; then
+if [ "$1" == "-m" ] || [ "$1" == "--multiple-apk" ] ; then
 	mara
 	sleep 2
 	echo -e "${light_red}[NOTE] ${brown}- This analysis may take a while!!!${no_color}"
@@ -514,7 +514,7 @@ fi
 #++++++++++++++
 #Dex analysis
 #++++++++++++++
-if [ $1 == '-d' ] || [ $1 == '--dex' ] ; then
+if [ "$1" == "-d" ] || [ "$1" == "--dex" ] ; then
 	mara
 	sleep 2
 	echo "===================="
@@ -550,7 +550,7 @@ fi
 #++++++++++++++++++++++
 #Multiple Dex analysis
 #++++++++++++++++++++++
-if [ $1 == '-x' ] || [ $1 == '--multiple-dex' ] ; then
+if [ "$1" == "-x" ] || [ "$1" == "--multiple-dex" ] ; then
 	mara
 	sleep 2
 	echo -e "${light_red}[NOTE] ${brown}- This analysis may take a while!!!${no_color}"
@@ -597,7 +597,7 @@ fi
 #++++++++++++++
 #Jar analysis
 #++++++++++++++
-if  [ $1 == '-j' ] || [ $1 == '--jar' ] ; then
+if  [ "$1" == "-j" ] || [ "$1" == "--jar" ] ; then
 	mara
 	sleep 2
 	echo "===================="
@@ -629,7 +629,7 @@ fi
 #++++++++++++++++++++++
 #Multiple Jar analysis
 #++++++++++++++++++++++
-if [ $1 == '-r' ] || [ $1 == '--multiple-jar' ] ; then
+if [ "$1" == "-r" ] || [ "$1" == "--multiple-jar" ] ; then
 	mara
 	sleep 2
 	echo -e "${light_red}[NOTE] ${brown}- This analysis may take a while!!!${no_color}"
@@ -669,7 +669,7 @@ fi
 #+++++++++++++++
 #Class analysis
 #+++++++++++++++
-if [ $1 == '-c' ] || [ $1 == '--class' ] ; then
+if [ "$1" == "-c" ] || [ "$1" == "--class" ] ; then
 	mara
 	sleep 2
 	echo "======================"
