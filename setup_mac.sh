@@ -37,11 +37,6 @@ pip3_packages=(Jinja2 pydot configparser smalisca trueseeing)
 # Jinja2 - Androwarn dependencies
 # pydot - Smali graph generation dependency
 
-# Install pip3
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-sudo -H python3 get-pip.py
-rm get-pip.py
-
 # Upgrade pip
 sudo -H pip install --upgrade pip
 sudo -H pip3 install --upgrade pip
