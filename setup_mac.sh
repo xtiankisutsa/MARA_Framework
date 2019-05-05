@@ -4,6 +4,7 @@
 
 chmod +x *.sh
 
+declare -a pip3_packages
 
 ## Brew ##
 
@@ -24,30 +25,28 @@ brew tap caskroom/cask -v
 brew tap caskroom/versions -v
 brew cask install java 
 
-#Install pip
+## Pip ##
+
+pip3_packages=(Jinja2 pydot configparser smalisca trueseeing)
+# Jinja2 - Androwarn dependencies
+# pydot - Smali graph generation dependency
+
+# Install pip3
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 # sudo -H python get-pip.py
 sudo -H python3 get-pip.py
 rm get-pip.py
 
-#Upgrade pip
+# Upgrade pip
 sudo -H pip install --upgrade pip
 sudo -H pip3 install --upgrade pip
 
-#unrest
+# unrest
 sudo -H pip2 install unirest
 
-#Androwarn dependencies
-sudo -H pip3 install Jinja2
-
-#Smali graph generation dependency
-sudo -H pip3 install pydot
-
-#configparser
-sudo -H pip3 install configparser
-
-#Smalisca
-sudo -H pip3 install smalisca
+for package in "${pip3_packages[@]}"; do
+	sudo -H pip3 install "${package}"
+done
 
 #APKiD
 (
@@ -63,8 +62,6 @@ sudo -H pip3 install smalisca
 #whatweb
 # sudo apt-get install -y whatweb
 
-#trueseeing
-sudo pip3 install trueseeing
 
 #Increase maximum java heap size for Jadx
 echo "export JAVA_OPTS='-Xmx4G'" >> ~/.bashrc
