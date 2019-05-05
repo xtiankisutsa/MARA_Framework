@@ -15,13 +15,13 @@ brew update -v
 
 brew_packages=(python python3 bash gnu-sed git tree figlet aha)
 # Sed will replace your BSD sed with GNU sed
-#aha - Ansi HTML Adapter
+# aha - Ansi HTML Adapter
 
 for package in "${brew_packages[@]}"; do
 	brew install "${package}"
 done
 
-#Java JDK
+# Java JDK
 brew tap caskroom/cask -v
 brew tap caskroom/versions -v
 brew cask install java 
@@ -49,7 +49,7 @@ for package in "${pip3_packages[@]}"; do
 	sudo -H pip3 install "${package}"
 done
 
-#APKiD
+# APKiD
 (
 	# Do this in a sub shell 
 	# so we don't need to cd back into the top level MARA dir
@@ -60,18 +60,17 @@ done
 	sudo -H pip2 install apkid
 )
 
-#whatweb
-# sudo apt-get install -y whatweb
+# TODO: Install whatweb
+# https://github.com/urbanadventurer/WhatWeb
 
-
-#Increase maximum java heap size for Jadx
+# Increase maximum java heap size for Jadx
 echo "export JAVA_OPTS='-Xmx4G'" >> ~/.bashrc
 source ~/.bashrc
 
-#make tools executable
+# Make tools executable
 chmod -R +x tools/
 
-#Clean up
+# Clean up
 cleanup_dirs=(documentation_old tools_old update)
 
 for dir in "${cleanup_dirs[@]}"; do
