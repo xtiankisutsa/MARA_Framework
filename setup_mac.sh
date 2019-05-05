@@ -92,6 +92,7 @@ function main {
 	source ~/.bashrc
 
 	# Make tools executable
+	sudo chown -R "${USER}" tools/
 	chmod -R +x tools/
 
 	clean_up
