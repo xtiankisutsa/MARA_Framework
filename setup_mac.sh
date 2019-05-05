@@ -41,7 +41,6 @@ function pip_deps {
 		sudo -H pip3 install "${package}"
 	done
 
-	# unrest
 	sudo -H pip2 install unirest
 }
 
