@@ -6,6 +6,16 @@
 # Tested on:
 #	macOS Mojave (10.14.4)
 
+set -euo pipefail
+# -e exit if any command returns non-zero status code
+# -u prevent using undefined variables
+# -o pipefail force pipelines to fail on first non-zero status code
+
+IFS=$'\n\t'
+# Set Internal Field Separator to newlines and tabs
+# This makes bash consider newlines and tabs as separating words
+# See: http://redsymbol.net/articles/unofficial-bash-strict-mode/
+
 function check_brew_installed {
 
 	if ! [ -x "$(command -v brew)" ]; then
