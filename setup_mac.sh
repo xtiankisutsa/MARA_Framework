@@ -18,7 +18,7 @@ declare -a cleanup_dirs
 # Update brew and all formulas
 brew update -v
 
-brew_packages=(python python3 bash gnu-sed git tree figlet aha)
+brew_packages=(python python2 bash gnu-sed git tree figlet aha)
 # Sed will replace your BSD sed with GNU sed
 # aha - Ansi HTML Adapter
 
