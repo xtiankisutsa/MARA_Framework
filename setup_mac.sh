@@ -23,8 +23,6 @@ function brew_deps {
 
 function install_java {
 	# Java JDK
-	brew tap caskroom/cask -v
-	brew tap caskroom/versions -v
 	brew cask install java
 }
 
