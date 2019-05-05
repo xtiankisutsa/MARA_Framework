@@ -34,7 +34,6 @@ pip3_packages=(Jinja2 pydot configparser smalisca trueseeing)
 
 # Install pip3
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-# sudo -H python get-pip.py
 sudo -H python3 get-pip.py
 rm get-pip.py
 
