@@ -58,6 +58,15 @@ function install_apkid {
 }
 
 
+function make_shell_files_executable {
+	for file in $(echo ./*.sh); do 
+		if ! [ -x "${file}" ]; then
+			chmod +x "${file:?}"
+		fi
+	done
+}
+
+
 function clean_up {
 	# Clean up
 	cleanup_dirs=(documentation_old tools_old update)
@@ -76,7 +85,7 @@ function main {
 	declare -a pip3_packages
 	declare -a cleanup_dirs
 
-	chmod +x *.sh
+	make_shell_files_executable
 
 	brew_deps
 	install_java
