@@ -4,7 +4,10 @@
 
 chmod +x *.sh
 
-#Package update
+
+## Brew ##
+
+# Update brew and all formulas
 brew update -v
 
 declare -a brew_packages
