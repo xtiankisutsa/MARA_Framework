@@ -67,15 +67,10 @@ function pip_deps {
 
 
 function install_apkid {
-	(
-		# Do this in a sub shell 
-		# so we don't need to cd back into the top level MARA dir
-		cd tools/ || exit
-		git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
-		cd yara-python/ || exit
-		sudo -H python setup.py build --enable-dex install
-		sudo -H pip2 install apkid
-	)
+	sudo -H pip2 install wheel
+	sudo -H pip2 wheel --wheel-dir=/tmp/yara-python --build-option="build" --build-option="--enable-dex" git+https://github.com/VirusTotal/yara-python.git@v3.10.0
+	sudo -H pip2 install --no-index --find-links=/tmp/yara-python yara-python
+	sudo -H pip2 install apkid
 }
 
 
