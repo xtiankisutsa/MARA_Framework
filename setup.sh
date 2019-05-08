@@ -53,12 +53,10 @@ sudo pip install configparser
 sudo pip install smalisca
 
 #APKiD
-cd tools
-git clone --recursive https://github.com/rednaga/yara-python-1 yara-python             
-cd yara-python
-sudo python setup.py build --enable-dex install
+sudo pip install wheel
+sudo pip wheel --wheel-dir=/tmp/yara-python --build-option="build" --build-option="--enable-dex" git+https://github.com/VirusTotal/yara-python.git@v3.10.0
+sudo pip install --no-index --find-links=/tmp/yara-python yara-python
 sudo pip install apkid
-cd ../../
 
 #whatweb
 sudo apt-get install -y whatweb
