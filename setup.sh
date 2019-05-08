@@ -5,15 +5,12 @@
 #Package update
 sudo apt-get update
 
-#Install python
-sudo apt-get install build-essential libssl-dev libffi-dev python-dev python-pip python3-dev python3-pip
+#Install python and pip
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev python-pip python3 python3-dev python3-pip
 
 #Upgrade pip
 sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
-
-#Python-pip
-sudo apt-get -y install python-pip
 
 #Java JDK
 sudo apt-get -y install openjdk-8-jdk
@@ -36,9 +33,6 @@ sudo pip install unirest
 
 #aha - Ansi HTML Adapter
 sudo apt-get -y install aha
-
-#Python3
-sudo apt-get -y install python3
 
 #Androwarn dependencies
 sudo apt-get -y install python python-jinja2 git
