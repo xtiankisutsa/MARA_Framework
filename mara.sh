@@ -33,8 +33,11 @@ function minions(){
 	mkdir -p data/$file_/analysis/static/vulnerabilities
 	mkdir -p data/$file_/analysis/static/malicious_activity
 	mkdir -p data/$file_/analysis/dynamic/ssl_scan/logs
-    	mkdir -p data/$file_/source/deobfuscated
-        mkdir -p data/$file_/source/dex
+    mkdir -p data/$file_/source/deobfuscated
+    mkdir -p data/$file_/source/dex
+   	mkdir -p data/$file_/source/java
+    mkdir -p data/$file_/source/jadx
+    mkdir -p data/$file_/source/gradle_project
 	mkdir -p data/domain_scans
 }
 
@@ -44,7 +47,7 @@ function reversing(){
 	echo "====================="
 	#baksmali - Convert APK/Dex to smali code (for better smali code)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to smali bytecode"
-	java -jar tools/baksmali-2.2b4.jar d data/$file_/unzipped/classes.dex -o data/$file_/smali/baksmali >> /dev/null 2>/dev/null
+	java -jar tools/baksmali-2.2.7.jar d data/$file_/unzipped/classes.dex -o data/$file_/smali/baksmali >> /dev/null 2>/dev/null
 
 	#enjarify - convert APK/Dex to jar (dex2jar replacement)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to java bytecode"
@@ -56,16 +59,17 @@ function reversing(){
 function decompile(){
 	#jadx - decompile .dex, .apk, .jar or .class to java source code
 	echo -e "${no_color}[+] ${brown}Decompiling ${blue}$file_ ${brown}to java source code"
-	cd tools/jadx-0.6.0/bin
-	./jadx ../../../data/$file_/$file_ -d ../../../data/$file_/source/java >> /dev/null
-	./jadx -f ../../../data/$file_/$file_ -d ../../../data/$file_/source/jadx >> /dev/null
+	cd tools/jadx-0.9.0/bin
+	./jadx --deobf -r ../../../data/$file_/$file_ -ds ../../../data/$file_/source/java  >> /dev/null
+	./jadx --deobf -r -f ../../../data/$file_/$file_ -ds ../../../data/$file_/source/jadx >> /dev/null
+	./jadx --deobf -r -e ../../../data/$file_/$file_ -ds ../../../data/$file_/source/gradle_project >> /dev/null
 	cd ../../../
 }
 
 function decode(){
 	#apktool - Convert Android Manifest, decode resources and dump smali
 	echo -e "${no_color}[+] ${brown}Decoding Manifest file and resources"
-	java -jar tools/apktool_2.2.1.jar d -q data/$file_/$file_ -o data/$file_/buffer >> /dev/null 2>/dev/null
+	java -jar tools/apktool_2.4.0.jar d -q data/$file_/$file_ -o data/$file_/buffer >> /dev/null 2>/dev/null
 	mv data/$file_/buffer/AndroidManifest.xml data/$file_ >> /dev/null 2>/dev/null
 	mv data/$file_/buffer/smali data/$file_/smali/apktool >> /dev/null 2>/dev/null
 	mv data/$file_/buffer/res/values* data/$file_/unzipped/res/ >> /dev/null 2>/dev/null
