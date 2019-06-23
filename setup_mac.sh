@@ -1,78 +1,129 @@
 #!/usr/bin/env bash
+# MARA_Framework/setup_mac.sh
 
-#These are the requirements for running this tool:
+# setup_mac.sh
+#   Install MARA dependencies
+# Tested on:
+#	macOS Mojave (10.14.4)
 
-chmod +x *.sh
+set -euo pipefail
+# -e exit if any command returns non-zero status code
+# -u prevent using undefined variables
+# -o pipefail force pipelines to fail on first non-zero status code
 
-#Package update
-brew update -v
+IFS=$'\n\t'
+# Set Internal Field Separator to newlines and tabs
+# This makes bash consider newlines and tabs as separating words
+# See: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 
-declare -a brew_packages
-brew_packages=(python python3 bash gnu-sed git tree figlet aha)
-# Sed will replace your BSD sed with GNU sed
-#aha - Ansi HTML Adapter
+function check_brew_installed {
 
-for package in "${brew_packages[@]}"; do
-	brew install "${package}"
-done
+	if ! [ -x "$(command -v brew)" ]; then
+		echo "Brew not installed"
+		echo "It is required to install some dependencies"
+		echo "https://brew.sh"
 
-#Java JDK
-brew tap caskroom/cask -v
-brew tap caskroom/versions -v
-brew cask install java 
+		exit 1
+	fi
+}
 
-#Install pip
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-# sudo -H python get-pip.py
-sudo -H python3 get-pip.py
-rm get-pip.py
 
-#Upgrade pip
-sudo -H pip install --upgrade pip
-sudo -H pip3 install --upgrade pip
+function brew_deps {
+	# Update brew and all formulas
+	brew update -v
 
-#unrest
-sudo -H pip2 install unirest
+	brew_packages=(python python2 bash gnu-sed git tree figlet aha)
+	# Sed will replace your BSD sed with GNU sed
+	# aha - Ansi HTML Adapter
 
-#Androwarn dependencies
-sudo -H pip3 install Jinja2
+	for package in "${brew_packages[@]}"; do
+		brew install "${package}"
+	done
+}
 
-#Smali graph generation dependency
-sudo -H pip3 install pydot
 
-#configparser
-sudo -H pip3 install configparser
+function install_java {
+	# Java JDK
+	brew cask install java
+}
 
-#Smalisca
-sudo -H pip3 install smalisca
 
-#APKiD
-(
-	# Do this in a sub shell 
-	# so we don't need to cd back into the top level MARA dir
-	cd tools/ || exit
-	git clone --recursive https://github.com/rednaga/yara-python-1 yara-python
-	cd yara-python/ || exit
-	sudo -H python setup.py build --enable-dex install
+function pip_deps {
+
+	pip3_packages=(Jinja2 pydot configparser smalisca trueseeing)
+	# Jinja2 - Androwarn dependencies
+	# pydot - Smali graph generation dependency
+
+	# Upgrade pip
+	sudo -H pip install --upgrade pip
+	sudo -H pip3 install --upgrade pip
+
+	for package in "${pip3_packages[@]}"; do
+		sudo -H pip3 install "${package}"
+	done
+
+	sudo -H pip2 install unirest
+}
+
+
+function install_apkid {
+	sudo -H pip2 install wheel
+	sudo -H pip2 wheel --wheel-dir=/tmp/yara-python --build-option="build" --build-option="--enable-dex" git+https://github.com/VirusTotal/yara-python.git@v3.10.0
+	sudo -H pip2 install --no-index --find-links=/tmp/yara-python yara-python
 	sudo -H pip2 install apkid
-)
+}
 
-#whatweb
-# sudo apt-get install -y whatweb
 
-#trueseeing
-sudo pip3 install trueseeing
+function make_shell_files_executable {
+	for file in $(echo ./*.sh); do 
+		if ! [ -x "${file}" ]; then
+			chmod +x "${file:?}"
+		fi
+	done
+}
 
-#Increase maximum java heap size for Jadx
-echo "export JAVA_OPTS='-Xmx4G'" >> ~/.bashrc
-source ~/.bashrc
 
-#make tools executable
-chmod -R +x tools/
+function clean_up {
+	# Clean up
+	cleanup_dirs=(documentation_old tools_old update)
 
-#Clean up
-rm -r documentation_old/
-rm -r tools_old/
-rm -r update/
+	for dir in "${cleanup_dirs[@]}"; do
+		if [[ -d "${dir}" ]]; then
+			rm -rf "{dir:?}"
+		fi
+	done
+}
 
-exit
+
+function main {
+	
+	declare -a brew_packages
+	declare -a pip3_packages
+	declare -a cleanup_dirs
+
+	make_shell_files_executable
+
+	check_brew_installed
+	brew_deps
+	install_java
+	pip_deps
+	install_apkid
+
+	# TODO: Install whatweb
+	# https://github.com/urbanadventurer/WhatWeb
+
+	# Increase maximum java heap size for Jadx
+	echo "export JAVA_OPTS='-Xmx4G'" >> ~/.bashrc
+	source ~/.bashrc
+
+	# Make tools executable
+	sudo chown -R "${USER}" tools/
+	chmod -R +x tools/
+
+	clean_up
+
+	exit 0
+}
+
+main "$@"
+
