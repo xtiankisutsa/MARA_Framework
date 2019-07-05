@@ -42,7 +42,7 @@ function reversing(){
 	echo "====================="
 	#baksmali - Convert APK/Dex to smali code (for better smali code)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to smali bytecode"
-	java -jar "tools/baksmali-2.2.7.jar" d "data/${file_}/unzipped/classes.dex" -o "data/${file_}/smali/baksmali" >> >/dev/null 2>&1
+	java -jar "tools/baksmali-2.2.7.jar" d "data/${file_}/unzipped/classes.dex" -o "data/${file_}/smali/baksmali" >> /dev/null 2>&1
 
 	#enjarify - convert APK/Dex to jar (dex2jar replacement)
 	echo -e "${no_color}[+] ${brown}Disassembling Dalvik bytecode to java bytecode"
