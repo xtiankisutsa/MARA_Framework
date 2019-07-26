@@ -6,7 +6,7 @@
 sudo apt-get update
 
 #Install python and pip
-sudo apt-get install build-essential libssl-dev libffi-dev python-dev python-pip python3 python3-dev python3-pip
+sudo apt-get -y install build-essential libssl-dev libffi-dev python-dev python-pip python3 python3-dev python3-pip
 
 #Upgrade pip
 sudo pip install --upgrade pip
